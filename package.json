@@ -2,6 +2,7 @@
   "name": "porfolio-nextver",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://luisliu0211.github.io/portfolioNext/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
