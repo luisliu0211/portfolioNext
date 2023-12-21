@@ -1,0 +1,53 @@
+@charset "UTF-8";
+.navBar_sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+}
+.navBar_sub h3 {
+  letter-spacing: 1px;
+  font-size: 24px;
+  text-align: center;
+}
+.navBar_sub select {
+  width: 70%;
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 20px;
+  border: none;
+  background-image: url("../../public/icons/arrow-down.svg");
+  background-size: 30px; /* 调整图标大小 */
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 40px; /* 确保下拉箭头不重叠到文本 */
+  transition: 0.2s linear;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4); /* 添加边框阴影 */
+  outline: none; /* 移除默认外观 */
+}
+.navBar_sub select:hover {
+  background-position: right 10px;
+}
+.navBar_sub select:target {
+  outline: none;
+}
+
+@media screen and (max-width: 768px) {
+  .navBar_sub h3 {
+    font-size: 18px;
+    letter-spacing: 0.5px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .navBar_sub {
+    flex-direction: column;
+  }
+  .navBar_sub h3 {
+    font-size: 16px;
+    letter-spacing: 0.5px;
+  }
+  .navBar_sub select {
+    width: 80%;
+  }
+}/*# sourceMappingURL=navBar_sub.module.css.map */

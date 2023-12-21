@@ -1,0 +1,53 @@
+@mixin labelSizeInput(
+  $height: 40px,
+  $fontSize: 18px,
+  $inputWidth: 100%,
+  $spanWidth: 100px
+) {
+  label {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    height: $height;
+    margin: 10px auto;
+    padding-inline: 5px;
+    span {
+      display: block;
+      width: $spanWidth;
+      text-align: start;
+      line-height: $height;
+      font-size: $fontSize;
+    }
+    input,
+    select {
+      display: block;
+      width: $inputWidth;
+      border-radius: 5px;
+      height: 100%;
+      border: none;
+      padding-inline: 10px;
+      font-size: $fontSize;
+      box-shadow: 0px 0px 3px grey;
+    }
+  }
+}
+@mixin flexRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.container {
+  .productInfo {
+    margin-bottom: 10px;
+    @include flexRow;
+    @include labelSizeInput(40px, 18px, 80%, 40px);
+  }
+  .productDescription {
+    @include labelSizeInput(50px, 18px, 100%, 50px);
+  }
+  .productSpec {
+    @include flexRow;
+    @include labelSizeInput(30px, 16px, 100%, 80px);
+  }
+}

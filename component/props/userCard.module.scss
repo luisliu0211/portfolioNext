@@ -1,0 +1,109 @@
+.container {
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  .cards {
+    list-style-type: none;
+    background-color: darkgrey;
+    margin: 15px 10px;
+    width: 90%;
+    height: auto;
+    box-shadow: 0px 0px 20px rgba(black, 0.5);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.2s linear;
+    display: flex;
+    .postInfo {
+      display: flex;
+      flex-direction: column;
+      width: calc(100% - 120px);
+      .textTitle {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .description {
+        margin: 0px 10px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        word-wrap: break-word;
+      }
+    }
+    .coverImg {
+      width: 120px;
+      height: 120px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+.loadMore {
+  margin: 0 auto;
+  margin-top: 10px;
+  width: 80%;
+  height: 40px;
+  border-radius: 30px;
+  background-color: rgba(128, 128, 128, 0.628);
+  box-shadow: 0px 0px 10px grey;
+  color: white;
+  letter-spacing: 1px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s linear;
+  line-height: 40px;
+  &:hover {
+    background-color: darken(grey, 20%);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+@media screen and (max-width: 576px) {
+  .container {
+    grid-template-columns: 1fr;
+    .cards {
+      height: 100px;
+      background-color: #00000081;
+      background-blend-mode: multiply;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      a {
+        .coverImg {
+          display: none;
+        }
+        .postInfo {
+          width: 100%;
+          justify-content: center;
+          text-align: center;
+          .textTitle {
+            margin: 0;
+            margin-bottom: 10px;
+            font-size: 24px;
+            line-height: 24px;
+            color: white;
+            letter-spacing: 1px;
+          }
+          .description {
+            color: white;
+            letter-spacing: 1px;
+          }
+        }
+      }
+    }
+  }
+}

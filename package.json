@@ -9,12 +9,39 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/icons-material": "^5.15.0",
+    "@mui/material": "^5.15.0",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "dotenv-webpack": "^8.0.1",
+    "gray-matter": "^4.0.3",
+    "lodash": "^4.17.21",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.6.3",
+    "next": "14.0.1",
+    "next-auth": "^4.24.5",
+    "openid-client": "^5.6.1",
+    "path": "^0.12.7",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.0.1"
+    "react-draggable": "^4.4.6",
+    "redux": "^5.0.0",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
+    "swiper": "^11.0.3",
+    "webpack": "^5.89.0"
   },
   "devDependencies": {
-    "eslint": "^8",
-    "eslint-config-next": "14.0.1"
+    "eslint": "^8.53.0",
+    "eslint-config-next": "14.0.1",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-next": "^0.0.0"
   }
 }

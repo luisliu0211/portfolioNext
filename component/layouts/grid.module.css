@@ -1,0 +1,6 @@
+.container {
+  display: grid;
+  justify-content: center;
+  align-items: flex-start;
+  grid-template-columns: repeat(4, 25%);
+}/*# sourceMappingURL=grid.module.css.map */

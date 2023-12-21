@@ -1,0 +1,70 @@
+.container {
+  background-color: darkgrey;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: static;
+  top: 0;
+  z-index: 99;
+  transition: 0.2s linear;
+  box-shadow: 0px 0px 5px grey;
+}
+.container .logoBar {
+  display: flex;
+  align-items: center;
+}
+.container .logoBar a {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+.container .logoBar a .logoImg {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: white;
+  margin: 5px 15px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-image: url("../../public/image/works/websitelogo.png");
+}
+.container .logoBar a .logoText {
+  padding: 5px;
+}
+.container .logoBar a .logoText h3 {
+  font-size: 28px;
+}
+.container .logoBar a .logoText h5 {
+  font-size: 16px;
+}
+.container.fixedHeader {
+  position: fixed;
+  box-shadow: 0px 0px 20px grey;
+}
+
+@media screen and (max-width: 1280px) {
+  .container .logoBar a .logoImg {
+    width: 70px;
+    height: 70px;
+  }
+  .container .logoBar a .logoText h3 {
+    font-size: 24px;
+  }
+  .container .logoBar a .logoText h5 {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container .logoBar a .logoImg {
+    width: 60px;
+    height: 60px;
+  }
+  .container .logoBar a .logoText h3 {
+    font-size: 20px;
+  }
+  .container .logoBar a .logoText h5 {
+    font-size: 16px;
+  }
+}/*# sourceMappingURL=header.module.css.map */

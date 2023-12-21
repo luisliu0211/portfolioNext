@@ -1,0 +1,166 @@
+.container {
+  width: 85%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 10px;
+  grid-column-gap: 20px;
+  place-items: center;
+}
+.container .cardsSkills {
+  list-style-type: none;
+  background-color: darkgrey;
+  margin: 15px 10px;
+  width: 90%;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: 0.2s linear;
+}
+.container .cardsSkills .cardInfo {
+  display: flex;
+  flex-direction: column;
+}
+.container .cardsSkills .cardInfo .textTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 15px;
+}
+.container .cardsSkills .cardInfo .skillList {
+  height: 250px;
+}
+.container .cardsSkills .cardInfo .skillList .skillItem {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.container .cardsSkills .cardInfo .skillList .skillItem .skillName {
+  font-size: 20px;
+  color: #2a2a2a;
+}
+.container .cardsSkills .cardInfo .skillList .skillItem .skillLevel {
+  color: #2a2a2a;
+  font-size: 16px;
+}
+.container a {
+  margin: 10px;
+  width: 100%;
+}
+.container a .cardsWorks {
+  list-style-type: none;
+  background-color: darkgrey;
+  width: 100%;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: 0.2s linear;
+}
+.container a .cardsWorks .workInfo {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 0px 10px 0px;
+  transition: 0.1s linear;
+}
+.container a .cardsWorks .workInfo .typeTag {
+  background-color: #5d5d5d;
+  color: white;
+  padding: 5px;
+}
+.container a .cardsWorks .workInfo .textTitle {
+  padding: 10px;
+  font-size: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.container a .cardsWorks .workInfo .tags {
+  display: flex;
+  justify-content: center;
+  padding: 0px 5px;
+}
+.container a .cardsWorks .workInfo .tags li {
+  list-style-type: none;
+  background-color: #2a2a2a;
+  color: white;
+  border-radius: 10px;
+  width: auto;
+  font-size: 14px;
+  margin: 5px;
+  padding: 5px;
+}
+.container a .cardsWorks .workInfo:hover {
+  background-color: #434343;
+  color: darkgrey;
+}
+.container a .cardsWorks .workInfo:hover .tags li {
+  background-color: #909090;
+  color: black;
+}
+
+@media screen and (max-width: 1280px) {
+  .container {
+    width: 90%;
+    grid-template-columns: 1fr;
+  }
+  .container a .cardsWorks {
+    width: 100%;
+  }
+  .container a .cardsWorks .workInfo .textTitle {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+  .container .cardsSkills .cardInfo .skillList {
+    height: auto;
+    padding-bottom: 20px;
+  }
+  .container a {
+    margin: 0;
+  }
+}
+@media screen and (max-width: 576px) {
+  .container .cardsSkills {
+    width: 100%;
+  }
+  .container .cardsSkills .cardInfo .skillList .skillItem {
+    width: 90%;
+  }
+  .container .cardsSkills .cardInfo .skillList .skillItem .skillName {
+    font-size: 18px;
+  }
+  .container .cardsSkills .cardInfo .skillList .skillItem .skillLevel {
+    font-size: 16px;
+  }
+  .container a {
+    margin: 0;
+  }
+  .container a .cardsWorks {
+    width: 100%;
+  }
+  .container a .cardsWorks .workInfo .textTitle {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .container .cardsSkills .cardInfo .skillList .skillItem {
+    width: 100%;
+  }
+  .container a {
+    margin: 0;
+  }
+  .container a .cardsWorks .workInfo .textTitle {
+    font-size: 14px;
+    letter-spacing: 0px;
+  }
+  .container a .cardsWorks .workInfo .tags {
+    display: none;
+  }
+}/*# sourceMappingURL=featureCard.module.css.map */

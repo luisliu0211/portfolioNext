@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  form {
+    flex-grow: 1;
+    input {
+      width: 80%;
+      border-radius: 20px;
+      height: 50px;
+      font-size: 20px;
+      padding-left: 30px;
+      border: 1px solid grey;
+    }
+  }
+  .recap {
+    font-size: 20px;
+  }
+}

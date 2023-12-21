@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 20px;
+  min-height: 200px;
+  padding: 15px;
+  background-color: grey;
+  color: white;
+  text-align: center;
+  box-shadow: 0px 0px 20px grey;
+  margin: 10px;
+  transition: 0.2s linear;
+  cursor: pointer;
+  &:hover {
+    background-color: darken(grey, 20%);
+  }
+  .todoLi {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.1s linear;
+    padding: 5px;
+    border-radius: 10px;
+    .text {
+      flex-grow: 1;
+      max-width: 70%;
+      text-align: start;
+    }
+    .time {
+      font-size: 14px;
+    }
+    &:hover {
+      background-color: darken(darkgray, 20%);
+    }
+  }
+}

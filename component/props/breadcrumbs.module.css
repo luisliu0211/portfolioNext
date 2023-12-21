@@ -1,0 +1,32 @@
+.breadcrumbs {
+  font-size: 24px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.breadcrumbs a {
+  transition: 0.1s linear;
+}
+.breadcrumbs a:hover {
+  color: darkgrey;
+  text-decoration: underline;
+}
+.breadcrumbs span {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 1280px) {
+  .breadcrumbs {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .breadcrumbs {
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .breadcrumbs {
+    font-size: 14px;
+  }
+}/*# sourceMappingURL=breadcrumbs.module.css.map */

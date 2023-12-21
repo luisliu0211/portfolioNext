@@ -1,0 +1,92 @@
+.container .productInfo {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.container .productInfo label {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 40px;
+  margin: 10px auto;
+  padding-inline: 5px;
+}
+.container .productInfo label span {
+  display: block;
+  width: 40px;
+  text-align: start;
+  line-height: 40px;
+  font-size: 18px;
+}
+.container .productInfo label input,
+.container .productInfo label select {
+  display: block;
+  width: 80%;
+  border-radius: 5px;
+  height: 100%;
+  border: none;
+  padding-inline: 10px;
+  font-size: 18px;
+  box-shadow: 0px 0px 3px grey;
+}
+.container .productDescription label {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 50px;
+  margin: 10px auto;
+  padding-inline: 5px;
+}
+.container .productDescription label span {
+  display: block;
+  width: 50px;
+  text-align: start;
+  line-height: 50px;
+  font-size: 18px;
+}
+.container .productDescription label input,
+.container .productDescription label select {
+  display: block;
+  width: 100%;
+  border-radius: 5px;
+  height: 100%;
+  border: none;
+  padding-inline: 10px;
+  font-size: 18px;
+  box-shadow: 0px 0px 3px grey;
+}
+.container .productSpec {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.container .productSpec label {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 30px;
+  margin: 10px auto;
+  padding-inline: 5px;
+}
+.container .productSpec label span {
+  display: block;
+  width: 80px;
+  text-align: start;
+  line-height: 30px;
+  font-size: 16px;
+}
+.container .productSpec label input,
+.container .productSpec label select {
+  display: block;
+  width: 100%;
+  border-radius: 5px;
+  height: 100%;
+  border: none;
+  padding-inline: 10px;
+  font-size: 16px;
+  box-shadow: 0px 0px 3px grey;
+}/*# sourceMappingURL=fabricInfo.module.css.map */

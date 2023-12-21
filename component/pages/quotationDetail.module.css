@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  justify-content: space-evenly;
+}
+.container .flexBox {
+  flex-grow: 1;
+}
+.container .flexBox .title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+.container .flexBox .box {
+  display: flex;
+  justify-content: space-evenly;
+}
+.container .flexBox .box .cost label,
+.container .flexBox .box .profit label {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 30px;
+  margin: 10px auto;
+  padding-inline: 5px;
+}
+.container .flexBox .box .cost label span,
+.container .flexBox .box .profit label span {
+  display: block;
+  width: 80px;
+  text-align: start;
+  line-height: 30px;
+  font-size: 16px;
+}
+.container .flexBox .box .cost label input,
+.container .flexBox .box .profit label input {
+  display: block;
+  width: 80%;
+  border-radius: 5px;
+  height: 100%;
+  border: none;
+  padding-inline: 10px;
+  font-size: 16px;
+  box-shadow: 0px 0px 3px grey;
+}
+.container .profit1 .title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+.container .profit1 label {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 30px;
+  margin: 10px auto;
+  padding-inline: 5px;
+}
+.container .profit1 label span {
+  display: block;
+  width: 100px;
+  text-align: start;
+  line-height: 30px;
+  font-size: 16px;
+}
+.container .profit1 label input {
+  display: block;
+  width: 80%;
+  border-radius: 5px;
+  height: 100%;
+  border: none;
+  padding-inline: 10px;
+  font-size: 16px;
+  box-shadow: 0px 0px 3px grey;
+}/*# sourceMappingURL=quotationDetail.module.css.map */

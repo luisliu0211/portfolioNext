@@ -1,0 +1,198 @@
+.container {
+  width: 85%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 10px;
+  grid-column-gap: 20px;
+  place-items: center;
+  .cardsSkills {
+    list-style-type: none;
+    background-color: darkgrey;
+    margin: 15px 10px;
+    width: 90%;
+    box-shadow: 0px 0px 20px rgba(black, 0.5);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.2s linear;
+    .cardInfo {
+      display: flex;
+      flex-direction: column;
+      .textTitle {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 15px;
+      }
+      .skillList {
+        height: 250px;
+        .skillItem {
+          width: 80%;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px;
+          .skillName {
+            font-size: 20px;
+            color: darken(darkgrey, 50%);
+          }
+          .skillLevel {
+            color: darken(darkgrey, 50%);
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+  a {
+    margin: 10px;
+    width: 100%;
+    .cardsWorks {
+      list-style-type: none;
+      background-color: darkgrey;
+      width: 100%;
+      box-shadow: 0px 0px 20px rgba(black, 0.5);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: 0.2s linear;
+      .workInfo {
+        display: flex;
+        flex-direction: column;
+        padding: 0px 0px 10px 0px;
+        transition: 0.1s linear;
+        .typeTag {
+          background-color: darken(darkgrey, 30%);
+          color: white;
+          padding: 5px;
+        }
+        .textTitle {
+          padding: 10px;
+          font-size: 24px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .tags {
+          display: flex;
+          justify-content: center;
+          padding: 0px 5px;
+          li {
+            list-style-type: none;
+            background-color: darken(darkgrey, 50%);
+            color: white;
+            border-radius: 10px;
+            width: auto;
+            font-size: 14px;
+            margin: 5px;
+            padding: 5px;
+          }
+        }
+        &:hover {
+          background-color: darken(darkgrey, 40%);
+          color: darkgrey;
+          .tags {
+            li {
+              background-color: darken(darkgrey, 10%);
+              color: darken(darkgrey, 70%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .container {
+    width: 90%;
+    grid-template-columns: 1fr;
+    a {
+      .cardsWorks {
+        width: 100%;
+        .workInfo {
+          .textTitle {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    grid-template-columns: 1fr;
+    .cardsSkills {
+      .cardInfo {
+        .skillList {
+          height: auto;
+          padding-bottom: 20px;
+        }
+      }
+    }
+    a {
+      margin: 0;
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .container {
+    .cardsSkills {
+      width: 100%;
+      .cardInfo {
+        .skillList {
+          .skillItem {
+            width: 90%;
+            .skillName {
+              font-size: 18px;
+            }
+            .skillLevel {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+    a {
+      margin: 0;
+      .cardsWorks {
+        width: 100%;
+        .workInfo {
+          .textTitle {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .container {
+    .cardsSkills {
+      .cardInfo {
+        .skillList {
+          .skillItem {
+            width: 100%;
+          }
+        }
+      }
+    }
+    a {
+      margin: 0;
+
+      .cardsWorks {
+        .workInfo {
+          .textTitle {
+            font-size: 14px;
+            letter-spacing: 0px;
+          }
+          .tags {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

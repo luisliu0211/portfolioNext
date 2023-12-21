@@ -1,0 +1,97 @@
+@mixin button {
+  background-color: grey;
+  color: white;
+  letter-spacing: 1px;
+  font-size: 18px;
+  border-radius: 15px;
+  width: 70px;
+  height: 40px;
+  line-height: 40px;
+  border: none;
+  margin: 10px;
+  transition: 0.2s linear;
+  cursor: pointer;
+  box-shadow: 0px 0px 6px grey;
+  &:hover {
+    background-color: lighten(grey, 10%);
+  }
+}
+
+.container {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 55px;
+  margin-top: 20px;
+  border-radius: 20px;
+  background-color: lighten(grey, 30%);
+  transition: 0.1s linear;
+  cursor: pointer;
+  .buttons {
+    flex-shrink: 1;
+    button {
+      @include button;
+      &.cancel {
+        background-color: darkgray;
+      }
+      &.finished {
+        background-color: darkgoldenrod;
+      }
+      &.delete {
+        background-color: darkred;
+      }
+    }
+  }
+  .todoContent {
+    flex-grow: 1;
+    padding-inline: 20px;
+    letter-spacing: 1px;
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .text {
+      max-width: 500px;
+      overflow-wrap: break-word;
+      line-height: 30px;
+    }
+    .date {
+      letter-spacing: 0px;
+      font-size: 14px;
+      color: darken(grey, 20%);
+    }
+    .editInput {
+      border: none;
+      height: 60px;
+      width: 500px;
+      border-radius: 10px;
+      font-size: 20px;
+      padding-left: 20px;
+    }
+  }
+  &:hover {
+    background-color: lighten(grey, 20%);
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    flex-direction: column;
+    .todoContent {
+      width: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      .date {
+        font-size: 14px;
+        line-height: 20px;
+      }
+      .text {
+        line-height: 50px;
+      }
+    }
+  }
+}

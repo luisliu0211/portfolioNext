@@ -1,0 +1,244 @@
+.controlButton {
+  display: flex;
+  justify-content: end;
+  padding: 5px;
+}
+.controlButton .title {
+  flex-grow: 1;
+  text-align: center;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 40px;
+}
+.controlButton button {
+  min-width: 30px;
+  height: 30px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 0px 5px black;
+  transition: 0.2s linear;
+  margin: 2px;
+  padding: 5px;
+  cursor: pointer;
+}
+.controlButton button:hover {
+  background-color: grey;
+  color: white;
+}
+
+.table {
+  border-spacing: 5px;
+  padding-top: 10px;
+}
+.table thead th {
+  text-align: center;
+}
+.table thead th[name=yarnNo] {
+  width: 3%;
+}
+.table thead th[name=yarnSpec] {
+  width: 30%;
+}
+.table thead th[name=yarnPort] {
+  width: 8%;
+}
+.table thead th[name=yarnSource] {
+  width: 20%;
+}
+.table thead th[name=yarnPrice] {
+  width: 20%;
+}
+.table thead th[name=controls] {
+  width: 9%;
+  min-width: 110px;
+}
+.table tbody .trStyle td {
+  text-align: center;
+}
+.table tbody .trStyle td input {
+  border: none;
+  height: 35px;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 16px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0px 0px 3px grey;
+}
+.table tbody .trStyle td select {
+  border-radius: 5px;
+  border: none;
+  height: 35px;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  box-shadow: 0px 0px 3px grey;
+}
+.table tbody .trStyle td[name=yarnPrice] {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+.table tbody .trStyle td[name=yarnPrice] input {
+  width: 55%;
+}
+.table tbody .trStyle td[name=yarnPrice] select {
+  width: 43%;
+}
+.table tbody .trStyle td[name=yarnPrice] div {
+  width: 100%;
+  font-size: 16px;
+}
+.table tbody .trStyle td[name=controls] {
+  min-width: 110px;
+  width: 9%;
+}
+.table tbody .trStyle td[name=controls] button {
+  min-width: 30px;
+  height: 100%;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 0px 5px black;
+  transition: 0.2s linear;
+  margin: 2px;
+  padding: 2px;
+  cursor: pointer;
+}
+.table tbody .trStyle td[name=controls] button:hover {
+  background-color: grey;
+  color: white;
+}
+.table tfoot tr {
+  height: 40px;
+}
+.table tfoot tr td {
+  text-align: center;
+}
+
+.machineInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.machineInfo label {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 30px;
+  margin: 10px auto;
+  padding-inline: 5px;
+}
+.machineInfo label span {
+  display: block;
+  width: 100px;
+  text-align: start;
+  line-height: 30px;
+  font-size: 16px;
+}
+.machineInfo label input {
+  display: block;
+  width: 80%;
+  border-radius: 5px;
+  height: 100%;
+  border: none;
+  padding-inline: 10px;
+  font-size: 16px;
+  box-shadow: 0px 0px 3px grey;
+}
+.machineInfo select {
+  border: none;
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+  padding-inline: 10px;
+}
+
+.yarnCost {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.yarnCost label {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 30px;
+  margin: 10px auto;
+  padding-inline: 5px;
+}
+.yarnCost label span {
+  display: block;
+  width: 100px;
+  text-align: start;
+  line-height: 30px;
+  font-size: 16px;
+}
+.yarnCost label input {
+  display: block;
+  width: 80%;
+  border-radius: 5px;
+  height: 100%;
+  border: none;
+  padding-inline: 10px;
+  font-size: 16px;
+  box-shadow: 0px 0px 3px grey;
+}
+.yarnCost select {
+  border: none;
+  border-radius: 5px;
+  height: 100%;
+  padding-inline: 10px;
+}
+
+.additonal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 120px;
+}
+.additonal label {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 40px;
+  margin: 10px auto;
+  padding-inline: 5px;
+}
+.additonal label span {
+  display: block;
+  width: 100px;
+  text-align: start;
+  line-height: 40px;
+  font-size: 16px;
+}
+.additonal label input {
+  display: block;
+  width: 100%;
+  border-radius: 5px;
+  height: 100%;
+  border: none;
+  padding-inline: 10px;
+  font-size: 16px;
+  box-shadow: 0px 0px 3px grey;
+}
+.additonal label {
+  width: 100%;
+}
+.additonal label select {
+  height: 100px;
+  border: none;
+  width: 180px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 3px grey;
+}
+.additonal label select option {
+  font-size: 16px;
+  padding-inline: 10px;
+  letter-spacing: 1px;
+}/*# sourceMappingURL=yarnList.module.css.map */

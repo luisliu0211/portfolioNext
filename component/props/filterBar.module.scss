@@ -1,0 +1,170 @@
+.container {
+  background-color: lightgrey;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin-top: 10px;
+  width: 100%;
+  .leftBox {
+    flex-grow: 0.7;
+    // height: 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    label {
+      display: block;
+      width: 120px;
+      height: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      input {
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+      }
+      span {
+        text-align: center;
+        line-height: 20px;
+      }
+    }
+    .category {
+      margin: 10px;
+      border-radius: 10px;
+      width: 150px;
+      height: 40px;
+      padding: 5px;
+      border: none;
+      font-size: 18px;
+      span {
+        text-align: center;
+        line-height: 20px;
+      }
+    }
+    label.customDatePicker {
+      display: flex;
+      flex-direction: column;
+      width: 150px;
+      input {
+        height: 20px;
+        font-size: 16px;
+        padding: 5px;
+        text-align: center;
+      }
+    }
+
+    button {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      box-shadow: 0px 0px 5px #000;
+      cursor: pointer;
+      transition: 0.1s;
+      &:hover {
+        background-color: darkgray;
+        color: white;
+      }
+    }
+  }
+  .rightBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 0;
+
+    label {
+      display: block;
+      width: 60%;
+      min-width: 200px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      input {
+        width: 100%;
+        border-radius: 10px;
+        border: none;
+        padding: 5px;
+        font-size: 18px;
+      }
+    }
+    .tagBox {
+      text-align: center;
+      li {
+        display: inline-block;
+        list-style-type: none;
+        background-color: darken(darkgray, 20%);
+        padding: 5px;
+        border-radius: 5px;
+        margin: 3px;
+        letter-spacing: 0.5px;
+        color: white;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: 0.1s linear;
+      }
+      .selectedTag {
+        background-color: black;
+        color: white;
+        box-shadow: 5px 5px 10px darkgray;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1280px) {
+  .container {
+    .leftBox {
+      justify-content: flex-start;
+      label.customDatePicker {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    flex-direction: column;
+    .rightBox {
+      flex-grow: 1;
+
+      label {
+        width: 100%;
+        min-width: 0px;
+      }
+      .tagBox {
+        li {
+          font-size: 16px;
+          padding: 5px;
+        }
+      }
+    }
+    .leftBox {
+      justify-content: center;
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .container {
+    .rightBox {
+      .tagBox {
+        width: 100%;
+      }
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .container {
+    .leftBox {
+      .category {
+        width: auto;
+      }
+      button {
+        margin: 5px;
+        padding: 8px;
+        font-size: 14px;
+      }
+    }
+  }
+}

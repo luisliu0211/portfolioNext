@@ -1,0 +1,11 @@
+.container {
+  width: 98%;
+  padding: 20px;
+  background-color: lightgrey;
+  color: black;
+  margin: 4px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 5px grey;
+}/*# sourceMappingURL=qCard.module.css.map */

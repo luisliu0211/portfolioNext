@@ -1,0 +1,43 @@
+.container {
+  width: 20%;
+  min-width: 150px;
+}
+.container li {
+  line-height: 20px;
+  list-style-type: none;
+  background-color: grey;
+  color: white;
+  padding: 5px;
+  font-size: 20px;
+  letter-spacing: 2px;
+  transition: 0.1s linear;
+  cursor: pointer;
+}
+.container li a {
+  height: 50px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 60px;
+  text-align: center;
+}
+.container li:hover {
+  background-color: #4d4d4d;
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+  }
+  .container li {
+    flex-grow: 1;
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .container li {
+    font-size: 16px;
+  }
+}/*# sourceMappingURL=sideBar.module.css.map */
