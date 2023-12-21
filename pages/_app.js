@@ -70,7 +70,7 @@ export function Auth({ children }) {
       // 如果跑完發現沒有user資料 則跳轉首頁
       router.push('/');
     }
-  }, [isUser, loading]);
+  }, [isUser, loading, router]);
   if (loading) {
     // 如果還在載入中，顯示 Loading...
     return <h3>Loading...</h3>;

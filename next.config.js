@@ -6,6 +6,13 @@ const nextConfig = {
   },
 };
 module.exports = {
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
+  exportPathMap: async function () {
+    return {
+      '/': { page: '/' },
+      // 添加其他路徑映射
+    };
+  },
   async rewrites() {
     return [
       {

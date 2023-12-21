@@ -123,8 +123,8 @@ export default function TodoList() {
         <br />
         <hr />
         <Grid>
-          {groupedArray.map((date) => {
-            return <FloatingCard data={date} />;
+          {groupedArray.map((date, index) => {
+            return <FloatingCard key={index} data={date} />;
           })}
         </Grid>
       </MyContext.Provider>
