@@ -4,8 +4,8 @@ const nextConfig = {
   images: {
     domains: ['randomuser.me'],
   },
-  basePath: '/portfolioNext/', // 替换成你的 GitHub 仓库名称
-  assetPrefix: '/portfolioNext/',
+  basePath: '/portfolioNext', // 设置成你的 GitHub 仓库名称
+  assetPrefix: '/portfolioNext',
   exportPathMap: async function () {
     return {
       '/': { page: '/' },
