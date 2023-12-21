@@ -4,7 +4,7 @@ const nextConfig = {
   images: {
     domains: ['randomuser.me'],
   },
-  basePath: '/portfolioNext', // 替换成你的 GitHub 仓库名称
+  basePath: '/portfolioNext/', // 替换成你的 GitHub 仓库名称
   assetPrefix: '/portfolioNext/',
   exportPathMap: async function () {
     return {
@@ -16,7 +16,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://localhost:3000/api/:path*', // 这里替换为你的后端 API 地址
+        destination: '/api/:path*', // 这里替换为你的后端 API 地址
       },
     ];
   },
