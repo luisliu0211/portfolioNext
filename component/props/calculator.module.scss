@@ -55,3 +55,28 @@
     }
   }
 }
+@media screen and (max-width: 576px) {
+  .container {
+    width: 100%;
+    .calSign {
+      top: 12%;
+      left: 7%;
+    }
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .container {
+    width: 100%;
+    table {
+      height: 300px;
+      tr {
+        td {
+          font-size: 24px;
+          min-width: auto;
+          width: 30px;
+        }
+      }
+    }
+  }
+}

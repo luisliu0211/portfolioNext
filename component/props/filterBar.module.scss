@@ -134,6 +134,7 @@
         min-width: 0px;
       }
       .tagBox {
+        width: 100%;
         li {
           font-size: 16px;
           padding: 5px;
@@ -145,15 +146,7 @@
     }
   }
 }
-@media screen and (max-width: 992px) {
-  .container {
-    .rightBox {
-      .tagBox {
-        width: 100%;
-      }
-    }
-  }
-}
+
 @media screen and (max-width: 576px) {
   .container {
     .leftBox {
@@ -164,6 +157,16 @@
         margin: 5px;
         padding: 8px;
         font-size: 14px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 390px) {
+  .container {
+    padding: 3px;
+    .leftBox {
+      button {
+        padding: 7px;
       }
     }
   }

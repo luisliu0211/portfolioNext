@@ -16,4 +16,22 @@
 }
 .container .recap {
   font-size: 20px;
+}
+
+@media screen and (max-width: 576px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .container form {
+    width: 100%;
+  }
+  .container form input {
+    width: 100%;
+    padding-left: 20px;
+    font-size: 16px;
+  }
+  .container .recap {
+    font-size: 18px;
+  }
 }/*# sourceMappingURL=todoForm.module.css.map */

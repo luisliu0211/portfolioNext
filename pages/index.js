@@ -66,7 +66,7 @@ export default function Home({ postData }) {
           <p>Email: {session.user.email}</p>
         </div>
       )}
-      <button onClick={signOut}>登出</button>
+      {/* <button onClick={signOut}>登出</button> */}
 
       <div style={{ padding: '50px 50px' }}>
         <h1 style={{ display: 'block', textAlign: 'center' }}>Lastest Posts</h1>

@@ -9,7 +9,8 @@ import NavList from '../../navList.json';
 import { signOut, useSession } from 'next-auth/react';
 import { useContext } from 'react';
 import { ThemeContext } from '@/pages/_app';
-
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 export default function Navbar_main() {
   const { toggleTheme, theme } = useContext(ThemeContext);
   const { data, status } = useSession();
@@ -36,7 +37,7 @@ export default function Navbar_main() {
             toggleTheme(e);
             document.querySelector('.slide').style.backgroundColor =
               theme == 'light' ? '#ccc' : 'black';
-            console.log(document.querySelector('.dots'));
+            // console.log(document.querySelector('.dots'));
             document.querySelector('.dots').style.transform =
               theme == 'light' ? 'translateX(0px)' : 'translateX(26px)';
           }}
@@ -69,16 +70,22 @@ export default function Navbar_main() {
           </li>
         )}
       </ul>
-      <div
-        className={styles.navBtn}
-        onClick={() => setMenuOpen((prevState) => !prevState)}
-      >
-        {isMenuOpen ? (
-          <Image src={closeIcon} alt="" width={50} height={50} />
-        ) : (
-          <Image src={menuIcon} alt="" width={50} height={50} />
-        )}
+      <div className={styles.tools}>
+        <button className={styles.switch} onClick={toggleTheme}>
+          {theme == 'light' ? <LightModeIcon /> : <DarkModeIcon />}
+        </button>
+        <div
+          className={styles.navBtn}
+          onClick={() => setMenuOpen((prevState) => !prevState)}
+        >
+          {isMenuOpen ? (
+            <Image src={closeIcon} alt="" width={50} height={50} />
+          ) : (
+            <Image src={menuIcon} alt="" width={50} height={50} />
+          )}
+        </div>
       </div>
+
       <ul className={`${styles.nav_mobile} ${menuClassName}`}>
         {data && (
           <>

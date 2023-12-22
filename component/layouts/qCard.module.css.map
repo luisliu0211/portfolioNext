@@ -1,1 +1,1 @@
-{"version":3,"sources":["qCard.module.scss","qCard.module.css"],"names":[],"mappings":"AAAA;EACE,UAAA;EACA,aAAA;EACA,2BAAA;EACA,YAAA;EACA,WAAA;EACA,mBAAA;EACA,aAAA;EACA,sBAAA;EACA,4BAAA;ACCF","file":"qCard.module.css"}
+{"version":3,"sources":["qCard.module.scss","qCard.module.css"],"names":[],"mappings":"AAAA;EACE,UAAA;EACA,aAAA;EACA,2BAAA;EACA,YAAA;EACA,WAAA;EACA,mBAAA;EACA,aAAA;EACA,sBAAA;EACA,4BAAA;ACCF;;ADEA;EACE;IACE,YAAA;ECCF;AACF","file":"qCard.module.css"}

@@ -21,7 +21,7 @@
     background-position: right center;
     padding-right: 40px; /* 确保下拉箭头不重叠到文本 */
     transition: 0.2s linear;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4); /* 添加边框阴影 */
+    // box-shadow: 0 0 30px rgba(0, 0, 0, 0.4); /* 添加边框阴影 */
     outline: none; /* 移除默认外观 */
     &:hover {
       background-position: right 10px;
@@ -37,6 +37,9 @@
     h3 {
       font-size: 18px;
       letter-spacing: 0.5px;
+    }
+    select {
+      box-shadow: none;
     }
   }
 }

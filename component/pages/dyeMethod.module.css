@@ -37,11 +37,16 @@
 }
 .dyeList label span {
   line-height: 45px;
+  width: 20%;
+  font-size: 16px;
 }
 .dyeList label input {
   width: 80%;
   margin: 3px;
   font-size: 16px;
+}
+.dyeList label select {
+  width: 80%;
 }
 
 .additonal {
@@ -49,6 +54,7 @@
   flex-direction: row;
   justify-content: space-evenly;
   height: 120px;
+  justify-content: space-between;
 }
 .additonal label {
   display: flex;
@@ -76,17 +82,23 @@
   font-size: 16px;
   box-shadow: 0px 0px 3px grey;
 }
-.additonal label {
+.additonal .dye {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  height: 120px;
+}
+.additonal .dye label {
   justify-content: flex-start;
 }
-.additonal label select {
+.additonal .dye label select {
   height: 100px;
   border: none;
-  width: 180px;
+  width: 100%;
   border-radius: 10px;
   box-shadow: 0px 0px 3px grey;
 }
-.additonal label select option {
+.additonal .dye label select option {
   font-size: 16px;
   padding-inline: 10px;
   letter-spacing: 1px;
@@ -119,4 +131,177 @@
   padding-inline: 10px;
   font-size: 16px;
   box-shadow: 0px 0px 3px grey;
+}
+
+@media screen and (max-width: 1280px) {
+  .dyeList,
+  .additonal {
+    flex-direction: column;
+    height: auto;
+  }
+  .dyeList label,
+  .additonal label {
+    width: 100%;
+  }
+  .dyeList label span,
+  .additonal label span {
+    width: 20%;
+    text-align: center;
+  }
+  .dyeList .dye,
+  .additonal .dye {
+    display: flex;
+  }
+  .dyeList .dye label,
+  .additonal .dye label {
+    flex-grow: 1;
+  }
+  .dyeList .dye label span,
+  .additonal .dye label span {
+    width: 30%;
+    text-align: center;
+  }
+  .dyeList .dye label select,
+  .additonal .dye label select {
+    width: 80%;
+  }
+  .dyeList .finalCost label,
+  .additonal .finalCost label {
+    flex-grow: 1;
+  }
+  .dyeList .finalCost label span,
+  .additonal .finalCost label span {
+    width: 20%;
+    text-align: center;
+  }
+  .dyeList .finalCost label input,
+  .additonal .finalCost label input {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 992px) {
+  .dyeList label span {
+    text-align: center;
+  }
+  .additonal .dye {
+    flex-direction: column;
+    height: 250px;
+  }
+  .additonal .dye label span {
+    width: 20%;
+    text-align: center;
+  }
+  .additonal .dye label select {
+    width: 80%;
+  }
+  .additonal .finalCost label span {
+    text-align: center;
+    width: 20%;
+  }
+  .additonal .finalCost label input {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .additonal {
+    flex-direction: column;
+  }
+  .additonal .finalCost label span {
+    text-align: center;
+    width: 20%;
+    font-size: 14px;
+  }
+  .additonal .finalCost label input {
+    width: 80%;
+  }
+  .additonal .dye {
+    height: 230px;
+    flex-direction: column;
+  }
+  .additonal .dye label span {
+    text-align: center;
+    width: 20%;
+    font-size: 14px;
+  }
+  .additonal .dye label select {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 390px) {
+  .dyeList label,
+  .additonal label {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 40px;
+    margin: 10px auto;
+    padding-inline: 5px;
+  }
+  .dyeList label span,
+  .additonal label span {
+    display: block;
+    width: 25%;
+    text-align: start;
+    line-height: 40px;
+    font-size: 16px;
+  }
+  .dyeList label input,
+  .additonal label input {
+    display: block;
+    width: 75%;
+    border-radius: 5px;
+    height: 100%;
+    border: none;
+    padding-inline: 10px;
+    font-size: 16px;
+    box-shadow: 0px 0px 3px grey;
+  }
+  .dyeList label span,
+  .additonal label span {
+    text-align: center;
+    font-size: 16px;
+  }
+  .dyeList .dye label,
+  .dyeList .finalCost label,
+  .additonal .dye label,
+  .additonal .finalCost label {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 40px;
+    margin: 10px auto;
+    padding-inline: 5px;
+  }
+  .dyeList .dye label span,
+  .dyeList .finalCost label span,
+  .additonal .dye label span,
+  .additonal .finalCost label span {
+    display: block;
+    width: 25%;
+    text-align: start;
+    line-height: 40px;
+    font-size: 16px;
+  }
+  .dyeList .dye label input,
+  .dyeList .finalCost label input,
+  .additonal .dye label input,
+  .additonal .finalCost label input {
+    display: block;
+    width: 75%;
+    border-radius: 5px;
+    height: 100%;
+    border: none;
+    padding-inline: 10px;
+    font-size: 16px;
+    box-shadow: 0px 0px 3px grey;
+  }
+  .dyeList .dye label span,
+  .dyeList .finalCost label span,
+  .additonal .dye label span,
+  .additonal .finalCost label span {
+    text-align: center;
+    font-size: 16px;
+  }
 }/*# sourceMappingURL=dyeMethod.module.css.map */

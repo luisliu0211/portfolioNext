@@ -170,7 +170,6 @@
     padding-inline: 10px;
   }
 }
-
 .yarnCost {
   @include flexRow;
   @include labelSizeInput(
@@ -204,6 +203,60 @@
         font-size: 16px;
         padding-inline: 10px;
         letter-spacing: 1px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .machineInfo,
+  .yarnCost,
+  .additonal {
+    @include labelSizeInput(40px, 18px, 80%, 20%);
+    flex-direction: column;
+    label {
+      width: 100%;
+      span {
+        text-align: center;
+        font-size: 16px;
+      }
+      select {
+        width: 80%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .machineInfo,
+  .yarnCost,
+  .additonal {
+    @include labelSizeInput(40px, 18px, 78%, 22%);
+    flex-direction: column;
+    label {
+      width: 100%;
+      span {
+        text-align: center;
+        font-size: 16px;
+      }
+      select {
+        width: 78%;
+      }
+    }
+  }
+}
+@media screen and (max-width: 390px) {
+  .machineInfo,
+  .yarnCost,
+  .additonal {
+    @include labelSizeInput(40px, 18px, 70%, 30%);
+    label {
+      span {
+        text-align: center;
+        font-size: 16px;
+      }
+      select {
+        width: 70%;
       }
     }
   }

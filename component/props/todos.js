@@ -13,7 +13,7 @@ export default function Todos({ todos, dispatch }) {
 }
 
 export function Todo({ todo, dispatch }) {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(todo.todoContent);
   const handleEdit = () => {

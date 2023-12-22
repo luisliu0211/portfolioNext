@@ -47,11 +47,16 @@
   label {
     span {
       line-height: 45px;
+      width: 20%;
+      font-size: 16px;
     }
     input {
       width: 80%;
       margin: 3px;
       font-size: 16px;
+    }
+    select {
+      width: 80%;
     }
   }
 }
@@ -59,22 +64,26 @@
   @include flexRow;
   @include labelSizeInput($fontSize: 16px);
   height: 120px;
-  label {
-    // width: 100%;
-    justify-content: flex-start;
-    span {
-      // width: 100px;
-    }
-    select {
-      height: 100px;
-      border: none;
-      width: 180px;
-      border-radius: 10px;
-      box-shadow: 0px 0px 3px grey;
-      option {
-        font-size: 16px;
-        padding-inline: 10px;
-        letter-spacing: 1px;
+  justify-content: space-between;
+
+  .dye {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    height: 120px;
+    label {
+      justify-content: flex-start;
+      select {
+        height: 100px;
+        border: none;
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0px 0px 3px grey;
+        option {
+          font-size: 16px;
+          padding-inline: 10px;
+          letter-spacing: 1px;
+        }
       }
     }
   }
@@ -83,5 +92,143 @@
       width: 100%;
     }
     @include labelSizeInput($fontSize: 16px);
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .dyeList,
+  .additonal {
+    flex-direction: column;
+    height: auto;
+    label {
+      width: 100%;
+      span {
+        width: 20%;
+        text-align: center;
+      }
+    }
+    .dye {
+      display: flex;
+      label {
+        flex-grow: 1;
+        span {
+          width: 30%;
+          text-align: center;
+        }
+        select {
+          width: 80%;
+        }
+      }
+    }
+    .finalCost {
+      label {
+        flex-grow: 1;
+        span {
+          width: 20%;
+          text-align: center;
+        }
+        input {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .dyeList {
+    label {
+      span {
+        text-align: center;
+      }
+    }
+  }
+  .additonal {
+    .dye {
+      flex-direction: column;
+      height: 250px;
+      label {
+        span {
+          width: 20%;
+          text-align: center;
+        }
+        select {
+          width: 80%;
+        }
+      }
+    }
+    .finalCost {
+      label {
+        span {
+          text-align: center;
+          width: 20%;
+        }
+        input {
+          width: 80%;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .additonal {
+    flex-direction: column;
+    .finalCost {
+      label {
+        span {
+          text-align: center;
+          width: 20%;
+          font-size: 14px;
+        }
+        input {
+          width: 80%;
+        }
+      }
+    }
+    .dye {
+      height: 230px;
+      flex-direction: column;
+      label {
+        span {
+          text-align: center;
+          width: 20%;
+          font-size: 14px;
+        }
+        select {
+          width: 80%;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 390px) {
+  .dyeList,
+  .additonal {
+    @include labelSizeInput(
+      $height: 40px,
+      $fontSize: 16px,
+      $inputWidth: 75%,
+      $spanWidth: 25%
+    );
+    label {
+      span {
+        text-align: center;
+        font-size: 16px;
+      }
+    }
+    .dye,
+    .finalCost {
+      @include labelSizeInput(
+        $height: 40px,
+        $fontSize: 16px,
+        $inputWidth: 75%,
+        $spanWidth: 25%
+      );
+      label {
+        span {
+          text-align: center;
+          font-size: 16px;
+        }
+      }
+    }
   }
 }

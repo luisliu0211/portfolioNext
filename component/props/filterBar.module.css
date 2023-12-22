@@ -129,17 +129,15 @@
     width: 100%;
     min-width: 0px;
   }
+  .container .rightBox .tagBox {
+    width: 100%;
+  }
   .container .rightBox .tagBox li {
     font-size: 16px;
     padding: 5px;
   }
   .container .leftBox {
     justify-content: center;
-  }
-}
-@media screen and (max-width: 992px) {
-  .container .rightBox .tagBox {
-    width: 100%;
   }
 }
 @media screen and (max-width: 576px) {
@@ -150,5 +148,13 @@
     margin: 5px;
     padding: 8px;
     font-size: 14px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .container {
+    padding: 3px;
+  }
+  .container .leftBox button {
+    padding: 7px;
   }
 }/*# sourceMappingURL=filterBar.module.css.map */

@@ -16,6 +16,7 @@
   display: block;
   font-size: 26px;
   line-height: 90px;
+  text-align: center;
 }
 .nav li:hover {
   background-color: #2a2a2a;
@@ -65,41 +66,45 @@
   border: 1px solid #000;
 }
 
-.navBtn {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 60px;
-  line-height: 50px;
-  margin: 20px;
+.tools {
   display: none;
+}
+.tools .switch {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  border: none;
+  box-shadow: 0px 0px 10px grey;
+  cursor: pointer;
+}
+.tools .navBtn {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin: 20px;
   cursor: pointer;
   transition: 0.2s linear;
-  border: 2px solid transparent;
-  border-radius: 20px;
 }
-.navBtn img {
+.tools .navBtn img {
   width: 100%;
   height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
-}
-.navBtn:hover {
-  border: 2px solid grey;
 }
 
 .nav_mobile {
   display: flex;
   flex-direction: column;
   position: absolute;
-  right: -300px;
+  right: -100%;
   top: 90px;
-  width: 250px;
+  width: 100%;
   padding: 15px;
   background-color: darkgray;
   z-index: 999;
   box-shadow: 0px 5px 20px grey;
-  transition: 0.1s linear;
-  display: none;
+  transition: 0.2s linear;
+  visibility: hidden;
   letter-spacing: 1px;
   cursor: pointer;
 }
@@ -137,33 +142,39 @@
 }
 .nav_mobile.mobile_open {
   right: 0px;
+  display: block;
 }
 
 @media screen and (max-width: 1280px) {
   .nav {
     display: none;
   }
-  .navBtn {
-    display: block;
+  .tools {
+    display: flex;
+    align-items: center;
   }
   .nav_mobile {
     display: flex;
+    visibility: visible;
+    width: 30%;
+    transition: 0.2s linear;
+    right: -102%;
   }
 }
 @media screen and (max-width: 768px) {
   .nav_mobile {
     width: 100%;
-    right: -105%;
+    right: -102%;
     top: 80px;
   }
   .nav_mobile.mobile_open {
     right: 0;
   }
-  .navBtn {
+  .tools .navBtn {
     width: 40px;
     height: 40px;
   }
-  .navBtn img {
+  .tools .navBtn img {
     width: 100%;
     height: 100%;
     -o-object-fit: contain;

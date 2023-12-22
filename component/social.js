@@ -12,7 +12,7 @@ export default function Social() {
           <Link href="/">
             <CalendarMonthIcon sx={{ fontSize: 50 }} />
           </Link>
-          <Link href="/">
+          <Link href="/calculate">
             <CalculateIcon sx={{ fontSize: 50 }} />
           </Link>
           <Link href="/">

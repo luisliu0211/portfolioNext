@@ -102,7 +102,7 @@ export default function FilterBar() {
     <div className={styles.container}>
       <div className={styles.leftBox}>
         <button name="dateOrder" onClick={handleDateOrder}>
-          按日期排序 {context.filter.order == 'DESC' ? '由大到小' : '由小到大'}
+          按日期排序{context.filter.order == 'DESC' ? '大到小' : '小到大'}
         </button>
         <label htmlFor="issueDate" className={styles.customDatePicker}>
           <span>

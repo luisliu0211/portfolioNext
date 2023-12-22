@@ -72,3 +72,87 @@
     @include labelSizeInput($height: 30px, $inputWidth: 80%, $fontSize: 16px);
   }
 }
+
+@media screen and (max-width: 1280px) {
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    flex-direction: column;
+    .flexBox {
+      .box {
+        .cost,
+        .profit {
+          @include labelSizeInput(
+            $height: 30px,
+            $inputWidth: 60%,
+            $fontSize: 16px,
+            $spanWidth: 40%
+          );
+          label {
+            span {
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+    .box {
+      .profit1 {
+        label {
+          span {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .container {
+    .flexBox {
+      .box {
+        flex-direction: column;
+        .cost,
+        .profit {
+          @include labelSizeInput(
+            $height: 30px,
+            $inputWidth: 80%,
+            $fontSize: 16px,
+            $spanWidth: 20%
+          );
+          label {
+            span {
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .container {
+    .flexBox {
+      .box {
+        flex-direction: column;
+        .cost,
+        .profit {
+          @include labelSizeInput(
+            $height: 30px,
+            $inputWidth: 70%,
+            $fontSize: 16px,
+            $spanWidth: 30%
+          );
+          label {
+            span {
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}

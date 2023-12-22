@@ -51,3 +51,37 @@
     @include labelSizeInput(30px, 16px, 100%, 80px);
   }
 }
+
+@media screen and (max-width: 1280px) {
+  .container {
+    .productInfo,
+    .productDescription,
+    .productSpec {
+      @include labelSizeInput(40px, 18px, 85%, 15%);
+      flex-direction: column;
+      label {
+        width: 100%;
+        span {
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .container {
+    .productInfo,
+    .productDescription,
+    .ctDescription,
+    .productSpec {
+      @include labelSizeInput(40px, 18px, 82%, 18%);
+      label {
+        padding-inline: 10px;
+        span {
+          text-align: center;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
