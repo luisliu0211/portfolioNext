@@ -42,10 +42,7 @@ export default function Posts() {
         const response = await fetch(`${apiUrl}/api/posts?${queryParams}`, {
           credentials: 'include',
         });
-        // const response = await axios.get(
-        //   `${apiUrl}/api/posts?${queryParams}&page=${currentPage}`,
-        //   { withCredentials: true }
-        // );
+        console.log(`${apiUrl}/api/posts?${queryParams}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
