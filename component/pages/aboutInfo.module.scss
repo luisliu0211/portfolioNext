@@ -5,12 +5,12 @@
 }
 .row {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   padding: 40px;
   .myImg {
     width: 400px;
     height: 500px;
-
+    border-radius: 20px 0px 0px 20px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -21,7 +21,7 @@
     min-height: 300px;
     font-size: 20px;
     background-color: darken(darkgray, 10%);
-    border-radius: 20px;
+    border-radius: 0px 20px 20px 0px;
     padding: 20px;
   }
 }

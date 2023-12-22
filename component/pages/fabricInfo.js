@@ -98,7 +98,10 @@ export default function FabricInfo(props) {
           </label>
           <label htmlFor="">
             <span>品牌</span>
-            <input value={foundClient ? foundClient.name : ''} type="text" />
+            <input
+              defaultValue={foundClient ? foundClient.name : ''}
+              type="text"
+            />
           </label>
         </div>
         <hr />

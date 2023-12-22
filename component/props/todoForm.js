@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './todoForm.module.css';
+import Button from '@mui/material/Button';
 export default function TodoForm({ dispatch, todos }) {
   const [todoContent, setTodoContent] = useState('');
   let finishedItem = todos.filter((todo) => todo.complete);
@@ -22,6 +23,9 @@ export default function TodoForm({ dispatch, todos }) {
             onChange={(e) => setTodoContent(e.target.value)}
             placeholder="type something"
           />
+          <Button variant="contained" onClick={handleSubmit}>
+            提交
+          </Button>
         </form>
         <div className={styles.recap}>
           完成度：
