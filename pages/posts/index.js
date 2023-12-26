@@ -89,27 +89,25 @@ export default function Posts() {
   }, [setCurrentPage]);
 
   return (
-    <>
-      <Layout>
-        <div className={styles.container}>
-          <h1>{title}</h1>
-          <hr />
-          <MyContext.Provider
-            value={{
-              filter,
-              setFilter,
-              currentPage,
-              setCurrentPage,
-              totalPage,
-              isMobile,
-            }}
-          >
-            <FilterBar />
-            <Cards data={postData.data || []} />
-            <Pagination />
-          </MyContext.Provider>
-        </div>
-      </Layout>
-    </>
+    <Layout>
+      <div className={styles.container}>
+        <h1>{title}</h1>
+        <hr />
+        <MyContext.Provider
+          value={{
+            filter,
+            setFilter,
+            currentPage,
+            setCurrentPage,
+            totalPage,
+            isMobile,
+          }}
+        >
+          <FilterBar />
+          <Cards data={postData.data || []} />
+          <Pagination />
+        </MyContext.Provider>
+      </div>
+    </Layout>
   );
 }

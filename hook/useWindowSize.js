@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 
-// 自定义 Hook
 export function useWindowSize() {
-  // 使用 getInitialWindowSize 函数获取初始值
   const [windowSize, setWindowSize] = useState(null);
 
   useEffect(() => {

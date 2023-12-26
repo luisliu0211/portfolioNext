@@ -3,6 +3,6 @@
   { "id": 3, "href": "/posts", "title": "Posts" },
   { "id": 4, "href": "/works", "title": "Works" },
   { "id": 6, "href": "/quotation", "title": "Quotation" },
-  {"id":7,"href":"/todoList","title":"Todo"},
-  {"id":8,"href":"/userList","title":"User"}
+  {"id":7,"href":"/todoList","title":"TodoList"},
+  {"id":8,"href":"/userList","title":"UserList"}
 ]

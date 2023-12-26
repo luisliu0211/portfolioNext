@@ -1,0 +1,16 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(250px, 1fr)
+  ); /* 設定每個列的最小和最大寬度 */
+  gap: 10px; /* 可以根據需要調整間距 */
+  .card {
+    // width: calc(33.33% - 10px); /* 設定每個元素的寬度，可以調整為適當的比例 */
+    // margin-bottom: 10px;
+    height: auto;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: lightgrey;
+  }
+}

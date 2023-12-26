@@ -35,15 +35,18 @@
       line-height: $height;
       font-size: $fontSize;
     }
+    .textInput {
+      width: 100%;
+    }
     input {
-      display: block;
-      width: $inputWidth;
-      border-radius: 5px;
-      height: 100%;
-      border: none;
-      padding-inline: 10px;
-      font-size: $fontSize;
-      box-shadow: 0px 0px 3px grey;
+      // display: block;
+      // width: $inputWidth;
+      // border-radius: 5px;
+      // height: 100%;
+      // border: none;
+      // padding-inline: 10px;
+      // font-size: $fontSize;
+      // box-shadow: 0px 0px 3px grey;
     }
   }
 }
@@ -55,6 +58,7 @@
 .controlButton {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 5px;
   .title {
     flex-grow: 1;
@@ -68,80 +72,74 @@
     @include Button;
   }
 }
+.yarnListRWD {
+  display: none;
+}
 .table {
-  border-spacing: 5px;
   padding-top: 10px;
+
+  border-collapse: collapse;
   thead {
     th {
       text-align: center;
       &[name='yarnNo'] {
-        width: 3%;
+        width: 5%;
       }
       &[name='yarnSpec'] {
         width: 30%;
       }
       &[name='yarnPort'] {
-        width: 8%;
+        width: 10%;
       }
       &[name='yarnSource'] {
-        width: 20%;
+        width: 25%;
       }
       &[name='yarnPrice'] {
-        width: 20%;
+        width: 12%;
       }
       &[name='controls'] {
-        width: 9%;
-        min-width: 110px;
+        width: 8%;
+      }
+      &[name='singleYarnCost'] {
+        width: 10%;
       }
     }
   }
   tbody {
     .trStyle {
-      // margin-bottom: 20px;
-
+      cursor: pointer;
+      transition: 0.1s linear;
       td {
+        height: 50px;
         text-align: center;
-        input {
-          border: none;
-          height: 35px;
-          border-radius: 5px;
-          padding-left: 10px;
-          font-size: 16px;
-          width: 100%;
-          text-align: center;
-          box-shadow: 0px 0px 3px grey;
-        }
-        select {
-          border-radius: 5px;
-          border: none;
-          height: 35px;
-          width: 100%;
-          text-align: center;
-          font-size: 14px;
-          box-shadow: 0px 0px 3px grey;
-        }
+        border: none;
         &[name='yarnPrice'] {
           display: flex;
           justify-content: space-between;
           text-align: center;
-          input {
-            width: 55%;
+          align-items: center;
+          .price {
+            width: 50%;
+            text-align: center;
           }
-          select {
-            width: 43%;
+          .unit {
+            font-size: 14px;
           }
-          div {
-            width: 100%;
-            font-size: 16px;
-          }
-        }
-        &[name='controls'] {
-          min-width: 110px;
-          width: 9%;
-          button {
-            @include Button(2px, 100%);
+          .price,
+          .unit {
+            display: block;
           }
         }
+        .textInput {
+          width: 95%;
+          // height: 100%;
+          background-color: white;
+          border: 0;
+          outline: 0;
+        }
+      }
+      &:hover {
+        // background-color: grey;
       }
     }
   }
@@ -191,7 +189,6 @@
   height: 120px;
   label {
     width: 100%;
-    // height: 100px;
 
     select {
       height: 100px;
@@ -209,6 +206,13 @@
 }
 
 @media screen and (max-width: 1280px) {
+  .table {
+    thead {
+      tr > th {
+        font-size: 14px;
+      }
+    }
+  }
   .machineInfo,
   .yarnCost,
   .additonal {
@@ -226,8 +230,58 @@
     }
   }
 }
-
+@media screen and (max-width: 768px) {
+  .table {
+    tbody {
+      .trStyle {
+        td {
+          &[name='yarnPrice'] {
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+  }
+}
 @media screen and (max-width: 576px) {
+  .table {
+    display: none;
+  }
+  .yarnListRWD {
+    display: table;
+    border-spacing: 1px;
+    padding-top: 5px;
+    height: auto;
+    text-align: center;
+    border-collapse: collapse;
+    thead {
+      background-color: darkgray;
+      tr > td {
+        font-size: 700;
+      }
+    }
+    .trStyle {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      td {
+        border: none; /* 取消單元格邊框 */
+      }
+      tr > td {
+        font-size: 14px;
+      }
+      .divider {
+        background-color: darkgray;
+        height: 1px;
+      }
+      &:hover {
+        background-color: grey;
+      }
+    }
+    tfoot {
+      // background-color: ;
+    }
+  }
   .machineInfo,
   .yarnCost,
   .additonal {

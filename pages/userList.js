@@ -4,26 +4,14 @@ import UserCard from '@/component/props/userCard';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useScrollEnd } from '@/hook/useScrollEnd';
 export default function UserList() {
   const [userData, setUserData] = useState([]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false); // 新增 loading 状态
   const router = useRouter();
   const nowPage = router.asPath;
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
-    ) {
-      setPage((prevPage) => prevPage + 1);
-    }
-  };
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  const page = useScrollEnd();
+
   useEffect(() => {
     let p = 6 + 4 * page;
 

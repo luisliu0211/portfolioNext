@@ -61,10 +61,8 @@ export default function TodoList() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      const result = await response.json();
-      console.log(result, dispatch, 'w');
-      alert('儲存成功');
-      router.push('/');
+      // const result = await response.json();
+      router.reload();
     } catch (error) {
       console.error('Error saving data to the database:', error);
     }
@@ -107,7 +105,7 @@ export default function TodoList() {
   //   // console.log(`Date: ${date}`);
   //   // console.log(items); // 在这里你可以进行映射等操作
   // });
-  console.log(groupedArray);
+  // console.log(groupedArray);
   return (
     <Layout>
       <MyContext.Provider value={(todoData, setTodoData)}>
@@ -119,7 +117,6 @@ export default function TodoList() {
             確認今天代辦清單
           </Button>
         )}
-        <br />
         <br />
         <hr />
         <Grid>

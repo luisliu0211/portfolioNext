@@ -31,7 +31,6 @@ export default function App({
     document.body.style.color = theme === 'light' ? '#000' : '#fff';
   };
   useEffect(() => {
-    console.log('now', theme);
     localStorage.setItem('theme', theme);
     document.body.style.backgroundColor = theme === 'light' ? '#fff' : '#333';
     document.body.style.color = theme === 'light' ? '#000' : '#fff';

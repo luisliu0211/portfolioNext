@@ -13,6 +13,7 @@ import MyContext from '@/lib/context';
 import throttle from '@/lib/throttle';
 export default function Home({ postData }) {
   const { data: session, status } = useSession();
+  console.log(postData, 'pp');
   const [itemPerPage, setItemPerPage] = useState(6);
   console.log(postData, 'pp ');
   const [isMobile, setIsMobile] = useState(false);
@@ -28,6 +29,7 @@ export default function Home({ postData }) {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
   let filterData = postData.data.slice(0, itemPerPage);
   if (session) {
     console.log(session, 'f');
@@ -60,12 +62,12 @@ export default function Home({ postData }) {
       </Head>
       <Header />
       <Banner />
-      {session && (
+      {/* {session && (
         <div>
           <h1>Welcome, {session.user.name}!</h1>
           <p>Email: {session.user.email}</p>
         </div>
-      )}
+      )} */}
       {/* <button onClick={signOut}>登出</button> */}
 
       <div style={{ padding: '50px 50px' }}>

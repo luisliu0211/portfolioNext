@@ -1,199 +1,45 @@
 .container .productInfo {
   margin-bottom: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
 }
 .container .productInfo label {
   display: flex;
-  flex-grow: 1;
   flex-direction: row;
-  justify-content: space-between;
-  height: 40px;
-  margin: 10px auto;
-  padding-inline: 5px;
+  justify-content: flex-start;
+  align-items: center;
 }
 .container .productInfo label span {
-  display: block;
-  width: 40px;
-  text-align: start;
-  line-height: 40px;
-  font-size: 18px;
+  width: 100px;
+  text-align: center;
 }
-.container .productInfo label input,
-.container .productInfo label select {
-  display: block;
-  width: 80%;
-  border-radius: 5px;
-  height: 100%;
-  border: none;
-  padding-inline: 10px;
-  font-size: 18px;
-  box-shadow: 0px 0px 3px grey;
+.container .productInfo label .textInput {
+  margin-block: 10px;
+  width: 100%;
 }
 .container .productDescription label {
   display: flex;
-  flex-grow: 1;
   flex-direction: row;
-  justify-content: space-between;
-  height: 50px;
-  margin: 10px auto;
-  padding-inline: 5px;
+  justify-content: flex-start;
+  align-items: center;
 }
 .container .productDescription label span {
-  display: block;
-  width: 50px;
-  text-align: start;
-  line-height: 50px;
-  font-size: 18px;
+  width: 100px;
+  text-align: center;
 }
-.container .productDescription label input,
-.container .productDescription label select {
-  display: block;
+.container .productDescription label .textInput {
+  margin-block: 10px;
   width: 100%;
-  border-radius: 5px;
-  height: 100%;
-  border: none;
-  padding-inline: 10px;
-  font-size: 18px;
-  box-shadow: 0px 0px 3px grey;
-}
-.container .productSpec {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
 }
 .container .productSpec label {
   display: flex;
-  flex-grow: 1;
   flex-direction: row;
-  justify-content: space-between;
-  height: 30px;
-  margin: 10px auto;
-  padding-inline: 5px;
+  justify-content: flex-start;
+  align-items: center;
 }
 .container .productSpec label span {
-  display: block;
-  width: 80px;
-  text-align: start;
-  line-height: 30px;
-  font-size: 16px;
+  width: 100px;
+  text-align: center;
 }
-.container .productSpec label input,
-.container .productSpec label select {
-  display: block;
+.container .productSpec label .textInput {
+  margin-block: 10px;
   width: 100%;
-  border-radius: 5px;
-  height: 100%;
-  border: none;
-  padding-inline: 10px;
-  font-size: 16px;
-  box-shadow: 0px 0px 3px grey;
-}
-
-@media screen and (max-width: 1280px) {
-  .container .productInfo,
-  .container .productDescription,
-  .container .productSpec {
-    flex-direction: column;
-  }
-  .container .productInfo label,
-  .container .productDescription label,
-  .container .productSpec label {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 40px;
-    margin: 10px auto;
-    padding-inline: 5px;
-  }
-  .container .productInfo label span,
-  .container .productDescription label span,
-  .container .productSpec label span {
-    display: block;
-    width: 15%;
-    text-align: start;
-    line-height: 40px;
-    font-size: 18px;
-  }
-  .container .productInfo label input,
-  .container .productInfo label select,
-  .container .productDescription label input,
-  .container .productDescription label select,
-  .container .productSpec label input,
-  .container .productSpec label select {
-    display: block;
-    width: 85%;
-    border-radius: 5px;
-    height: 100%;
-    border: none;
-    padding-inline: 10px;
-    font-size: 18px;
-    box-shadow: 0px 0px 3px grey;
-  }
-  .container .productInfo label,
-  .container .productDescription label,
-  .container .productSpec label {
-    width: 100%;
-  }
-  .container .productInfo label span,
-  .container .productDescription label span,
-  .container .productSpec label span {
-    text-align: center;
-  }
-}
-@media screen and (max-width: 576px) {
-  .container .productInfo label,
-  .container .productDescription label,
-  .container .ctDescription label,
-  .container .productSpec label {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 40px;
-    margin: 10px auto;
-    padding-inline: 5px;
-  }
-  .container .productInfo label span,
-  .container .productDescription label span,
-  .container .ctDescription label span,
-  .container .productSpec label span {
-    display: block;
-    width: 18%;
-    text-align: start;
-    line-height: 40px;
-    font-size: 18px;
-  }
-  .container .productInfo label input,
-  .container .productInfo label select,
-  .container .productDescription label input,
-  .container .productDescription label select,
-  .container .ctDescription label input,
-  .container .ctDescription label select,
-  .container .productSpec label input,
-  .container .productSpec label select {
-    display: block;
-    width: 82%;
-    border-radius: 5px;
-    height: 100%;
-    border: none;
-    padding-inline: 10px;
-    font-size: 18px;
-    box-shadow: 0px 0px 3px grey;
-  }
-  .container .productInfo label,
-  .container .productDescription label,
-  .container .ctDescription label,
-  .container .productSpec label {
-    padding-inline: 10px;
-  }
-  .container .productInfo label span,
-  .container .productDescription label span,
-  .container .ctDescription label span,
-  .container .productSpec label span {
-    text-align: center;
-    font-size: 16px;
-  }
 }/*# sourceMappingURL=fabricInfo.module.css.map */

@@ -1,157 +1,161 @@
 import React, { useEffect } from 'react';
 import QCard from '../layouts/qCard';
 import styles from './fabricInfo.module.css';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import MyContext from '@/lib/context';
 export default function FabricInfo(props) {
-  const { clientDB } = props;
-  const [fabricInfo, setFabricInfo] = useState({
-    clientName: 0,
-    fabricItem: '',
-    description: '',
-    width: null,
-    gsm: null,
-    gy: null,
-    recordDate: '',
-  });
-  const [selectedItemId, setSelectedItemId] = useState(fabricInfo.clientName);
-  const handleTextChange = (e) => {
-    setFabricInfo({ ...fabricInfo, [e.target.name]: e.target.value });
-  };
-  const handleNumberChange = (e) => {
-    // 把value改成數字運算
-    let target = parseFloat(e.target.value);
-    const { width, gsm } = fabricInfo;
-    setFabricInfo({
-      ...fabricInfo,
-      [e.target.id]: target,
-    });
-    const roundedWidth = width !== null ? width : 0;
-    const roundedGsm = gsm !== null ? gsm : 0;
-    switch (e.target.id) {
-      case 'width':
-        if (gsm !== null && width !== null) {
-          let newGy = (((target + 2) * roundedGsm) / 43).toFixed(2);
-          setFabricInfo({
-            ...fabricInfo,
-            gy: parseFloat(newGy),
-            width: target,
-          });
-        }
-        break;
-      case 'gsm':
-        if (gsm !== null && width !== null) {
-          let newGy = (((roundedWidth + 2) * target) / 43).toFixed(2);
-          setFabricInfo({
-            ...fabricInfo,
-            gy: parseFloat(newGy),
-            gsm: target,
-          });
-        }
-        break;
-    }
-  };
-  const foundClient = clientDB.find(
-    (client) => client.id === fabricInfo.clientName
+  const { componentID, clientDB } = props;
+  const { quote, updateTextField, updateNumberField, updateAutoValue } =
+    useContext(MyContext);
+  const [selectedItemId, setSelectedItemId] = useState(
+    quote.fabricInfo.clientId != 0
+      ? quote.fabricInfo.clientId
+      : '請選擇客戶代號'
   );
-  useEffect(() => {
-    console.log(fabricInfo);
-  }, [fabricInfo]);
-
+  const [brand, setBrand] = useState(quote.fabricInfo.brand);
   return (
     <QCard>
       <div className={styles.container}>
         <div className={styles.productInfo}>
-          <label htmlFor="">
+          <label htmlFor="clientId">
             <span>客戶</span>
             {/* TODO: 自動輸入 */}
-            {/* <Autocomplete
-              autoselectvalue={selectedItemId}
-              onChange={(event, newValue) => {
-                // 在这里设置选定项的 id
-                if (newValue) {
-                  setSelectedItemId(newValue.id);
-                  console.log('Selected ID:', newValue.id);
-                } else {
-                  setSelectedItemId(null);
-                }
+            <Autocomplete
+              variant="standard"
+              // autoselectvalue={selectedItemId}
+              // value={quote.fabricInfo.clientId}
+              id="clientId"
+              name="clientId"
+              onChange={(_, newValue) => {
+                let type = newValue.DBtype;
+                let id = newValue.id;
+                let brandName = newValue.name;
+                console.log(type);
+                updateAutoValue(componentID, type, id);
+                setBrand(brandName);
+                updateAutoValue(componentID, 'brand', brandName);
               }}
               disablePortal
-              id="combo-box-demo"
               options={clientDB}
-              sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} />}
-            /> */}
-            <select id="clientName" onChange={handleNumberChange}>
-              <option value={0}>選擇客戶</option>
-              {clientDB.map((option, index) => (
-                <option key={index} value={option.id}>
-                  {option.team}
-                </option>
-              ))}
-            </select>
+              className={styles.textInput}
+              renderInput={(params) => (
+                <TextField variant="standard" {...params} />
+              )}
+            />
           </label>
-          <label htmlFor="">
+          <label htmlFor="fabricItem">
             <span>布號</span>
-            <input type="text" name="fabricItem" onChange={handleTextChange} />
-          </label>
-          <label htmlFor="">
-            <span>品牌</span>
-            <input
-              defaultValue={foundClient ? foundClient.name : ''}
+            <TextField
+              variant="standard"
               type="text"
+              id="fabricItem"
+              name="fabricItem"
+              value={quote.fabricInfo.fabricItem}
+              onChange={(e) => {
+                updateTextField(e, componentID);
+              }}
+              className={styles.textInput}
+            />
+          </label>
+          <label htmlFor="brand">
+            <span>品牌</span>
+            <TextField
+              variant="standard"
+              type="text"
+              id="brand"
+              name="brand"
+              value={brand}
+              onChange={(e) => {
+                setBrand(e.target.value);
+                updateTextField(e, componentID);
+              }}
+              className={styles.textInput}
             />
           </label>
         </div>
         <hr />
         <div className={styles.productDescription}>
-          <label htmlFor="">
+          <label htmlFor="description">
             <span>品名</span>
-            <input name="description" type="text" onChange={handleTextChange} />
+            <TextField
+              variant="standard"
+              type="text"
+              id="description"
+              name="description"
+              value={quote.fabricInfo.description}
+              onChange={(e) => {
+                updateTextField(e, componentID);
+              }}
+              className={styles.textInput}
+            />
           </label>
         </div>
         <div className={styles.productSpec}>
-          <label htmlFor="">
+          <label htmlFor="width">
             <span>幅寬</span>
-            <input
-              // value={fabricInfo.width}
-              min={0}
-              step={0.1}
+            <TextField
+              variant="standard"
+              type="number"
               id="width"
               name="width"
-              type="number"
-              onChange={handleNumberChange}
+              value={quote.fabricInfo.width}
+              onChange={(e) => {
+                updateNumberField(e, componentID);
+              }}
+              className={styles.textInput}
+              inputProps={{ step: 0.5, min: 0 }}
             />
           </label>
-          <label htmlFor="">
+          <label htmlFor="gsm">
             <span>克重</span>
-            <input
-              // value={fabricInfo.gsm}
-              min={0}
-              step={0.1}
+            <TextField
+              variant="standard"
+              type="number"
               id="gsm"
               name="gsm"
-              type="number"
-              onChange={handleNumberChange}
+              value={quote.fabricInfo.gsm}
+              onChange={(e) => {
+                updateNumberField(e, componentID);
+              }}
+              className={styles.textInput}
+              min={0}
+              inputProps={{ step: 0.5, min: 0 }}
             />
           </label>
-          <label htmlFor="">
+          <label htmlFor="gy">
             <span>碼重</span>
-            <input
-              // min={0}
-              value={fabricInfo.gy}
-              // step={0.1}
+            <TextField
+              variant="standard"
+              disabled
               id="gy"
               name="gy"
               type="number"
-              disabled
-              // onChange={handleNumberChange}
+              value={quote.fabricInfo.gy}
+              onChange={(e) => {
+                updateNumberField(e, componentID);
+              }}
+              className={styles.textInput}
+              min={0}
+              inputProps={{ step: 0.5, min: 0 }}
             />
           </label>
-          <label htmlFor="">
+          <label htmlFor="quoteDate">
             <span>報價日</span>
-            <input onChange={handleTextChange} name="recordDate" type="date" />
+            <TextField
+              variant="standard"
+              id="quoteDate"
+              name="quoteDate"
+              type="date"
+              // value={quote.createDate}
+              onChange={(e) => {
+                updateTextField(e, componentID);
+              }}
+              className={styles.textInput}
+              min={0}
+              inputProps={{ step: 0.5, min: 0 }}
+            />
           </label>
         </div>
       </div>

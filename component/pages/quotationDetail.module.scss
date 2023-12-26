@@ -8,26 +8,31 @@
     display: flex;
     flex-grow: 1;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     height: $height;
     margin: 10px auto;
     padding-inline: 5px;
     span {
       display: block;
-      width: $spanWidth;
-      text-align: start;
-      line-height: $height;
-      font-size: $fontSize;
+      width: 100px;
+      // width: $spanWidth;
+      // text-align: start;
+      // line-height: $height;
+      // font-size: $fontSize;
+    }
+    .textInput {
+      width: 100%;
     }
     input {
-      display: block;
-      width: $inputWidth;
-      border-radius: 5px;
-      height: 100%;
-      border: none;
-      padding-inline: 10px;
-      font-size: $fontSize;
-      box-shadow: 0px 0px 3px grey;
+      // display: block;
+      // width: $inputWidth;
+      // border-radius: 5px;
+      // height: 100%;
+      // border: none;
+      // padding-inline: 10px;
+      // font-size: $fontSize;
+      // box-shadow: 0px 0px 3px grey;
     }
   }
 }

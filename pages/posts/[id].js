@@ -9,7 +9,6 @@ import breadcrumbs from '@/component/props/breadcrumbs';
 import { useState, useEffect } from 'react';
 import { Inter } from 'next/font/google';
 const apiUrl = process.env.REACT_APP_API_URL;
-const inter = Inter({ subsets: ['latin'] });
 
 //頁面路徑依賴外部資料
 export async function getStaticPaths() {

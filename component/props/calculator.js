@@ -1,27 +1,22 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import styles from './calculator.module.css';
+import { Button } from '@mui/material';
 export default function Calculator() {
   // const [count, dispatch] = useReducer(countReducer, 0);
   const [showValue, setShowValue] = useState('');
   const [calValue, setCalValue] = useState('');
   const [cal, setCal] = useState('');
   const [final, setFinal] = useState(null);
-  // function countReducer(count, action) {
-  //   switch (action.type) {
-  //     case 'add':
-  //       console.log(showValue);
-  //       return count + 1;
-  //     case 'sub':
-  //       return count - 1;
-  //     case 'mul':
-  //       return count * 2;
-  //     // case 'numberChange':
-  //     //   return action.payload;
-  //     default:
-  //       return count;
-  //   }
-  // }
-
+  const [v, setV] = useState(5);
+  const buttonAdd = () => {
+    console.log('+1');
+    setV((prev) => prev + 1);
+  };
+  const buttonSub = () => {
+    console.log('-1');
+    let vvv = v * 2;
+    setV(vvv);
+  };
   const handleNumberChange = (e) => {
     let newValue = e.target.getAttribute('data-value');
     if (
@@ -46,13 +41,16 @@ export default function Calculator() {
     }
     // dispatch({ type: 'numberChange', payload: newValue });
   };
+
   useEffect(() => {
     console.log('count now', calValue);
     console.log('showValue now', showValue);
+
     let final = eval(calValue);
     setFinal(final);
     console.log(final, 'fff');
-  }, [showValue, calValue]);
+    console.log(v);
+  }, [showValue, calValue, v]);
   return (
     <div className={styles.container}>
       <input type="text" className={styles.output} disabled value={calValue} />
@@ -143,6 +141,15 @@ export default function Calculator() {
           </tr>
         </tbody>
       </table>
+      <div>
+        <Button onClick={buttonAdd} variant="contained">
+          +1
+        </Button>
+        <Button onClick={buttonSub} variant="contained">
+          -1
+        </Button>
+        <Button variant="contained">test</Button>
+      </div>
     </div>
   );
 }

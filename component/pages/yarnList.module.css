@@ -1,6 +1,8 @@
+@charset "UTF-8";
 .controlButton {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 5px;
 }
 .controlButton .title {
@@ -28,88 +30,69 @@
   color: white;
 }
 
+.yarnListRWD {
+  display: none;
+}
+
 .table {
-  border-spacing: 5px;
   padding-top: 10px;
+  border-collapse: collapse;
 }
 .table thead th {
   text-align: center;
 }
 .table thead th[name=yarnNo] {
-  width: 3%;
+  width: 5%;
 }
 .table thead th[name=yarnSpec] {
   width: 30%;
 }
 .table thead th[name=yarnPort] {
-  width: 8%;
+  width: 10%;
 }
 .table thead th[name=yarnSource] {
-  width: 20%;
+  width: 25%;
 }
 .table thead th[name=yarnPrice] {
-  width: 20%;
+  width: 12%;
 }
 .table thead th[name=controls] {
-  width: 9%;
-  min-width: 110px;
+  width: 8%;
+}
+.table thead th[name=singleYarnCost] {
+  width: 10%;
+}
+.table tbody .trStyle {
+  cursor: pointer;
+  transition: 0.1s linear;
 }
 .table tbody .trStyle td {
+  height: 50px;
   text-align: center;
-}
-.table tbody .trStyle td input {
   border: none;
-  height: 35px;
-  border-radius: 5px;
-  padding-left: 10px;
-  font-size: 16px;
-  width: 100%;
-  text-align: center;
-  box-shadow: 0px 0px 3px grey;
-}
-.table tbody .trStyle td select {
-  border-radius: 5px;
-  border: none;
-  height: 35px;
-  width: 100%;
-  text-align: center;
-  font-size: 14px;
-  box-shadow: 0px 0px 3px grey;
 }
 .table tbody .trStyle td[name=yarnPrice] {
   display: flex;
   justify-content: space-between;
   text-align: center;
+  align-items: center;
 }
-.table tbody .trStyle td[name=yarnPrice] input {
-  width: 55%;
+.table tbody .trStyle td[name=yarnPrice] .price {
+  width: 50%;
+  text-align: center;
 }
-.table tbody .trStyle td[name=yarnPrice] select {
-  width: 43%;
+.table tbody .trStyle td[name=yarnPrice] .unit {
+  font-size: 14px;
 }
-.table tbody .trStyle td[name=yarnPrice] div {
-  width: 100%;
-  font-size: 16px;
+.table tbody .trStyle td[name=yarnPrice] .price,
+.table tbody .trStyle td[name=yarnPrice] .unit {
+  display: block;
 }
-.table tbody .trStyle td[name=controls] {
-  min-width: 110px;
-  width: 9%;
-}
-.table tbody .trStyle td[name=controls] button {
-  min-width: 30px;
-  height: 100%;
-  font-size: 16px;
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0px 0px 5px black;
-  transition: 0.2s linear;
-  margin: 2px;
-  padding: 2px;
-  cursor: pointer;
-}
-.table tbody .trStyle td[name=controls] button:hover {
-  background-color: grey;
-  color: white;
+.table tbody .trStyle td .textInput {
+  width: 95%;
+  background-color: white;
+  border: 0;
+  outline: 0;
 }
 .table tfoot tr {
   height: 40px;
@@ -139,15 +122,8 @@
   line-height: 30px;
   font-size: 16px;
 }
-.machineInfo label input {
-  display: block;
-  width: 80%;
-  border-radius: 5px;
-  height: 100%;
-  border: none;
-  padding-inline: 10px;
-  font-size: 16px;
-  box-shadow: 0px 0px 3px grey;
+.machineInfo label .textInput {
+  width: 100%;
 }
 .machineInfo select {
   border: none;
@@ -178,15 +154,8 @@
   line-height: 30px;
   font-size: 16px;
 }
-.yarnCost label input {
-  display: block;
-  width: 80%;
-  border-radius: 5px;
-  height: 100%;
-  border: none;
-  padding-inline: 10px;
-  font-size: 16px;
-  box-shadow: 0px 0px 3px grey;
+.yarnCost label .textInput {
+  width: 100%;
 }
 .yarnCost select {
   border: none;
@@ -217,15 +186,8 @@
   line-height: 40px;
   font-size: 16px;
 }
-.additonal label input {
-  display: block;
+.additonal label .textInput {
   width: 100%;
-  border-radius: 5px;
-  height: 100%;
-  border: none;
-  padding-inline: 10px;
-  font-size: 16px;
-  box-shadow: 0px 0px 3px grey;
 }
 .additonal label {
   width: 100%;
@@ -244,6 +206,9 @@
 }
 
 @media screen and (max-width: 1280px) {
+  .table thead tr > th {
+    font-size: 14px;
+  }
   .machineInfo,
   .yarnCost,
   .additonal {
@@ -269,17 +234,10 @@
     line-height: 40px;
     font-size: 18px;
   }
-  .machineInfo label input,
-  .yarnCost label input,
-  .additonal label input {
-    display: block;
-    width: 80%;
-    border-radius: 5px;
-    height: 100%;
-    border: none;
-    padding-inline: 10px;
-    font-size: 18px;
-    box-shadow: 0px 0px 3px grey;
+  .machineInfo label .textInput,
+  .yarnCost label .textInput,
+  .additonal label .textInput {
+    width: 100%;
   }
   .machineInfo label,
   .yarnCost label,
@@ -298,7 +256,47 @@
     width: 80%;
   }
 }
+@media screen and (max-width: 768px) {
+  .table tbody .trStyle td[name=yarnPrice] {
+    justify-content: space-between;
+  }
+}
 @media screen and (max-width: 576px) {
+  .table {
+    display: none;
+  }
+  .yarnListRWD {
+    display: table;
+    border-spacing: 1px;
+    padding-top: 5px;
+    height: auto;
+    text-align: center;
+    border-collapse: collapse;
+  }
+  .yarnListRWD thead {
+    background-color: darkgray;
+  }
+  .yarnListRWD thead tr > td {
+    font-size: 700;
+  }
+  .yarnListRWD .trStyle {
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  .yarnListRWD .trStyle td {
+    border: none; /* 取消單元格邊框 */
+  }
+  .yarnListRWD .trStyle tr > td {
+    font-size: 14px;
+  }
+  .yarnListRWD .trStyle .divider {
+    background-color: darkgray;
+    height: 1px;
+  }
+  .yarnListRWD .trStyle:hover {
+    background-color: grey;
+  }
   .machineInfo,
   .yarnCost,
   .additonal {
@@ -324,17 +322,10 @@
     line-height: 40px;
     font-size: 18px;
   }
-  .machineInfo label input,
-  .yarnCost label input,
-  .additonal label input {
-    display: block;
-    width: 78%;
-    border-radius: 5px;
-    height: 100%;
-    border: none;
-    padding-inline: 10px;
-    font-size: 18px;
-    box-shadow: 0px 0px 3px grey;
+  .machineInfo label .textInput,
+  .yarnCost label .textInput,
+  .additonal label .textInput {
+    width: 100%;
   }
   .machineInfo label,
   .yarnCost label,
@@ -374,17 +365,10 @@
     line-height: 40px;
     font-size: 18px;
   }
-  .machineInfo label input,
-  .yarnCost label input,
-  .additonal label input {
-    display: block;
-    width: 70%;
-    border-radius: 5px;
-    height: 100%;
-    border: none;
-    padding-inline: 10px;
-    font-size: 18px;
-    box-shadow: 0px 0px 3px grey;
+  .machineInfo label .textInput,
+  .yarnCost label .textInput,
+  .additonal label .textInput {
+    width: 100%;
   }
   .machineInfo label span,
   .yarnCost label span,
