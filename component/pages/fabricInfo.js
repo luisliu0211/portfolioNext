@@ -9,11 +9,7 @@ export default function FabricInfo(props) {
   const { componentID, clientDB } = props;
   const { quote, updateTextField, updateNumberField, updateAutoValue } =
     useContext(MyContext);
-  const [selectedItemId, setSelectedItemId] = useState(
-    quote.fabricInfo.clientId != 0
-      ? quote.fabricInfo.clientId
-      : '請選擇客戶代號'
-  );
+  const [selectedItemId, setSelectedItemId] = useState(null);
   const [brand, setBrand] = useState(quote.fabricInfo.brand);
   return (
     <QCard>
@@ -24,14 +20,14 @@ export default function FabricInfo(props) {
             {/* TODO: 自動輸入 */}
             <Autocomplete
               variant="standard"
-              value={getSthById(selectedItemId, clientDB).label}
+              value={getSthById(selectedItemId, clientDB).name}
               id="clientId"
               name="clientId"
               onChange={(_, newValue) => {
+                console.log(newValue);
                 let type = newValue.DBtype;
                 let id = newValue.id;
                 let brandName = newValue.name;
-                console.log(type);
                 updateAutoValue(componentID, type, id);
                 setBrand(brandName);
                 setSelectedItemId(id);
@@ -40,6 +36,7 @@ export default function FabricInfo(props) {
               disablePortal
               options={clientDB}
               className={styles.textInput}
+              getOptionLabel={(option) => option.label}
               renderInput={(params) => (
                 <TextField variant="standard" {...params} />
               )}

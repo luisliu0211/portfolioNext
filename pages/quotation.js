@@ -24,6 +24,8 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MyContext from '@/lib/context';
+
+const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 let yarnDB = [
   {
     id: 1,
@@ -351,6 +353,28 @@ export default function Quotation() {
   };
   const handleSave = (e) => {
     console.log(quote, 'final quote');
+    handleSavetoDB();
+  };
+  const handleSavetoDB = async () => {
+    console.log('儲存');
+    alert('測試中');
+    // try {
+    //   const response = await fetch(`${apiUrl}/api/quotation`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ quote }),
+    //     credentials: 'include',
+    //   });
+    //   if (!response.ok) {
+    //     throw new Error('Network response was not ok');
+    //   }
+    //   // const result = await response.json();
+    //   router.reload();
+    // } catch (error) {
+    //   console.error('Error saving data to the database:', error);
+    // }
   };
   const handleIssue = (e) => {
     console.log(quote, 'issue quote');
