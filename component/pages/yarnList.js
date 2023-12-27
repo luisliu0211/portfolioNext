@@ -17,25 +17,9 @@ import MenuItem from '@mui/material/MenuItem';
 import MyContext from '@/lib/context';
 import Select from '@mui/material/Select';
 import Tooltip from '@mui/material/Tooltip';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import { faV } from '@fortawesome/free-solid-svg-icons';
-let machineList = [
-  { id: 1, title: '經編' },
-  { id: 2, title: '橫編YOKO' },
-  { id: 3, title: '毛巾' },
-  { id: 4, title: '台車' },
-  { id: 5, title: '單面' },
-  { id: 6, title: '單面大剖' },
-  { id: 7, title: '雙面' },
-  { id: 8, title: '螺紋' },
-];
-let priceUnit = [
-  { id: 1, title: 'USD/KG', NTDrate: 28 },
-  { id: 2, title: 'TWD/KG', NTDrate: 1 },
-];
+
 export default function YarnList(props) {
-  const { componentID, yarnDB } = props;
+  const { componentID, yarnDB, machineList, priceUnit } = props;
   const {
     dispatch,
     quote,
@@ -54,6 +38,7 @@ export default function YarnList(props) {
   const [editingIndex, setEditingIndex] = useState(null);
   const [totalPort, setTotalPort] = useState(0);
   const [ifEdit, setIfEdit] = useState(false);
+  const [machineType, setMachineType] = useState(quote.yarnCost.machineType);
   const [totalYarnCost, setTotalYarnCost] = useState(null);
   const isFirstRender = useRef(true);
   const [portionText, setPortionText] = useState([]);
@@ -96,7 +81,6 @@ export default function YarnList(props) {
     setEditingIndex(null);
   };
   const handleDeleteYarn = (index) => {
-    console.log(ifEdit);
     if (ifEdit) {
       alert('編輯中請勿刪');
       console.log('編輯中請勿刪TODO');
@@ -105,7 +89,7 @@ export default function YarnList(props) {
       deleteListInfo(index);
     }
   };
-  const updateTotalAndLatestData = () => {
+  const updateData = () => {
     // 計算總比例
     setTotalPort(
       quote.yarnCost.yarnInfo.reduce(
@@ -154,6 +138,7 @@ export default function YarnList(props) {
       totalYarnCost / (1 - totalWastage / 100) +
       fabricProcessFee
     ).toFixed(2);
+
     setFabricCost(parseFloat(fValue));
   };
   useEffect(() => {
@@ -175,11 +160,10 @@ export default function YarnList(props) {
         },
       });
     }
-  }, [totalYarnCost, totalWastage, fabricProcessFee]);
+  }, [totalYarnCost, totalWastage, fabricProcessFee, fabricCost]);
   useEffect(() => {
-    updateTotalAndLatestData();
-  }, [quote, totalYarnCost, totalWastage, fabricProcessFee]);
-
+    updateData();
+  }, [quote]);
   return (
     <>
       <QCard>
@@ -236,6 +220,7 @@ export default function YarnList(props) {
                           setIfEdit((pre) => !pre);
                         }}
                         yarnDB={yarnDB}
+                        priceUnit={priceUnit}
                         totalYarnCost={totalYarnCost}
                       />
                     ) : (
@@ -385,18 +370,22 @@ export default function YarnList(props) {
       </QCard>
       <QCard>
         <div className={styles.machineInfo}>
-          <label htmlFor="machineType">
+          <label>
             <span>機台種類</span>
             <Select
               id="machineType"
               name="machineType"
-              value={getSthById(quote.yarnCost.machineType, machineList).title}
+              value={machineType}
               onChange={(e) => {
                 updateNumberField(e, componentID);
+                setMachineType(e.target.value);
               }}
               className={styles.textInput}
               variant="standard"
             >
+              <MenuItem key={0} value={0}>
+                請選擇機台
+              </MenuItem>
               {machineList.map((option) => {
                 return (
                   <MenuItem key={option.id} value={option.id}>
@@ -484,8 +473,8 @@ export default function YarnList(props) {
               id="fabricCost"
               name="fabricCost"
               placeholder="TWD/KG"
-              value={quote.yarnCost.fabricCost}
-              onChange={(e) => updateNumberField(e, componentID)}
+              value={fabricCost}
+              // onChange={(e) => updateNumberField(e, componentID)}
               className={styles.textInput}
               inputProps={{ step: 1, min: 0 }}
             />
@@ -519,7 +508,7 @@ const EditYarnInfo = ({
   yarnDB,
   index,
   yarnDetail,
-  totalYarnCost,
+  priceUnit,
 }) => {
   const [yarnInput, setYarnInput] = useState({
     yarnPort: yarnDetail.yarnPort,
@@ -561,7 +550,7 @@ const EditYarnInfo = ({
             name="yarnSpec"
             value={getSthById(yarnInput.yarnSpec, yarnDB)}
             onChange={(_, newValue) => {
-              console.log(newValue);
+              // console.log(newValue);
               if (newValue) {
                 setYarnInput({
                   ...yarnInput,
@@ -605,9 +594,7 @@ const EditYarnInfo = ({
           onChange={(e) => handleYarnInputChange(e)}
           id="standard-basic"
           size="small"
-          min={1}
-          max={100}
-          step={0.1}
+          inputProps={{ step: 1, min: 0, max: 100 }}
           className={styles.textInput}
         />
       </td>
@@ -631,11 +618,8 @@ const EditYarnInfo = ({
           onChange={(e) => handleYarnInputChange(e)}
           id="standard-basic"
           size="small"
-          min={1}
-          max={100}
-          step={1}
+          inputProps={{ step: 1, min: 0 }}
         />
-        {/* {getSthById(yarnInput.yarnUnit, yarnDB)} */}
         <Select
           disabled
           name="yarnUnit"

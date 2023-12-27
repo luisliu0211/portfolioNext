@@ -24,8 +24,7 @@ export default function FabricInfo(props) {
             {/* TODO: 自動輸入 */}
             <Autocomplete
               variant="standard"
-              // autoselectvalue={selectedItemId}
-              // value={quote.fabricInfo.clientId}
+              value={getSthById(selectedItemId, clientDB).label}
               id="clientId"
               name="clientId"
               onChange={(_, newValue) => {
@@ -35,6 +34,7 @@ export default function FabricInfo(props) {
                 console.log(type);
                 updateAutoValue(componentID, type, id);
                 setBrand(brandName);
+                setSelectedItemId(id);
                 updateAutoValue(componentID, 'brand', brandName);
               }}
               disablePortal
@@ -162,3 +162,7 @@ export default function FabricInfo(props) {
     </QCard>
   );
 }
+const getSthById = (ide, DB) => {
+  const sthValue = DB.find((item) => item.id === ide);
+  return sthValue ? sthValue : '未建檔 or 未選擇';
+};

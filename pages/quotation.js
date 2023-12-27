@@ -30,9 +30,9 @@ let yarnDB = [
     title: 'T75D/72F DTY SD',
     text: '...text',
     label: 'T75D/72F DTY SD',
-    price: 80,
+    price: 50,
     source: '遠東',
-    unit: 1,
+    unit: 2,
     type: 'Polyester',
     por: 30,
   },
@@ -54,7 +54,7 @@ let yarnDB = [
     label: 'OP20D',
     price: 205,
     source: '台化',
-    unit: 1,
+    unit: 2,
     type: 'OP',
     por: 20,
   },
@@ -98,6 +98,63 @@ let clientDB = [
     DBtype: 'clientId',
   },
 ];
+let processDB = [
+  { id: 1, title: '下水', DBtype: 'process' },
+  { id: 2, title: '縮練', DBtype: 'process' },
+  { id: 3, title: '胚定', DBtype: 'process' },
+  { id: 4, title: '染色', DBtype: 'process' },
+  { id: 5, title: '上油', DBtype: 'process' },
+  { id: 6, title: '單刷', DBtype: 'process' },
+  { id: 7, title: '雙刷', DBtype: 'process' },
+  { id: 8, title: '梳剪', DBtype: 'process' },
+  { id: 9, title: '拋光', DBtype: 'process' },
+  { id: 10, title: '雙搖', DBtype: 'process' },
+  { id: 11, title: '背刷剪', DBtype: 'process' },
+  { id: 12, title: '雙搖', DBtype: 'process' },
+  { id: 13, title: '磨毛', DBtype: 'process' },
+  { id: 14, title: '定型', DBtype: 'process' },
+  { id: 15, title: '上漿', DBtype: 'process' },
+  { id: 16, title: '切邊', DBtype: 'process' },
+];
+let specialProcessDB = [
+  { id: 1, title: '熱燙', DBtype: 'specialProcess' },
+  { id: 2, title: '吸濕', DBtype: 'specialProcess' },
+  { id: 3, title: '排汗', DBtype: 'specialProcess' },
+  { id: 4, title: '抗菌', DBtype: 'specialProcess' },
+  { id: 5, title: '抗臭', DBtype: 'specialProcess' },
+  { id: 6, title: '防霉', DBtype: 'specialProcess' },
+  { id: 7, title: '抗靜電', DBtype: 'specialProcess' },
+  { id: 8, title: '抗UV', DBtype: 'specialProcess' },
+  { id: 9, title: '防勾紗', DBtype: 'specialProcess' },
+  { id: 10, title: '潑水', DBtype: 'specialProcess' },
+  { id: 11, title: '超潑水', DBtype: 'specialProcess' },
+  { id: 12, title: '貼合', DBtype: 'specialProcess' },
+  { id: 13, title: '印花', DBtype: 'specialProcess' },
+  { id: 14, title: '上膠', DBtype: 'specialProcess' },
+];
+let machineList = [
+  { id: 1, title: '經編' },
+  { id: 2, title: '橫編YOKO' },
+  { id: 3, title: '毛巾' },
+  { id: 4, title: '台車' },
+  { id: 5, title: '單面' },
+  { id: 6, title: '單面大剖' },
+  { id: 7, title: '雙面' },
+  { id: 8, title: '螺紋' },
+];
+let priceUnit = [
+  { id: 1, title: 'USD/KG', NTDrate: 28 },
+  { id: 2, title: 'TWD/KG', NTDrate: 1 },
+];
+let bussinessTermDB = [
+  { id: 1, title: 'FOB HCMC' },
+  { id: 2, title: 'FOR HCMC' },
+  { id: 3, title: 'CIF HCMC' },
+  { id: 4, title: 'FOB TW' },
+  { id: 5, title: 'CIF TW' },
+  { id: 6, title: 'DDU HCMC' },
+  { id: 7, title: 'DDP HCMC' },
+];
 // item
 const initState = {
   id: 1,
@@ -116,43 +173,48 @@ const initState = {
     brand: '',
   },
   yarnCost: {
-    machineType: null,
+    machineType: 0,
     machineSpec: '',
     other: '',
     densityWarp: '',
     densityWeft: '',
-    fabricProcessFee: null,
-    fabricCost: null,
-    totalWastage: null,
+    fabricProcessFee: 0,
+    fabricCost: 0,
+    totalWastage: 0,
     yarnInfo: [],
     totalYarnCost: null,
   },
   dyeCost: {
-    dyeLightCost: null,
-    dyeAverageCost: null,
-    dyeDarkCost: null,
+    dyeLightCost: 0,
+    dyeAverageCost: 0,
+    dyeDarkCost: 0,
     process: [],
     specialProcess: [],
     totalCost: null,
     RDReference: '',
+    totalCost: 0,
+    totalCostD: 0,
+    totalCostL: 0,
   },
   salesCost: {
     excuteCost: null,
     shippingCost: null,
     testingCost: null,
-    profit: null,
-    exchangeRate: null,
-    tradeTerm: 'FOB HCMC',
+    profit: 0,
+    exchangeRate: 28,
+    tradeTerm: 0,
     quoteDueDate: '2024-01-01',
     quoteUSDY: null,
     quoteUSDM: null,
     quoteTWDY: null,
     quoteTWDM: null,
     costTWDKG: null,
+    costUSDKG: null,
+    costUSDY: null,
   },
 };
 const quoteReducer = (quote = initState, action) => {
-  console.log(quote, action);
+  // console.log(quote, action);
   const { field, value, name, newYarn, index, saveInfo, data, selectedIds } =
     action.payload;
   // console.log(action.type);
@@ -201,8 +263,8 @@ const quoteReducer = (quote = initState, action) => {
     case 'updateAutoCountData':
       return { ...quote, [field]: { ...quote[field], ...data } };
     case 'updateIDinArray':
-      console.log('fe');
-      return quote;
+      return { ...quote, [field]: { ...quote[field], [name]: selectedIds } };
+    // return quote;
     default:
       return quote;
   }
@@ -234,7 +296,6 @@ export default function Quotation() {
         if (gsm !== null && width !== null) {
           let newGy = (((value + 2) * roundedGsm) / 43).toFixed(2);
           let name = 'gy';
-          console.log(newGy, name, 'newGy');
           dispatch({
             type: 'fieldNumberChange',
             payload: { field, name: name, value: parseFloat(newGy) }, // Corrected to use newName and parseFloat
@@ -244,7 +305,6 @@ export default function Quotation() {
       case 'gsm':
         if (gsm !== null && width !== null) {
           let newGy = (((roundedWidth + 2) * value) / 43).toFixed(2);
-          console.log(newGy, 'newGy');
           let name = 'gy';
           dispatch({
             type: 'fieldNumberChange',
@@ -290,7 +350,11 @@ export default function Quotation() {
     console.log('clear');
   };
   const handleSave = (e) => {
-    console.log('save');
+    console.log(quote, 'final quote');
+  };
+  const handleIssue = (e) => {
+    console.log(quote, 'issue quote');
+    console.log('發布');
   };
   const toggleDrawer = (e) => {
     if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
@@ -301,7 +365,7 @@ export default function Quotation() {
   };
   useEffect(() => {
     console.log('quote', quote);
-  });
+  }, []);
   return (
     <Layout>
       <Content />
@@ -318,15 +382,30 @@ export default function Quotation() {
         <FlexBox>
           <Column>
             <FabricInfo componentID="fabricInfo" clientDB={clientDB} />
-            <YarnList componentID="yarnCost" yarnDB={yarnDB} />
-            <DyeMethod componentID="dyeCost" />
-            <QuotationDetail componentID="salesCost" />
+            <YarnList
+              componentID="yarnCost"
+              yarnDB={yarnDB}
+              machineList={machineList}
+              priceUnit={priceUnit}
+            />
+            <DyeMethod
+              componentID="dyeCost"
+              processDB={processDB}
+              specialProcessDB={specialProcessDB}
+            />
+            <QuotationDetail
+              componentID="salesCost"
+              bussinessTermDB={bussinessTermDB}
+            />
             <ButtonGroup size="large">
               <Button variant="contained" onClick={handleClear}>
                 Clear 清空
               </Button>
               <Button variant="contained" onClick={handleSave}>
-                Save 儲存
+                Save 儲存草稿
+              </Button>
+              <Button variant="contained" onClick={handleIssue}>
+                Issue 發布
               </Button>
               <Button variant="contained" onClick={toggleDrawer}>
                 其他功能

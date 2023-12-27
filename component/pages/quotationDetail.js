@@ -1,27 +1,58 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import QCard from '../layouts/qCard';
 import styles from './quotationDetail.module.css';
-import FlexBox from '../layouts/flexBox';
-import Column from '../layouts/column';
 import MyContext from '@/lib/context';
 import TextField from '@mui/material/TextField';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 export default function QuotationDetail(props) {
-  const { componentID } = props;
-  const { quote, updateTextField, updateNumberField } = useContext(MyContext);
-  const [salesCost, setSalesCost] = useState({
-    excuteCost: null,
-    shippingCost: null,
-    testingCost: null,
-    profit: null,
-    exchangeRate: null,
-    tradeTerm: 'FOB HCMC',
-    quoteDueDate: '2024-01-01',
-    quoteUSDY: null,
-    quoteUSDM: null,
-    quoteTWDY: null,
-    quoteTWDM: null,
-    costTWDKG: null,
-  });
+  const { componentID, bussinessTermDB } = props;
+  const { quote, dispatch, updateTextField, updateNumberField } =
+    useContext(MyContext);
+  const [salesCost, setSalesCost] = useState(quote.salesCost);
+  const [costTWDKG, setCostTWDKG] = useState(quote.dyeCost.totalCost);
+  const [tradeTerm, setTradeTerm] = useState(quote.salesCost.tradeTerm);
+  const [costUSDKG, setCostUSDKG] = useState(null);
+  const [costUSDY, setCostUSDY] = useState(null);
+  const [quoteUSDY, setQuoteUSDY] = useState(salesCost.quoteUSDY);
+  const [quoteUSDM, setQuoteUSDM] = useState(salesCost.quoteUSDM);
+  const [quoteTWDY, setQuoteTWDY] = useState(salesCost.quoteTWDY);
+  const [quoteTWDM, setQuoteTWDM] = useState(salesCost.quoteTWDM);
+  const updateData = () => {
+    let { excuteCost, shippingCost, testingCost, exchangeRate, profit } =
+      salesCost;
+    setCostTWDKG(
+      quote.dyeCost.totalCost + excuteCost + shippingCost + testingCost
+    );
+    setCostUSDKG((costTWDKG / exchangeRate).toFixed(2));
+    setCostUSDY(((costUSDKG * quote.fabricInfo.gy) / 1000).toFixed(2));
+    setQuoteUSDY((costUSDY * (1 + profit / 100)).toFixed(2));
+    setQuoteUSDM(((costUSDY * (1 + profit / 100)) / 0.9144).toFixed(2));
+    setQuoteTWDY((costUSDY * (1 + profit / 100) * exchangeRate).toFixed(2));
+    setQuoteTWDM(
+      ((costUSDY * (1 + profit / 100) * exchangeRate) / 0.9144).toFixed(2)
+    );
+  };
+  useEffect(() => {
+    dispatch({
+      type: 'updateAutoCountData',
+      payload: {
+        field: componentID,
+        data: {
+          costTWDKG: parseFloat(costTWDKG),
+          costUSDKG: parseFloat(costUSDKG),
+          costUSDY: parseFloat(costUSDY),
+          quoteUSDY: parseFloat(quoteUSDY),
+          quoteUSDM: parseFloat(quoteUSDM),
+          quoteTWDM: parseFloat(quoteTWDM),
+          quoteTWDY: parseFloat(quoteTWDY),
+        },
+      },
+    });
+  }, [salesCost, costUSDKG, costTWDKG, costUSDY, quoteUSDY]);
+  useEffect(() => {
+    updateData();
+  }, [quote]);
   return (
     <QCard>
       <div className={styles.container}>
@@ -36,8 +67,14 @@ export default function QuotationDetail(props) {
                   type="number"
                   id="excuteCost"
                   name="excuteCost"
-                  value={quote.dyeCost.excuteCost}
-                  onChange={(e) => updateNumberField(e, componentID)}
+                  value={salesCost.excuteCost}
+                  onChange={(e) => {
+                    updateNumberField(e, componentID);
+                    setSalesCost({
+                      ...salesCost,
+                      [e.target.name]: parseFloat(e.target.value),
+                    });
+                  }}
                   className={styles.textInput}
                   placeholder="NTD"
                   inputProps={{ step: 1, min: 0 }}
@@ -50,8 +87,14 @@ export default function QuotationDetail(props) {
                   type="number"
                   id="shippingCost"
                   name="shippingCost"
-                  value={quote.dyeCost.shippingCost}
-                  onChange={(e) => updateNumberField(e, componentID)}
+                  value={salesCost.shippingCost}
+                  onChange={(e) => {
+                    updateNumberField(e, componentID);
+                    setSalesCost({
+                      ...salesCost,
+                      [e.target.name]: parseFloat(e.target.value),
+                    });
+                  }}
                   className={styles.textInput}
                   placeholder="NTD"
                   inputProps={{ step: 1, min: 0 }}
@@ -64,25 +107,52 @@ export default function QuotationDetail(props) {
                   type="number"
                   id="testingCost"
                   name="testingCost"
-                  value={quote.dyeCost.testingCost}
-                  onChange={(e) => updateNumberField(e, componentID)}
+                  value={salesCost.testingCost}
+                  onChange={(e) => {
+                    updateNumberField(e, componentID);
+                    setSalesCost({
+                      ...salesCost,
+                      [e.target.name]: parseFloat(e.target.value),
+                    });
+                  }}
                   className={styles.textInput}
                   placeholder="NTD"
                   inputProps={{ step: 1, min: 0 }}
                 />
               </label>
               <label htmlFor="costTWDKG">
-                <span>估算成本</span>
+                <span>
+                  估算總成本
+                  <br />
+                  TWD/KG
+                </span>
                 <TextField
                   variant="standard"
                   type="number"
                   id="costTWDKG"
                   name="costTWDKG"
                   disabled
-                  value={quote.dyeCost.costTWDKG}
-                  onChange={(e) => updateNumberField(e, componentID)}
+                  value={costTWDKG}
                   className={styles.textInput}
                   placeholder="NTD"
+                  inputProps={{ step: 1, min: 0 }}
+                />
+              </label>
+              <label htmlFor="costUSDKG">
+                <span>
+                  估算總成本
+                  <br />
+                  USD/KG
+                </span>
+                <TextField
+                  variant="standard"
+                  type="number"
+                  id="costUSDKG"
+                  name="costUSDKG"
+                  disabled
+                  value={costUSDKG}
+                  className={styles.textInput}
+                  placeholder="USD"
                   inputProps={{ step: 1, min: 0 }}
                 />
               </label>
@@ -95,9 +165,14 @@ export default function QuotationDetail(props) {
                   type="number"
                   name="profit"
                   id="profit"
-                  disabled
-                  value={quote.dyeCost.profit}
-                  onChange={(e) => updateNumberField(e, componentID)}
+                  value={salesCost.profit}
+                  onChange={(e) => {
+                    updateNumberField(e, componentID);
+                    setSalesCost({
+                      ...salesCost,
+                      [e.target.name]: parseFloat(e.target.value),
+                    });
+                  }}
                   className={styles.textInput}
                   placeholder="%"
                   inputProps={{ step: 1, min: 0 }}
@@ -111,7 +186,7 @@ export default function QuotationDetail(props) {
                   id="exchangeRate"
                   name="exchangeRate"
                   disabled
-                  value={quote.dyeCost.exchangeRate}
+                  value={salesCost.exchangeRate}
                   onChange={(e) => updateNumberField(e, componentID)}
                   className={styles.textInput}
                   placeholder="%"
@@ -120,17 +195,29 @@ export default function QuotationDetail(props) {
               </label>
               <label htmlFor="tradeTerm">
                 <span>貿易條件</span>
-                <TextField
-                  variant="standard"
-                  type="text"
+                <Select
                   id="tradeTerm"
                   name="tradeTerm"
-                  value={quote.dyeCost.exchangeRate}
-                  onChange={(e) => updateTextField(e, componentID)}
+                  value={tradeTerm}
+                  onChange={(e) => {
+                    updateNumberField(e, componentID);
+                    setTradeTerm(e.target.value);
+                  }}
                   className={styles.textInput}
+                  variant="standard"
                   placeholder="FOB HCMC"
-                  inputProps={{ step: 1, min: 0 }}
-                />
+                >
+                  <MenuItem key={0} value={0}>
+                    請選擇條件
+                  </MenuItem>
+                  {bussinessTermDB.map((option) => {
+                    return (
+                      <MenuItem key={option.id} value={option.id}>
+                        {option.title}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
               </label>
               <label htmlFor="quoteDueDate">
                 <span>報價期限</span>
@@ -160,8 +247,7 @@ export default function QuotationDetail(props) {
                 disabled
                 id="quoteUSDY"
                 name="quoteUSDY"
-                value={quote.dyeCost.quoteDueDate}
-                onChange={(e) => updateTextField(e, componentID)}
+                value={quoteUSDY}
                 className={styles.textInput}
                 placeholder=""
                 inputProps={{ step: 1, min: 0 }}
@@ -175,8 +261,7 @@ export default function QuotationDetail(props) {
                 disabled
                 id="quoteUSDM"
                 name="quoteUSDM"
-                value={quote.dyeCost.quoteDueDate}
-                onChange={(e) => updateTextField(e, componentID)}
+                value={quoteUSDM}
                 className={styles.textInput}
                 placeholder=""
                 inputProps={{ step: 1, min: 0 }}
@@ -190,8 +275,7 @@ export default function QuotationDetail(props) {
                 disabled
                 id="quoteTWDY"
                 name="quoteTWDY"
-                value={quote.dyeCost.quoteDueDate}
-                onChange={(e) => updateTextField(e, componentID)}
+                value={quoteTWDY}
                 className={styles.textInput}
                 placeholder=""
                 inputProps={{ step: 1, min: 0 }}
@@ -205,8 +289,8 @@ export default function QuotationDetail(props) {
                 disabled
                 id="quoteTWDM"
                 name="quoteTWDM"
-                value={quote.dyeCost.quoteDueDate}
-                onChange={(e) => updateTextField(e, componentID)}
+                value={quoteTWDM}
+                // onChange={(e) => updateTextField(e, componentID)}
                 className={styles.textInput}
                 placeholder=""
                 inputProps={{ step: 1, min: 0 }}

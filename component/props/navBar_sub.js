@@ -22,7 +22,7 @@ export default function NavBar_sub() {
         <h3>Quick Enter</h3>
         <select
           name=""
-          id=""
+          id="navBar_sub"
           value={selectedOption}
           onChange={handleSelectChange}
         >

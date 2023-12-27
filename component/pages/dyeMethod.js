@@ -10,16 +10,20 @@ import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import OutlinedInput from '@mui/material/OutlinedInput';
 export default function DyeMethod(props) {
-  const { componentID } = props;
+  const { componentID, processDB, specialProcessDB } = props;
   const { quote, dispatch, updateTextField, updateNumberField } =
     useContext(MyContext);
+
+  const [totalCost, setTotalCost] = useState(null);
+  const [dyeAverageCost, setDyeAverageCost] = useState(null);
+  const [dyeLightCost, setDyeLightCost] = useState(null);
+  const [dyeDarkCost, setDyeDarkCost] = useState(null);
+  const [totalCostL, setTotalCostL] = useState(null);
+  const [totalCostD, setTotalCostD] = useState(null);
+  const [process, setProcess] = useState(quote.dyeCost.process);
   const [specialProcess, setSpecialProcess] = useState(
     quote.dyeCost.specialProcess
   );
-  const [totalCost, setTotalCost] = useState(null);
-  const [dyeAverageCost, setDyeAverageCost] = useState(null);
-  const [process, setProcess] = useState(quote.dyeCost.process);
-
   const ITEM_HEIGHT = 40;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -30,40 +34,7 @@ export default function DyeMethod(props) {
       },
     },
   };
-  let processDB = [
-    { id: 1, title: '下水', DBtype: 'process' },
-    { id: 2, title: '縮練', DBtype: 'process' },
-    { id: 3, title: '胚定', DBtype: 'process' },
-    { id: 4, title: '染色', DBtype: 'process' },
-    { id: 5, title: '上油', DBtype: 'process' },
-    { id: 6, title: '單刷', DBtype: 'process' },
-    { id: 7, title: '雙刷', DBtype: 'process' },
-    { id: 8, title: '梳剪', DBtype: 'process' },
-    { id: 9, title: '拋光', DBtype: 'process' },
-    { id: 10, title: '雙搖', DBtype: 'process' },
-    { id: 11, title: '背刷剪', DBtype: 'process' },
-    { id: 12, title: '雙搖', DBtype: 'process' },
-    { id: 13, title: '磨毛', DBtype: 'process' },
-    { id: 14, title: '定型', DBtype: 'process' },
-    { id: 15, title: '上漿', DBtype: 'process' },
-    { id: 16, title: '切邊', DBtype: 'process' },
-  ];
-  let specialProcessDB = [
-    { id: 1, title: '熱燙', DBtype: 'specialProcess' },
-    { id: 2, title: '吸濕', DBtype: 'specialProcess' },
-    { id: 3, title: '排汗', DBtype: 'specialProcess' },
-    { id: 4, title: '抗菌', DBtype: 'specialProcess' },
-    { id: 5, title: '抗臭', DBtype: 'specialProcess' },
-    { id: 6, title: '防霉', DBtype: 'specialProcess' },
-    { id: 7, title: '抗靜電', DBtype: 'specialProcess' },
-    { id: 8, title: '抗UV', DBtype: 'specialProcess' },
-    { id: 9, title: '防勾紗', DBtype: 'specialProcess' },
-    { id: 10, title: '潑水', DBtype: 'specialProcess' },
-    { id: 11, title: '超潑水', DBtype: 'specialProcess' },
-    { id: 12, title: '貼合', DBtype: 'specialProcess' },
-    { id: 13, title: '印花', DBtype: 'specialProcess' },
-    { id: 14, title: '上膠', DBtype: 'specialProcess' },
-  ];
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     // console.log(id, value, 'vv');
@@ -95,24 +66,31 @@ export default function DyeMethod(props) {
       type: 'updateIDinArray',
       payload: {
         selectedIds,
-        componentID,
+        field: componentID,
+        name,
       },
     });
   };
+  const updateData = () => {
+    setTotalCost((quote.yarnCost.fabricCost + dyeAverageCost).toFixed(2));
+    setTotalCostL((quote.yarnCost.fabricCost + dyeLightCost).toFixed(2));
+    setTotalCostD((quote.yarnCost.fabricCost + dyeDarkCost).toFixed(2));
+  };
   useEffect(() => {
-    setTotalCost(quote.yarnCost.fabricCost + dyeAverageCost);
     dispatch({
       type: 'updateAutoCountData',
       payload: {
         field: componentID,
         data: {
-          totalCost: totalCost,
+          totalCost: parseFloat(totalCost),
+          totalCostL: parseFloat(totalCostL),
+          totalCostD: parseFloat(totalCostD),
         },
       },
     });
-  }, [totalCost]);
+  }, [totalCost, totalCostL, totalCostD]);
   useEffect(() => {
-    console.log(totalCost, 'tc');
+    updateData();
   }, [quote]);
   return (
     <QCard>
@@ -125,8 +103,11 @@ export default function DyeMethod(props) {
             type="number"
             id="dyeLightCost"
             name="dyeLightCost"
-            value={quote.dyeCost.dyeLightCost}
-            onChange={(e) => updateNumberField(e, componentID)}
+            value={dyeLightCost}
+            onChange={(e) => {
+              updateNumberField(e, componentID);
+              setDyeLightCost(parseFloat(e.target.value));
+            }}
             className={styles.textInput}
             placeholder="TWD/KG"
             inputProps={{ step: 1, min: 0 }}
@@ -139,7 +120,7 @@ export default function DyeMethod(props) {
             type="number"
             id="dyeAverageCost"
             name="dyeAverageCost"
-            value={quote.dyeCost.dyeAverageCost}
+            value={dyeAverageCost}
             onChange={(e) => {
               updateNumberField(e, componentID);
               setDyeAverageCost(parseFloat(e.target.value));
@@ -156,8 +137,11 @@ export default function DyeMethod(props) {
             type="number"
             id="dyeDarkCost"
             name="dyeDarkCost"
-            value={quote.dyeCost.dyeDarkCost}
-            onChange={(e) => updateNumberField(e, componentID)}
+            value={dyeDarkCost}
+            onChange={(e) => {
+              updateNumberField(e, componentID);
+              setDyeDarkCost(parseFloat(e.target.value));
+            }}
             className={styles.textInput}
             placeholder="TWD/KG"
             inputProps={{ step: 1, min: 0 }}
@@ -166,7 +150,7 @@ export default function DyeMethod(props) {
       </div>
       <div className={styles.additonal}>
         <div className={styles.dye}>
-          <label htmlFor="process">
+          <label>
             <span>加工製程</span>
             <Select
               className={styles.selecetInput}
@@ -207,7 +191,7 @@ export default function DyeMethod(props) {
               ))}
             </Select>
           </label>
-          <label htmlFor="specialProcess">
+          <label>
             <span>特殊加工</span>
             <Select
               className={styles.selecetInput}
