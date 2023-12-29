@@ -104,25 +104,29 @@ export default function FilterBar() {
         <button name="dateOrder" onClick={handleDateOrder}>
           按日期排序{context.filter.order == 'DESC' ? '大到小' : '小到大'}
         </button>
-        <label htmlFor="issueDate" className={styles.customDatePicker}>
+        <label className={styles.customDatePicker}>
           <span>
             日期篩選:
             {/* {context.store.text} */}
           </span>
           <input
-            value={context.filter.dateRangeFrom}
+            value={context.filter.dateRangeFrom || ''}
             name="dateRangeFrom"
             onChange={handleDateRange}
             type="date"
           />
           <input
-            value={context.filter.dateRangeTo}
+            value={context.filter.dateRangeTo || ''}
             name="dateRangeTo"
             onChange={handleDateRange}
             type="date"
           />
         </label>
-        <select className={styles.category} onChange={handleCategory}>
+        <select
+          name="category"
+          className={styles.category}
+          onChange={handleCategory}
+        >
           <option value="">All</option>
           <option value="frontend">FrontEnd</option>
           <option value="backend">BackEnd</option>
@@ -148,8 +152,9 @@ export default function FilterBar() {
             );
           })}
         </ul>
-        <label htmlFor="">
+        <label htmlFor="keywordSearch">
           <input
+            id="keywordSearch"
             type="text"
             name="search"
             placeholder="searchContent"

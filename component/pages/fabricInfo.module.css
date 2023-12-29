@@ -1,45 +1,230 @@
 .container .productInfo {
   margin-bottom: 10px;
 }
-.container .productInfo label {
+.container .productInfo .twoinRow {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-around;
+}
+.container .productInfo .twoinRow label {
+  width: 100%;
+  display: flex;
   align-items: center;
+  flex-grow: 1;
 }
-.container .productInfo label span {
-  width: 100px;
+.container .productInfo .twoinRow label span {
+  width: 30%;
   text-align: center;
+  letter-spacing: 3px;
 }
-.container .productInfo label .textInput {
+.container .productInfo .twoinRow label .textInput {
   margin-block: 10px;
   width: 100%;
 }
 .container .productDescription label {
+  width: _;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
+  flex-grow: 1;
 }
 .container .productDescription label span {
-  width: 100px;
+  width: 12.5%;
   text-align: center;
+  letter-spacing: 3px;
 }
 .container .productDescription label .textInput {
   margin-block: 10px;
   width: 100%;
 }
-.container .productSpec label {
+.container .productSpec .threeinRow {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-around;
+}
+.container .productSpec .threeinRow label {
+  width: _;
+  display: flex;
   align-items: center;
+  flex-grow: 1;
 }
-.container .productSpec label span {
-  width: 100px;
+.container .productSpec .threeinRow label span {
+  width: 50%;
   text-align: center;
+  letter-spacing: 3px;
 }
-.container .productSpec label .textInput {
+.container .productSpec .threeinRow label .textInput {
   margin-block: 10px;
   width: 100%;
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    padding: 3px;
+  }
+  .container .productInfo .twoinRow label {
+    width: _;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .container .productInfo .twoinRow label span {
+    width: 35%;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+  .container .productInfo .twoinRow label .textInput {
+    margin-block: 10px;
+    width: 100%;
+  }
+  .container .productInfo .twoinRow label span {
+    letter-spacing: 1px;
+  }
+  .container .productDescription label {
+    width: _;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .container .productDescription label span {
+    width: 15%;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+  .container .productDescription label .textInput {
+    margin-block: 10px;
+    width: 100%;
+  }
+  .container .productDescription label span {
+    letter-spacing: 1px;
+  }
+  .container .productSpec .threeinRow label {
+    width: _;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .container .productSpec .threeinRow label span {
+    width: 65%;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+  .container .productSpec .threeinRow label .textInput {
+    margin-block: 10px;
+    width: 100%;
+  }
+  .container .productSpec .threeinRow label span {
+    letter-spacing: 1px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .container {
+    padding: 5px;
+  }
+  .container .productInfo .twoinRow {
+    flex-direction: column;
+  }
+  .container .productInfo .twoinRow label {
+    width: _;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .container .productInfo .twoinRow label span {
+    width: 30%;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+  .container .productInfo .twoinRow label .textInput {
+    margin-block: 10px;
+    width: 100%;
+  }
+  .container .productDescription label {
+    width: _;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .container .productDescription label span {
+    width: 30%;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+  .container .productDescription label .textInput {
+    margin-block: 10px;
+    width: 100%;
+  }
+  .container .productSpec .threeinRow {
+    flex-direction: column;
+  }
+  .container .productSpec .threeinRow label {
+    width: _;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .container .productSpec .threeinRow label span {
+    width: 30%;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+  .container .productSpec .threeinRow label .textInput {
+    margin-block: 10px;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 390px) {
+  .container .productInfo .twoinRow label {
+    width: _;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .container .productInfo .twoinRow label span {
+    width: 28%;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+  .container .productInfo .twoinRow label .textInput {
+    margin-block: 10px;
+    width: 100%;
+  }
+  .container .productInfo .twoinRow label span {
+    letter-spacing: 0.5px;
+  }
+  .container .productDescription label {
+    width: _;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .container .productDescription label span {
+    width: 28%;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+  .container .productDescription label .textInput {
+    margin-block: 10px;
+    width: 100%;
+  }
+  .container .productDescription label span {
+    letter-spacing: 0.5px;
+  }
+  .container .productSpec .threeinRow label {
+    width: _;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .container .productSpec .threeinRow label span {
+    width: 28%;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+  .container .productSpec .threeinRow label .textInput {
+    margin-block: 10px;
+    width: 100%;
+  }
+  .container .productSpec .threeinRow label span {
+    letter-spacing: 0.5px;
+  }
 }/*# sourceMappingURL=fabricInfo.module.css.map */

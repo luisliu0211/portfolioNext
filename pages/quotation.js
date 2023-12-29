@@ -24,7 +24,8 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MyContext from '@/lib/context';
-
+import { getFormattedDate } from '@/lib/getDate';
+import { useCheckMobile } from '@/hook/useCheckMobile';
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 let yarnDB = [
   {
@@ -162,7 +163,7 @@ const initState = {
   id: 1,
   authur: 'Luis',
   team: 1,
-  createDate: '2023-12-23',
+  createDate: getFormattedDate(),
   lastRevise: '2023-12-25',
   state: 'issue',
   fabricInfo: {
@@ -175,7 +176,7 @@ const initState = {
     brand: '',
   },
   yarnCost: {
-    machineType: 0,
+    machineType: '',
     machineSpec: '',
     other: '',
     densityWarp: '',
@@ -205,7 +206,7 @@ const initState = {
     profit: 0,
     exchangeRate: 28,
     tradeTerm: 0,
-    quoteDueDate: '2024-01-01',
+    quoteDueDate: getFormattedDate(),
     quoteUSDY: null,
     quoteUSDM: null,
     quoteTWDY: null,
@@ -316,16 +317,6 @@ export default function Quotation() {
         break;
     }
   };
-  // const updateAutoComplteData = (index, name, value, field, ...arg) => {
-  //   let listName = arg[0];
-  //   console.log(
-  //     `修改在quote裡面 ${field}下層裡面的${listName} 陣列 選取第${index}個 修改key value為 ${name}:${value}`
-  //   );
-  //   dispatch({
-  //     type: 'fieldAutoCompleteChange',
-  //     payload: { field, listName, index, name, value },
-  //   });
-  // };
   const deleteListInfo = (index) => {
     console.log('刪除？', index);
     var r = confirm('確認刪除？!');
@@ -341,22 +332,21 @@ export default function Quotation() {
     return;
   };
   const updateAutoValue = (field, name, value) => {
-    console.log(field, name, value);
     dispatch({
       type: 'fieldTextChange',
       payload: { field, name, value },
     });
   };
   const [open, setOpen] = useState(false);
+  const isMobile = useCheckMobile();
   const handleClear = (e) => {
     console.log('clear');
   };
   const handleSave = (e) => {
-    console.log(quote, 'final quote');
+    console.log(quote, 'final quote save');
     handleSavetoDB();
   };
   const handleSavetoDB = async () => {
-    console.log('儲存');
     alert('測試中');
     // try {
     //   const response = await fetch(`${apiUrl}/api/quotation`, {
@@ -378,18 +368,16 @@ export default function Quotation() {
   };
   const handleIssue = (e) => {
     console.log(quote, 'issue quote');
-    console.log('發布');
   };
   const toggleDrawer = (e) => {
     if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
       return;
     }
-    console.log('eji');
     setOpen((prev) => !prev);
   };
   useEffect(() => {
     console.log('quote', quote);
-  }, []);
+  }, [quote]);
   return (
     <Layout>
       <Content />
@@ -401,6 +389,7 @@ export default function Quotation() {
           updateNumberField,
           deleteListInfo,
           updateAutoValue,
+          isMobile,
         }}
       >
         <FlexBox>
@@ -423,16 +412,16 @@ export default function Quotation() {
             />
             <ButtonGroup size="large">
               <Button variant="contained" onClick={handleClear}>
-                Clear 清空
+                清空
               </Button>
               <Button variant="contained" onClick={handleSave}>
-                Save 儲存草稿
+                儲存
               </Button>
               <Button variant="contained" onClick={handleIssue}>
-                Issue 發布
+                發布
               </Button>
               <Button variant="contained" onClick={toggleDrawer}>
-                其他功能
+                其他
               </Button>
             </ButtonGroup>
           </Column>

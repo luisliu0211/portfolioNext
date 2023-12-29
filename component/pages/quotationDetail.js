@@ -24,14 +24,17 @@ export default function QuotationDetail(props) {
     setCostTWDKG(
       quote.dyeCost.totalCost + excuteCost + shippingCost + testingCost
     );
-    setCostUSDKG((costTWDKG / exchangeRate).toFixed(2));
-    setCostUSDY(((costUSDKG * quote.fabricInfo.gy) / 1000).toFixed(2));
-    setQuoteUSDY((costUSDY * (1 + profit / 100)).toFixed(2));
-    setQuoteUSDM(((costUSDY * (1 + profit / 100)) / 0.9144).toFixed(2));
-    setQuoteTWDY((costUSDY * (1 + profit / 100) * exchangeRate).toFixed(2));
-    setQuoteTWDM(
-      ((costUSDY * (1 + profit / 100) * exchangeRate) / 0.9144).toFixed(2)
-    );
+    if (exchangeRate !== null && costUSDKG !== null && profit !== null) {
+      // 执行数学运算
+      setCostUSDKG((costTWDKG / exchangeRate).toFixed(2));
+      setCostUSDY(((costUSDKG * quote.fabricInfo.gy) / 1000).toFixed(2));
+      setQuoteUSDY((costUSDY * (1 + profit / 100)).toFixed(2));
+      setQuoteUSDM(((costUSDY * (1 + profit / 100)) / 0.9144).toFixed(2));
+      setQuoteTWDY((costUSDY * (1 + profit / 100) * exchangeRate).toFixed(2));
+      setQuoteTWDM(
+        ((costUSDY * (1 + profit / 100) * exchangeRate) / 0.9144).toFixed(2)
+      );
+    }
   };
   useEffect(() => {
     dispatch({
@@ -67,7 +70,7 @@ export default function QuotationDetail(props) {
                   type="number"
                   id="excuteCost"
                   name="excuteCost"
-                  value={salesCost.excuteCost}
+                  value={salesCost.excuteCost || ''}
                   onChange={(e) => {
                     updateNumberField(e, componentID);
                     setSalesCost({
@@ -87,7 +90,7 @@ export default function QuotationDetail(props) {
                   type="number"
                   id="shippingCost"
                   name="shippingCost"
-                  value={salesCost.shippingCost}
+                  value={salesCost.shippingCost || ''}
                   onChange={(e) => {
                     updateNumberField(e, componentID);
                     setSalesCost({
@@ -107,7 +110,7 @@ export default function QuotationDetail(props) {
                   type="number"
                   id="testingCost"
                   name="testingCost"
-                  value={salesCost.testingCost}
+                  value={salesCost.testingCost || ''}
                   onChange={(e) => {
                     updateNumberField(e, componentID);
                     setSalesCost({
@@ -122,7 +125,7 @@ export default function QuotationDetail(props) {
               </label>
               <label htmlFor="costTWDKG">
                 <span>
-                  估算總成本
+                  總成本
                   <br />
                   TWD/KG
                 </span>
@@ -132,7 +135,7 @@ export default function QuotationDetail(props) {
                   id="costTWDKG"
                   name="costTWDKG"
                   disabled
-                  value={costTWDKG}
+                  value={costTWDKG || ''}
                   className={styles.textInput}
                   placeholder="NTD"
                   inputProps={{ step: 1, min: 0 }}
@@ -140,7 +143,7 @@ export default function QuotationDetail(props) {
               </label>
               <label htmlFor="costUSDKG">
                 <span>
-                  估算總成本
+                  總成本
                   <br />
                   USD/KG
                 </span>
@@ -150,7 +153,7 @@ export default function QuotationDetail(props) {
                   id="costUSDKG"
                   name="costUSDKG"
                   disabled
-                  value={costUSDKG}
+                  value={costUSDKG || ''}
                   className={styles.textInput}
                   placeholder="USD"
                   inputProps={{ step: 1, min: 0 }}
@@ -193,11 +196,12 @@ export default function QuotationDetail(props) {
                   inputProps={{ step: 1, min: 0 }}
                 />
               </label>
-              <label htmlFor="tradeTerm">
+              <label htmlFor="tradeTermL">
                 <span>貿易條件</span>
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                 <Select
-                  id="tradeTerm"
-                  name="tradeTerm"
+                  id="tradeTermL"
+                  name="tradeTermL"
                   value={tradeTerm}
                   onChange={(e) => {
                     updateNumberField(e, componentID);
@@ -205,10 +209,10 @@ export default function QuotationDetail(props) {
                   }}
                   className={styles.textInput}
                   variant="standard"
-                  placeholder="FOB HCMC"
+                  displayEmpty
                 >
                   <MenuItem key={0} value={0}>
-                    請選擇條件
+                    請選擇...
                   </MenuItem>
                   {bussinessTermDB.map((option) => {
                     return (
@@ -236,67 +240,65 @@ export default function QuotationDetail(props) {
             </div>
           </div>
         </div>
-        <div className={styles.box}>
-          <div className={styles.profit1}>
-            <div className={styles.title}>報價資訊</div>
-            <label htmlFor="quoteUSDY">
-              <span>USD/Y</span>
-              <TextField
-                variant="standard"
-                type="number"
-                disabled
-                id="quoteUSDY"
-                name="quoteUSDY"
-                value={quoteUSDY}
-                className={styles.textInput}
-                placeholder=""
-                inputProps={{ step: 1, min: 0 }}
-              />
-            </label>
-            <label htmlFor="quoteUSDM">
-              <span>USD/M</span>
-              <TextField
-                variant="standard"
-                type="number"
-                disabled
-                id="quoteUSDM"
-                name="quoteUSDM"
-                value={quoteUSDM}
-                className={styles.textInput}
-                placeholder=""
-                inputProps={{ step: 1, min: 0 }}
-              />
-            </label>
-            <label htmlFor="quoteTWDY">
-              <span>TWD/Y</span>
-              <TextField
-                variant="standard"
-                type="number"
-                disabled
-                id="quoteTWDY"
-                name="quoteTWDY"
-                value={quoteTWDY}
-                className={styles.textInput}
-                placeholder=""
-                inputProps={{ step: 1, min: 0 }}
-              />
-            </label>
-            <label htmlFor="quoteTWDM">
-              <span>TWD/M</span>
-              <TextField
-                variant="standard"
-                type="number"
-                disabled
-                id="quoteTWDM"
-                name="quoteTWDM"
-                value={quoteTWDM}
-                // onChange={(e) => updateTextField(e, componentID)}
-                className={styles.textInput}
-                placeholder=""
-                inputProps={{ step: 1, min: 0 }}
-              />
-            </label>
-          </div>
+        <div className={styles.quote}>
+          <div className={styles.title}>報價資訊</div>
+          <label htmlFor="quoteUSDY">
+            <span>USD/Y</span>
+            <TextField
+              variant="standard"
+              type="number"
+              disabled
+              id="quoteUSDY"
+              name="quoteUSDY"
+              value={quoteUSDY || ''}
+              className={styles.textInput}
+              placeholder=""
+              inputProps={{ step: 1, min: 0 }}
+            />
+          </label>
+          <label htmlFor="quoteUSDM">
+            <span>USD/M</span>
+            <TextField
+              variant="standard"
+              type="number"
+              disabled
+              id="quoteUSDM"
+              name="quoteUSDM"
+              value={quoteUSDM || ''}
+              className={styles.textInput}
+              placeholder=""
+              inputProps={{ step: 1, min: 0 }}
+            />
+          </label>
+          <label htmlFor="quoteTWDY">
+            <span>TWD/Y</span>
+            <TextField
+              variant="standard"
+              type="number"
+              disabled
+              id="quoteTWDY"
+              name="quoteTWDY"
+              value={quoteTWDY || ''}
+              className={styles.textInput}
+              placeholder=""
+              inputProps={{ step: 1, min: 0 }}
+            />
+          </label>
+          <label htmlFor="quoteTWDM">
+            <span>TWD/M</span>
+            <TextField
+              variant="standard"
+              type="number"
+              disabled
+              id="quoteTWDM"
+              name="quoteTWDM"
+              value={quoteTWDM || ''}
+              // onChange={(e) => updateTextField(e, componentID)}
+              className={styles.textInput}
+              placeholder=""
+              inputProps={{ step: 1, min: 0 }}
+            />
+          </label>
         </div>
       </div>
     </QCard>

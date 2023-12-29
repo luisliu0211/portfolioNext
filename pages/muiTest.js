@@ -21,13 +21,14 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import Slider from '@mui/material/Slider';
 export default function MuiTest() {
   const options = ['label1', 'label2', 'label3'];
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-  const [selectedItemId, setSelectedItemId] = useState(null);
+  const [selectedItemId, setSelectedItemId] = useState(0);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   const datas = [
     { label: 'label1', id: 1 },
@@ -62,18 +63,23 @@ export default function MuiTest() {
           autoselectvalue={selectedItemId}
           onChange={(event, newValue) => {
             // 在这里设置选定项的 id
-            if (newValue) {
-              setSelectedItemId(newValue.id);
-              console.log('Selected ID:', newValue.id);
-            } else {
-              setSelectedItemId(null);
-            }
+            setSelectedItemId(newValue ? newValue.id : null);
           }}
           disablePortal
-          id="combo-box-demo"
           options={datas}
+          getOptionLabel={(option) => option.label}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
+          // value={selectedItemId}
           sx={{ width: 500 }}
-          renderInput={(params) => <TextField {...params} label="data Title" />}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              InputProps={{
+                ...params.InputProps,
+                placeholder: '選擇',
+              }}
+            />
+          )}
         />
       </Column>
       <br />
@@ -173,7 +179,22 @@ export default function MuiTest() {
             <FormControlLabel
               control={<Checkbox defaultChecked />}
               label="Label"
-              sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
+              sx={{
+                // backgroundColor: 'green',
+                borderRadius: '30px',
+                border: '1px solid black',
+                '&.Mui-checked': {
+                  backgroundColor: 'yellow',
+                },
+                '& .PrivateSwitchBase-input': {
+                  border: '1px solid black',
+                },
+                '& .MuiSvgIcon-root': {
+                  fontSize: 30,
+                  borderRadius: '30px',
+                  // backgroundColor: 'red',
+                },
+              }}
             />
             <FormControlLabel
               required
@@ -193,11 +214,42 @@ export default function MuiTest() {
       <Column>
         <h3>切換</h3>
         <FlexBox>
-          <Switch {...label} defaultChecked />
-          <Switch {...label} />
+          <Switch
+            {...label}
+            // s
+            sx={{
+              '& .MuiSwitch-thumb': {
+                backgroundColor: 'red', // 初始状态下的颜色
+              },
+              '& .MuiSwitch-track': {
+                backgroundColor: 'green',
+              },
+              // '&.Mui-checked >.MuiSwitch-thumb': {
+              //   backgroundColor: 'green', // 选中状态下的颜色
+              // },
+            }}
+          />
+
+          {/* <Switch {...label} />
           <Switch {...label} disabled defaultChecked />
-          <Switch {...label} disabled />
+          <Switch {...label} disabled /> */}
         </FlexBox>
+      </Column>
+      <Column>
+        <Slider
+          defaultValue={30}
+          sx={{
+            width: '100%',
+            color: 'red',
+            '& .MuiSlider-rail': {
+              backgroundColor: 'yellow',
+            },
+            '& .MuiSlider-track': {
+              backgroundColor: 'green',
+              border: 'none',
+            },
+          }}
+        />
       </Column>
     </Layout>
   );

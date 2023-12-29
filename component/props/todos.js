@@ -13,7 +13,6 @@ export default function Todos({ todos, dispatch }) {
 }
 
 export function Todo({ todo, dispatch }) {
-  // const [open, setOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(todo.todoContent);
   const handleEdit = () => {
@@ -50,7 +49,7 @@ export function Todo({ todo, dispatch }) {
         {isEditing ? (
           <input
             type="text"
-            value={editedContent}
+            value={editedContent || ''}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             className={styles.editInput}

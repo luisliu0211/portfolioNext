@@ -26,6 +26,7 @@ export default function YarnList(props) {
     updateTextField,
     updateNumberField,
     deleteListInfo,
+    isMobile,
   } = useContext(MyContext);
   const initialYarnInfo = {
     yarnSpec: null,
@@ -169,16 +170,22 @@ export default function YarnList(props) {
       <QCard>
         <div className={styles.controlButton}>
           <div className={styles.title}>紗支分析</div>
-          <Tooltip title="新增紗支">
-            <AddCircleIcon onClick={handleAddNewYarn} />
-          </Tooltip>
-          <button
-            onClick={() => {
-              console.log('清空');
-            }}
-          >
-            清空
-          </button>
+          {isMobile ? (
+            <span>手機版僅供查看</span>
+          ) : (
+            <div className={styles.buttons}>
+              <Tooltip title="新增紗支">
+                <AddCircleIcon onClick={handleAddNewYarn} />
+              </Tooltip>
+              <button
+                onClick={() => {
+                  console.log('清空');
+                }}
+              >
+                清空
+              </button>
+            </div>
+          )}
         </div>
         <hr />
         <table className={styles.table}>
@@ -208,8 +215,8 @@ export default function YarnList(props) {
           <tbody className="yarnList">
             {quote.yarnCost.yarnInfo.map((tr, index) => {
               return (
-                <>
-                  <tr key={tr.index} className={styles.trStyle}>
+                <React.Fragment key={index}>
+                  <tr className={styles.trStyle}>
                     {editingIndex === index ? (
                       <EditYarnInfo
                         index={editingIndex}
@@ -227,12 +234,14 @@ export default function YarnList(props) {
                       <>
                         <td name="yarnNo">{index + 1}</td>
                         <td name="yarnSpec">
-                          {getSthById(tr.yarnSpec, yarnDB).title
+                          {getSthById(tr.yarnSpec, yarnDB)
                             ? getSthById(tr.yarnSpec, yarnDB).title
                             : '尚未選擇紗種'}
                         </td>
                         <td name="yarnPort">{tr.yarnPort}%</td>
-                        <td name="yarnSource">{tr.yarnSource}</td>
+                        <td name="yarnSource">
+                          {tr.yarnSource ? tr.yarnSource : '---'}
+                        </td>
 
                         <td name="yarnPrice">
                           <span className={styles.price}>
@@ -260,7 +269,7 @@ export default function YarnList(props) {
                       </>
                     )}
                   </tr>
-                </>
+                </React.Fragment>
               );
             })}
           </tbody>
@@ -277,7 +286,7 @@ export default function YarnList(props) {
                   if (p.portion > 0) {
                     return (
                       <span key={id}>
-                        {p.type}:{p.portion}%
+                        {p.type}:{p.portion}%&nbsp;
                       </span>
                     );
                   } else {
@@ -296,7 +305,6 @@ export default function YarnList(props) {
                   {totalYarnCost}
                 </td>
               </Tooltip>
-
               <td></td>
             </tr>
           </tfoot>
@@ -308,12 +316,11 @@ export default function YarnList(props) {
               <td colSpan={2}>紗支資訊</td>
             </tr>
           </thead>
-
           {quote.yarnCost.yarnInfo.map((tr, index) => {
             return (
               <tbody key={index} className={styles.trStyle}>
                 <tr>
-                  <td rowSpan={2} name="yarnNo">
+                  <td rowSpan={4} name="yarnNo">
                     {index + 1}
                   </td>
                   <td name="yarnSpec">
@@ -325,19 +332,18 @@ export default function YarnList(props) {
                 </tr>
                 <tr>
                   <td name="yarnSpec">
-                    <div> {getSthById(tr.yarnSpec, yarnDB).title}</div>
+                    <div>
+                      {' '}
+                      {getSthById(tr.yarnSpec, yarnDB)
+                        ? getSthById(tr.yarnSpec, yarnDB).title
+                        : '尚未選擇紗種'}
+                    </div>
                   </td>
                   <td name="yarnPort">
                     <div>{tr.yarnPort}%</div>
                   </td>
                 </tr>
                 <tr>
-                  <td rowSpan={2}>
-                    <EditIcon onClick={() => handleEditYarn(index)}></EditIcon>
-                    <DeleteIcon
-                      onClick={() => handleDeleteYarn(index)}
-                    ></DeleteIcon>
-                  </td>
                   <td name="yarnSouce">
                     <div>紗廠</div>
                   </td>
@@ -347,7 +353,7 @@ export default function YarnList(props) {
                 </tr>
                 <tr>
                   <td name="yarnSource">
-                    <div>{tr.yarnSource} </div>
+                    <div> {tr.yarnSource ? tr.yarnSource : '---'} </div>
                   </td>
                   <td name="yarnPrice">
                     <div>{_.toNumber(tr.yarnPrice).toLocaleString()}</div>
@@ -359,11 +365,26 @@ export default function YarnList(props) {
               </tbody>
             );
           })}
-
           <tfoot>
             <tr>
-              <td colSpan={2}>Total</td>
-              <td>100%</td>
+              <td>Total</td>
+              <td>
+                {' '}
+                {portionText.map((p, id) => {
+                  if (p.portion > 0) {
+                    return (
+                      <span key={id}>
+                        {p.type}:{p.portion}%&nbsp;
+                      </span>
+                    );
+                  } else {
+                    return;
+                  }
+                })}
+              </td>
+              <td style={{ color: totalPort != 100 ? 'red' : 'black' }}>
+                {totalPort}%
+              </td>
             </tr>
           </tfoot>
         </table>
@@ -375,16 +396,17 @@ export default function YarnList(props) {
             <Select
               id="machineType"
               name="machineType"
-              value={machineType}
+              value={machineType || ''}
               onChange={(e) => {
                 updateNumberField(e, componentID);
                 setMachineType(e.target.value);
               }}
               className={styles.textInput}
               variant="standard"
+              displayEmpty
             >
-              <MenuItem key={0} value={0}>
-                請選擇機台
+              <MenuItem value="" disabled>
+                請選擇...
               </MenuItem>
               {machineList.map((option) => {
                 return (
@@ -402,25 +424,13 @@ export default function YarnList(props) {
               type="text"
               id="machineSpec"
               name="machineSpec"
-              value={quote.yarnCost.machineSpec}
-              onChange={(e) => updateTextField(e, componentID)}
-              className={styles.textInput}
-            />
-          </label>
-          <label htmlFor="other">
-            <span>備註</span>
-            <TextField
-              variant="standard"
-              type="text"
-              id="other"
-              name="other"
-              value={quote.yarnCost.other}
+              value={quote.yarnCost.machineSpec || ''}
               onChange={(e) => updateTextField(e, componentID)}
               className={styles.textInput}
             />
           </label>
         </div>
-        <div className={styles.machineInfo}>
+        <div className={styles.additonal}>
           <label htmlFor="densityWarp">
             <span>經密</span>
             <TextField
@@ -428,7 +438,7 @@ export default function YarnList(props) {
               type="text"
               id="densityWarp"
               name="densityWarp"
-              value={quote.yarnCost.densityWarp}
+              value={quote.yarnCost.densityWarp || ''}
               onChange={(e) => updateTextField(e, componentID)}
               className={styles.textInput}
             />
@@ -440,7 +450,19 @@ export default function YarnList(props) {
               type="text"
               id="densityWeft"
               name="densityWeft"
-              value={quote.yarnCost.densityWeft}
+              value={quote.yarnCost.densityWeft || ''}
+              onChange={(e) => updateTextField(e, componentID)}
+              className={styles.textInput}
+            />
+          </label>
+          <label htmlFor="other">
+            <span>備註</span>
+            <TextField
+              variant="standard"
+              type="text"
+              id="other"
+              name="other"
+              value={quote.yarnCost.other || ''}
               onChange={(e) => updateTextField(e, componentID)}
               className={styles.textInput}
             />
@@ -455,7 +477,7 @@ export default function YarnList(props) {
               id="fabricProcessFee"
               name="fabricProcessFee"
               placeholder="TWD/KG"
-              value={fabricProcessFee}
+              value={fabricProcessFee || ''}
               onChange={(e) => {
                 updateNumberField(e, componentID);
                 setFabricProcessFee(parseFloat(e.target.value));
@@ -473,7 +495,7 @@ export default function YarnList(props) {
               id="fabricCost"
               name="fabricCost"
               placeholder="TWD/KG"
-              value={fabricCost}
+              value={fabricCost || ''}
               // onChange={(e) => updateNumberField(e, componentID)}
               className={styles.textInput}
               inputProps={{ step: 1, min: 0 }}
@@ -487,7 +509,7 @@ export default function YarnList(props) {
               id="totalWastage"
               name="totalWastage"
               placeholder="%"
-              value={totalWastage}
+              value={totalWastage || ''}
               onChange={(e) => {
                 updateNumberField(e, componentID);
                 setTotalWastage(parseFloat(e.target.value));
@@ -522,18 +544,12 @@ const EditYarnInfo = ({
     if (e.target.name == 'yarnSource') {
       setYarnInput({ ...yarnInput, [e.target.name]: e.target.value });
     } else {
+      // 在設置狀態之前確保值不為null
+      const numericValue = parseFloat(e.target.value);
       setYarnInput({
         ...yarnInput,
-        [e.target.name]: parseFloat(e.target.value),
+        [e.target.name]: numericValue,
       });
-      // switch (e.target.name) {
-      //   case 'yarnPort':
-      //     console.log(' revise yarn port ');
-      //     break;
-      //   case 'yarnPrice':
-      //     console.log(' revise yarn price');
-      //     break;
-      // }
     }
   };
   return (
@@ -548,7 +564,9 @@ const EditYarnInfo = ({
             disablePortal
             size="small"
             name="yarnSpec"
-            value={getSthById(yarnInput.yarnSpec, yarnDB)}
+            value={
+              yarnDB.find((item) => item.id === yarnInput.yarnSpec) || null
+            }
             onChange={(_, newValue) => {
               // console.log(newValue);
               if (newValue) {
@@ -564,7 +582,16 @@ const EditYarnInfo = ({
             }}
             id="highlights-demo"
             options={yarnDB}
-            renderInput={(params) => <TextField {...params} />}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                InputProps={{
+                  ...params.InputProps,
+                  placeholder: '選擇紗支', // 在這裡設定你的預設 placeholder 文字
+                }}
+              />
+            )}
             renderOption={(props, option, { inputValue }) => {
               const matches = match(option.title, inputValue);
               const parts = parse(option.title, matches);
@@ -590,7 +617,7 @@ const EditYarnInfo = ({
         <TextField
           type="number"
           name="yarnPort"
-          value={yarnInput.yarnPort}
+          value={yarnInput.yarnPort || ''}
           onChange={(e) => handleYarnInputChange(e)}
           id="standard-basic"
           size="small"
@@ -601,7 +628,7 @@ const EditYarnInfo = ({
       <td name="yarnSource">
         <TextField
           name="yarnSource"
-          value={yarnInput.yarnSource}
+          value={yarnInput.yarnSource || ''}
           onChange={(e) => handleYarnInputChange(e)}
           id="standard-basic"
           size="small"
@@ -614,13 +641,14 @@ const EditYarnInfo = ({
           className={styles.textInput}
           type="number"
           name="yarnPrice"
-          value={yarnInput.yarnPrice}
+          value={yarnInput.yarnPrice || ''}
           onChange={(e) => handleYarnInputChange(e)}
           id="standard-basic"
           size="small"
           inputProps={{ step: 1, min: 0 }}
         />
-        <Select
+        {getSthById(yarnInput.yarnUnit, yarnDB).yarnUnit}
+        {/* <Select
           disabled
           name="yarnUnit"
           value={getSthById(yarnInput.yarnUnit, yarnDB)}
@@ -633,7 +661,7 @@ const EditYarnInfo = ({
               {option.title}
             </MenuItem>
           ))}
-        </Select>
+        </Select> */}
       </td>
       <td name="singleYarnCost">
         {parseFloat(
@@ -655,5 +683,5 @@ const EditYarnInfo = ({
 };
 const getSthById = (ide, DB) => {
   const sthValue = DB.find((item) => item.id === ide);
-  return sthValue ? sthValue : '未建檔 or 未選擇';
+  return sthValue ? sthValue : undefined;
 };

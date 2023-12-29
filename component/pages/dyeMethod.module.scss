@@ -1,23 +1,24 @@
-@mixin labelSizeInput(
-  $height: 40px,
-  $fontSize: 18px,
-  $inputWidth: 100%,
-  $spanWidth: 100px
-) {
+@mixin labelSizeInput($labelWidth: 100%, $spanWidth: 30%) {
   label {
+    width: $labelWidth;
     display: flex;
+    align-items: center;
     flex-grow: 1;
-    flex-direction: row;
-    // justify-content: flex-start;
-    height: $height;
-    margin: 10px auto;
-    padding-inline: 5px;
+    span {
+      width: $spanWidth;
+      text-align: center;
+      letter-spacing: 3px;
+    }
+    .textInput {
+      margin-block: 10px;
+      width: 100%;
+    }
   }
 }
 @mixin flexRow {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 .title {
   text-align: center;
@@ -25,42 +26,139 @@
   font-weight: 500;
 }
 .dyeList {
-  // @include labelSizeInput;
+  padding-inline: 3.5%;
+  @include labelSizeInput(_, 50%);
+  @include flexRow;
   label {
-    // border: 1px solid #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
     span {
-      width: 15%;
-      font-size: 16px;
-      text-align: center;
-    }
-    .textInput {
-      width: 100%;
+      letter-spacing: 2px;
+      text-align: justify;
     }
   }
 }
-.additonal {
+.process {
+  @include flexRow;
+  padding-inline: 3.5%;
+  @include labelSizeInput(_, 25%);
   label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    span {
-      width: 15%;
-      font-size: 16px;
-      text-align: center;
-    }
-    .textInput {
-      width: 100%;
-      height: 50%;
-    }
     .selecetInput {
-      width: 100%;
-      height: 50%;
-      background-color: #fff;
+      flex-grow: 0.8;
+      border: 1px solid grey;
+      span {
+        color: white;
+        letter-spacing: 1px;
+        width: 75px;
+        text-align: center;
+      }
+    }
+    span {
+      text-align: justify;
+      letter-spacing: 1px;
+    }
+  }
+}
+.finalCost {
+  padding-inline: 3.5%;
+  margin-bottom: 20px;
+  @include flexRow;
+  @include labelSizeInput(_, 50%);
+  label {
+    span {
+      letter-spacing: 2px;
+      text-align: justify;
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .dyeList {
+    padding: 5px;
+    @include labelSizeInput(_, 80%);
+    label {
+      span {
+        text-align: center;
+        letter-spacing: 0px;
+        font-size: 15px;
+      }
+    }
+  }
+  .finalCost {
+    padding: 5px;
+    margin-bottom: 20px;
+    @include labelSizeInput(_, 60%);
+    label {
+      span {
+        text-align: center;
+        letter-spacing: 0px;
+      }
+    }
+  }
+  .process {
+    padding: 5px;
+    flex-direction: column;
+    @include labelSizeInput(_, 18%);
+    label {
+      margin-bottom: 20px;
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .dyeList {
+    flex-direction: column;
+    @include labelSizeInput(_, 40%);
+    label {
+      span {
+        text-align: justify;
+        letter-spacing: 0;
+      }
+    }
+  }
+  .finalCost {
+    flex-direction: column;
+    @include labelSizeInput(_, 45%);
+    label {
+      span {
+        text-align: justify;
+        letter-spacing: 0;
+      }
+    }
+  }
+  .process {
+    @include labelSizeInput(_, 30%);
+    label {
+      .selecetInput {
+        span {
+          font-size: 12px;
+          width: 40px;
+          padding: 0;
+        }
+      }
+      span {
+        text-align: justify;
+        letter-spacing: 0;
+      }
+    }
+  }
+}
+@media screen and (max-width: 390px) {
+  .finalCost {
+    @include labelSizeInput(_, 55%);
+    label {
+      span {
+        text-align: justify;
+        letter-spacing: 0;
+        font-size: 14.5px;
+      }
+    }
+  }
+  .process {
+    @include labelSizeInput(_, 45%);
+    label {
+      span {
+        text-align: justify;
+        letter-spacing: 0;
+        font-size: 14.5px;
+      }
     }
   }
 }

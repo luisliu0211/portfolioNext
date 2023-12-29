@@ -21,6 +21,7 @@ export default function PostDetail(props) {
           width={100}
           height={100}
           alt=""
+          priority
         />
         <div>{data[0].id}</div>
         <div

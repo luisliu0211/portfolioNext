@@ -10,8 +10,13 @@
   box-shadow: 0px 0px 5px grey;
 }
 
+@media screen and (max-width: 992px) {
+  .container {
+    padding: 15px;
+  }
+}
 @media screen and (max-width: 576px) {
   .container {
-    padding: 3px;
+    padding: 10px;
   }
 }/*# sourceMappingURL=qCard.module.css.map */

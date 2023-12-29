@@ -3,6 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['randomuser.me'],
+    // loader: 'imgix', // 或者 'default'
+    // path: 'https://your-image-cdn.com/',
   },
   // basePath: '/', // 设置成你的 GitHub 仓库名称
   // assetPrefix: '/',

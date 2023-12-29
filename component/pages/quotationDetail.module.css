@@ -1,148 +1,190 @@
 .container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding-inline: 3%;
 }
 .container .flexBox {
+  display: flex;
+  flex-direction: column;
+  padding-right: 3%;
   flex-grow: 1;
 }
 .container .flexBox .title {
-  text-align: center;
-  font-size: 18px;
   font-weight: 500;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 20px;
 }
 .container .flexBox .box {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
+  justify-content: space-around;
+  justify-content: space-between;
+}
+.container .flexBox .box .cost,
+.container .flexBox .box .profit {
+  flex-grow: 1;
 }
 .container .flexBox .box .cost label,
 .container .flexBox .box .profit label {
+  width: _;
   display: flex;
-  flex-grow: 1;
-  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  height: 30px;
-  margin: 10px auto;
-  padding-inline: 5px;
+  flex-grow: 1;
 }
 .container .flexBox .box .cost label span,
 .container .flexBox .box .profit label span {
-  display: block;
-  width: 100px;
+  width: 50%;
+  text-align: center;
+  letter-spacing: 2px;
 }
 .container .flexBox .box .cost label .textInput,
 .container .flexBox .box .profit label .textInput {
+  margin-block: 10px;
   width: 100%;
 }
-.container .profit1 .title {
-  text-align: center;
-  font-size: 18px;
-  font-weight: 500;
+.container .flexBox .box .cost label span,
+.container .flexBox .box .profit label span {
+  text-align: justify;
+  letter-spacing: 0px;
 }
-.container .profit1 label {
+.container .quote {
+  background-color: darkgray;
+  padding: 5px;
+  border-radius: 30px;
   display: flex;
-  flex-grow: 1;
-  flex-direction: row;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.container .quote .title {
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 20px;
+}
+.container .quote label {
+  width: 100%;
+  display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 30px;
-  margin: 10px auto;
-  padding-inline: 5px;
+  flex-grow: 1;
 }
-.container .profit1 label span {
-  display: block;
-  width: 100px;
+.container .quote label span {
+  width: 30%;
+  text-align: center;
+  letter-spacing: 2px;
 }
-.container .profit1 label .textInput {
+.container .quote label .textInput {
+  margin-block: 10px;
   width: 100%;
 }
+.container .quote label {
+  margin-bottom: 5px;
+}
+.container .quote label span {
+  text-align: justify;
+  letter-spacing: 1px;
+}
+
 @media screen and (max-width: 992px) {
   .container {
     flex-direction: column;
   }
-  .container .flexBox .box .cost label,
-  .container .flexBox .box .profit label {
+  .container .flexBox .box .cost {
+    width: 40%;
+  }
+  .container .flexBox .box .cost label {
+    width: _;
     display: flex;
-    flex-grow: 1;
-    flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    height: 30px;
-    margin: 10px auto;
-    padding-inline: 5px;
+    flex-grow: 1;
   }
-  .container .flexBox .box .cost label span,
-  .container .flexBox .box .profit label span {
-    display: block;
-    width: 100px;
+  .container .flexBox .box .cost label span {
+    width: 65%;
+    text-align: center;
+    letter-spacing: 2px;
   }
-  .container .flexBox .box .cost label .textInput,
-  .container .flexBox .box .profit label .textInput {
+  .container .flexBox .box .cost label .textInput {
+    margin-block: 10px;
     width: 100%;
   }
-  .container .flexBox .box .cost label span,
-  .container .flexBox .box .profit label span {
-    text-align: center;
+  .container .flexBox .box .cost label span {
+    text-align: justify;
+    letter-spacing: 1px;
   }
-  .container .box .profit1 label span {
+  .container .quote {
+    background-color: transparent;
+    margin: 0 auto;
+    width: 70%;
+  }
+  .container .quote label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .container .quote label span {
+    width: 30%;
     text-align: center;
+    letter-spacing: 2px;
+  }
+  .container .quote label .textInput {
+    margin-block: 10px;
+    width: 100%;
   }
 }
 @media screen and (max-width: 576px) {
   .container .flexBox .box {
     flex-direction: column;
   }
+  .container .flexBox .box .cost,
+  .container .flexBox .box .profit {
+    width: 100%;
+  }
   .container .flexBox .box .cost label,
   .container .flexBox .box .profit label {
+    width: _;
     display: flex;
-    flex-grow: 1;
-    flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    height: 30px;
-    margin: 10px auto;
-    padding-inline: 5px;
+    flex-grow: 1;
   }
   .container .flexBox .box .cost label span,
   .container .flexBox .box .profit label span {
-    display: block;
-    width: 100px;
+    width: 45%;
+    text-align: center;
+    letter-spacing: 2px;
   }
   .container .flexBox .box .cost label .textInput,
   .container .flexBox .box .profit label .textInput {
+    margin-block: 10px;
     width: 100%;
   }
   .container .flexBox .box .cost label span,
   .container .flexBox .box .profit label span {
-    text-align: center;
+    text-align: justify;
+    letter-spacing: 1px;
+    font-size: 14.5px;
   }
-}
-@media screen and (max-width: 390px) {
-  .container .flexBox .box {
-    flex-direction: column;
-  }
-  .container .flexBox .box .cost label,
-  .container .flexBox .box .profit label {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    height: 30px;
-    margin: 10px auto;
-    padding-inline: 5px;
-  }
-  .container .flexBox .box .cost label span,
-  .container .flexBox .box .profit label span {
-    display: block;
-    width: 100px;
-  }
-  .container .flexBox .box .cost label .textInput,
-  .container .flexBox .box .profit label .textInput {
+  .container .quote {
     width: 100%;
   }
-  .container .flexBox .box .cost label span,
-  .container .flexBox .box .profit label span {
+  .container .quote label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .container .quote label span {
+    width: 30%;
     text-align: center;
+    letter-spacing: 2px;
+  }
+  .container .quote label .textInput {
+    margin-block: 10px;
+    width: 100%;
+  }
+  .container .quote label span {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
   }
 }/*# sourceMappingURL=quotationDetail.module.css.map */

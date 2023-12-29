@@ -42,7 +42,6 @@ export default function Posts() {
         const response = await fetch(`${apiUrl}/api/posts?${queryParams}`, {
           credentials: 'include',
         });
-        console.log(`${apiUrl}/api/posts?${queryParams}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

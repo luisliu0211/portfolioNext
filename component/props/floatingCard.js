@@ -9,11 +9,7 @@ export default function FloatingCard(props) {
   const context = useContext(MyContext);
   const { data } = props;
   let allCompleteCard = { backgroundColor: 'black' };
-  const [actionID, setActionID] = useState(null);
 
-  useEffect(() => {
-    console.log('e');
-  }, []);
   return (
     <div
       className={styles.container}
@@ -25,7 +21,6 @@ export default function FloatingCard(props) {
     >
       <h2>{data[0]}</h2>
       <p>
-        {' '}
         完成度:{data[1].filter((i) => i.complete).length}/{data[1].length}
       </p>
       {data[1].filter((i) => i.complete).length / data[1].length == 1 && (
@@ -34,19 +29,19 @@ export default function FloatingCard(props) {
       <br />
       <hr />
       <br />
-      {data[1].map((item) => {
+      {data[1].map((item, index) => {
         let date = new Date(item.date).toLocaleString(undefined, {
           hour: '2-digit',
           minute: '2-digit',
           hour12: false,
         });
         let finished = { textDecoration: 'line-through' };
-
         return (
-          <>
+          <React.Fragment key={index}>
             <div
               className={styles.todoLi}
               style={item.complete ? finished : {}}
+              key={index}
             >
               <span className={styles.text}> {item.text}</span>
               <div className={styles.time}>
@@ -59,7 +54,7 @@ export default function FloatingCard(props) {
                 </IconButton>
               </div>
             </div>
-          </>
+          </React.Fragment>
         );
       })}
     </div>

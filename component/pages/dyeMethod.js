@@ -34,6 +34,23 @@ export default function DyeMethod(props) {
       },
     },
   };
+  const selectStyles = {
+    selectInput: {
+      // width: '80%',
+    },
+    outlinedInput: {
+      width: '300px',
+      height: '75px',
+      padding: '5px', // 設定寬度為100%
+      '& fieldset': {
+        borderColor: 'transparent',
+        // border: '1px solid transparent', // 設定邊框顏色
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'transparent',
+      },
+    },
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -103,7 +120,7 @@ export default function DyeMethod(props) {
             type="number"
             id="dyeLightCost"
             name="dyeLightCost"
-            value={dyeLightCost}
+            value={dyeLightCost || ''}
             onChange={(e) => {
               updateNumberField(e, componentID);
               setDyeLightCost(parseFloat(e.target.value));
@@ -120,7 +137,7 @@ export default function DyeMethod(props) {
             type="number"
             id="dyeAverageCost"
             name="dyeAverageCost"
-            value={dyeAverageCost}
+            value={dyeAverageCost || ''}
             onChange={(e) => {
               updateNumberField(e, componentID);
               setDyeAverageCost(parseFloat(e.target.value));
@@ -137,7 +154,7 @@ export default function DyeMethod(props) {
             type="number"
             id="dyeDarkCost"
             name="dyeDarkCost"
-            value={dyeDarkCost}
+            value={dyeDarkCost || ''}
             onChange={(e) => {
               updateNumberField(e, componentID);
               setDyeDarkCost(parseFloat(e.target.value));
@@ -148,119 +165,142 @@ export default function DyeMethod(props) {
           />
         </label>
       </div>
-      <div className={styles.additonal}>
-        <div className={styles.dye}>
-          <label>
-            <span>加工製程</span>
-            <Select
-              className={styles.selecetInput}
-              variant="standard"
-              id="process"
-              multiple
-              value={process}
-              name="process"
-              onChange={handleChange}
-              input={<OutlinedInput id="process-chip" label="Chip" />}
-              renderValue={(selected) => (
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: 0.3,
-                  }}
-                >
-                  {selected.map((value) => (
-                    <Chip
-                      key={value}
-                      label={value}
-                      sx={{ fontSize: '16px', padding: 0 }}
-                    />
-                  ))}
-                </Box>
-              )}
-              MenuProps={MenuProps}
-            >
-              {processDB.map((p) => (
-                <MenuItem
-                  key={p.id}
-                  value={p.title}
-                  // style={getStyles(name, personName, theme)}
-                >
-                  {p.title}
-                </MenuItem>
-              ))}
-            </Select>
-          </label>
-          <label>
-            <span>特殊加工</span>
-            <Select
-              className={styles.selecetInput}
-              variant="standard"
-              id="specialProcess"
-              name="specialProcess"
-              multiple
-              value={specialProcess}
-              onChange={handleChange}
-              input={<OutlinedInput id="specialProcess-chip" label="Chip" />}
-              renderValue={(selected) => (
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: 0.3,
-                  }}
-                >
-                  {selected.map((value) => (
-                    <Chip
-                      key={value}
-                      label={value}
-                      sx={{ fontSize: '16px', padding: 0 }}
-                    />
-                  ))}
-                </Box>
-              )}
-              MenuProps={MenuProps}
-            >
-              {specialProcessDB.map((p) => (
-                <MenuItem
-                  key={p.id}
-                  value={p.title}
-                  // style={getStyles(name, personName, theme)}
-                >
-                  {p.title}
-                </MenuItem>
-              ))}
-            </Select>
-          </label>
-        </div>
-        <div className={styles.finalCost}>
-          <label htmlFor="totalCost">
-            <span>織染總成本</span>
-            <TextField
-              disabled
-              variant="standard"
-              type="number"
-              id="totalCost"
-              name="totalCost"
-              value={totalCost}
-              // onChange={(e) => updateNumberField(e, componentID)}
-              className={styles.textInput}
-              inputProps={{ step: 0.5, min: 0 }}
-            />
-          </label>
-          <label htmlFor="RDReference">
-            <span>RD參考</span>
-            <TextField
-              variant="standard"
-              type="text"
-              id="RDReference"
-              name="RDReference"
-              value={quote.dyeCost.RDReference}
-              onChange={(e) => updateTextField(e, componentID)}
-              className={styles.textInput}
-            />
-          </label>
-        </div>
+      <div className={styles.finalCost}>
+        <label htmlFor="totalCost">
+          <span>織染總成本</span>
+          <TextField
+            disabled
+            variant="standard"
+            type="number"
+            id="totalCost"
+            name="totalCost"
+            value={totalCost || ''}
+            // onChange={(e) => updateNumberField(e, componentID)}
+            className={styles.textInput}
+            inputProps={{ step: 0.5, min: 0 }}
+          />
+        </label>
+        <label htmlFor="RDReference">
+          <span>RD參考</span>
+          <TextField
+            variant="standard"
+            type="text"
+            id="RDReference"
+            name="RDReference"
+            value={quote.dyeCost.RDReference}
+            onChange={(e) => updateTextField(e, componentID)}
+            className={styles.textInput}
+          />
+        </label>
+      </div>
+      <div className={styles.process}>
+        <label>
+          <span>加工製程</span>
+          <Select
+            className={styles.selecetInput}
+            variant="standard"
+            id="process"
+            multiple
+            value={process || ''}
+            name="process"
+            onChange={handleChange}
+            input={
+              <OutlinedInput
+                id="process-chip"
+                label="Chip"
+                sx={selectStyles.outlinedInput}
+              />
+            }
+            renderValue={(selected) => (
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 0.3,
+                  maxHeight: '70px',
+                  overflowY: 'auto',
+                }}
+              >
+                {selected.map((value) => (
+                  <Chip
+                    key={value}
+                    label={value}
+                    sx={{
+                      fontSize: '16px',
+                      backgroundColor: 'darkgrey',
+                      padding: '5px',
+                      margin: '2px', // 适当调整间距
+                    }}
+                  />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {processDB.map((p) => (
+              <MenuItem key={p.id} value={p.title}>
+                {p.title}
+              </MenuItem>
+            ))}
+          </Select>
+        </label>
+        <label>
+          <span>特殊加工</span>
+          <Select
+            className={styles.selecetInput}
+            variant="standard"
+            id="specialProcess"
+            name="specialProcess"
+            multiple
+            value={specialProcess || ''}
+            onChange={handleChange}
+            input={
+              <OutlinedInput
+                id="specialProcess-chip"
+                label="Chip"
+                sx={selectStyles.outlinedInput}
+              />
+            }
+            renderValue={(selected) => (
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 0.3,
+                  maxHeight: '70px',
+                  overflowY: 'auto',
+                }}
+              >
+                {selected.map((value) => (
+                  <Chip
+                    key={value}
+                    label={value}
+                    onClick={() => {
+                      console.log(value);
+                    }}
+                    sx={{
+                      fontSize: '16px',
+                      backgroundColor: 'darkgrey',
+                      padding: '5px',
+                      margin: '2px', // 适当调整间距
+                    }}
+                  />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {specialProcessDB.map((p) => (
+              <MenuItem
+                key={p.id}
+                value={p.title}
+                // style={getStyles(name, personName, theme)}
+              >
+                {p.title}
+              </MenuItem>
+            ))}
+          </Select>
+        </label>
       </div>
     </QCard>
   );

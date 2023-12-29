@@ -5,6 +5,10 @@
   align-items: center;
   padding: 5px;
 }
+.controlButton span {
+  font-weight: 500;
+  font-size: 12px;
+}
 .controlButton .title {
   flex-grow: 1;
   text-align: center;
@@ -13,23 +17,10 @@
   font-size: 20px;
   line-height: 40px;
 }
-.controlButton button {
-  min-width: 30px;
-  height: 30px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0px 0px 5px black;
-  transition: 0.2s linear;
-  margin: 2px;
-  padding: 5px;
-  cursor: pointer;
+.controlButton .buttons {
+  display: flex;
+  align-items: center;
 }
-.controlButton button:hover {
-  background-color: grey;
-  color: white;
-}
-
 .yarnListRWD {
   display: none;
 }
@@ -102,158 +93,153 @@
 }
 
 .machineInfo {
+  margin-bottom: 5px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-.machineInfo label {
-  display: flex;
-  flex-grow: 1;
   flex-direction: row;
   justify-content: space-between;
-  height: 30px;
-  margin: 10px auto;
-  padding-inline: 5px;
+}
+.machineInfo label {
+  width: _;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
 }
 .machineInfo label span {
-  display: block;
-  width: 100px;
-  text-align: start;
-  line-height: 30px;
-  font-size: 16px;
+  width: 50%;
+  text-align: center;
+  letter-spacing: 2px;
 }
 .machineInfo label .textInput {
+  margin-block: 10px;
   width: 100%;
 }
-.machineInfo select {
-  border: none;
-  border-radius: 5px;
-  height: 100%;
-  width: 100%;
-  padding-inline: 10px;
+.machineInfo label {
+  padding-inline: 3.8%;
+}
+.machineInfo label span {
+  text-align: justify;
 }
 
 .yarnCost {
+  margin-bottom: 10px;
+  padding-inline: 3.5%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-.yarnCost label {
-  display: flex;
-  flex-grow: 1;
   flex-direction: row;
   justify-content: space-between;
-  height: 30px;
-  margin: 10px auto;
-  padding-inline: 5px;
+}
+.yarnCost label {
+  width: _;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
 }
 .yarnCost label span {
-  display: block;
-  width: 100px;
-  text-align: start;
-  line-height: 30px;
-  font-size: 16px;
+  width: 50%;
+  text-align: center;
+  letter-spacing: 2px;
 }
 .yarnCost label .textInput {
+  margin-block: 10px;
   width: 100%;
 }
-.yarnCost select {
-  border: none;
-  border-radius: 5px;
-  height: 100%;
-  padding-inline: 10px;
+.yarnCost label span {
+  text-align: justify;
+  text-indent: 0px;
 }
 
 .additonal {
+  margin-bottom: 10px;
+  padding-inline: 3.5%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  height: 120px;
-}
-.additonal label {
-  display: flex;
-  flex-grow: 1;
   flex-direction: row;
   justify-content: space-between;
-  height: 40px;
-  margin: 10px auto;
-  padding-inline: 5px;
-}
-.additonal label span {
-  display: block;
-  width: 100px;
-  text-align: start;
-  line-height: 40px;
-  font-size: 16px;
-}
-.additonal label .textInput {
-  width: 100%;
 }
 .additonal label {
+  width: _;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+.additonal label span {
+  width: 52.5%;
+  text-align: center;
+  letter-spacing: 2px;
+}
+.additonal label .textInput {
+  margin-block: 10px;
   width: 100%;
 }
-.additonal label select {
-  height: 100px;
-  border: none;
-  width: 180px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 3px grey;
-}
-.additonal label select option {
-  font-size: 16px;
-  padding-inline: 10px;
-  letter-spacing: 1px;
+.additonal label span {
+  text-align: justify;
+  text-indent: 2px;
 }
 
 @media screen and (max-width: 1280px) {
   .table thead tr > th {
     font-size: 14px;
   }
-  .machineInfo,
-  .yarnCost,
-  .additonal {
-    flex-direction: column;
-  }
-  .machineInfo label,
-  .yarnCost label,
-  .additonal label {
+}
+@media screen and (max-width: 992px) {
+  .machineInfo label {
+    width: 100%;
     display: flex;
+    align-items: center;
     flex-grow: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 40px;
-    margin: 10px auto;
-    padding-inline: 5px;
   }
-  .machineInfo label span,
-  .yarnCost label span,
-  .additonal label span {
-    display: block;
-    width: 20%;
-    text-align: start;
-    line-height: 40px;
-    font-size: 18px;
+  .machineInfo label span {
+    width: 55%;
+    text-align: center;
+    letter-spacing: 2px;
   }
-  .machineInfo label .textInput,
-  .yarnCost label .textInput,
-  .additonal label .textInput {
+  .machineInfo label .textInput {
+    margin-block: 10px;
     width: 100%;
   }
-  .machineInfo label,
-  .yarnCost label,
+  .machineInfo label span {
+    letter-spacing: 0px;
+    text-align: justify;
+  }
+  .yarnCost label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .yarnCost label span {
+    width: 70%;
+    text-align: center;
+    letter-spacing: 2px;
+  }
+  .yarnCost label .textInput {
+    margin-block: 10px;
+    width: 100%;
+  }
+  .yarnCost label span {
+    letter-spacing: 0px;
+    text-align: justify;
+    font-size: 15px;
+  }
+  .yarnCost label .textInput {
+    width: 80%;
+  }
   .additonal label {
     width: 100%;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
   }
-  .machineInfo label span,
-  .yarnCost label span,
   .additonal label span {
+    width: 45%;
     text-align: center;
-    font-size: 16px;
+    letter-spacing: 2px;
   }
-  .machineInfo label select,
-  .yarnCost label select,
-  .additonal label select {
-    width: 80%;
+  .additonal label .textInput {
+    margin-block: 10px;
+    width: 100%;
+  }
+  .additonal label span {
+    letter-spacing: 0px;
+    text-align: justify;
   }
 }
 @media screen and (max-width: 768px) {
@@ -305,80 +291,57 @@
   .machineInfo label,
   .yarnCost label,
   .additonal label {
+    width: 100%;
     display: flex;
+    align-items: center;
     flex-grow: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 40px;
-    margin: 10px auto;
-    padding-inline: 5px;
   }
   .machineInfo label span,
   .yarnCost label span,
   .additonal label span {
-    display: block;
-    width: 22%;
-    text-align: start;
-    line-height: 40px;
-    font-size: 18px;
+    width: 30%;
+    text-align: center;
+    letter-spacing: 2px;
   }
   .machineInfo label .textInput,
   .yarnCost label .textInput,
   .additonal label .textInput {
-    width: 100%;
-  }
-  .machineInfo label,
-  .yarnCost label,
-  .additonal label {
+    margin-block: 10px;
     width: 100%;
   }
   .machineInfo label span,
   .yarnCost label span,
   .additonal label span {
-    text-align: center;
-    font-size: 16px;
-  }
-  .machineInfo label select,
-  .yarnCost label select,
-  .additonal label select {
-    width: 78%;
+    letter-spacing: 0px;
+    text-align: justify;
   }
 }
 @media screen and (max-width: 390px) {
   .machineInfo label,
   .yarnCost label,
   .additonal label {
+    width: 100%;
     display: flex;
+    align-items: center;
     flex-grow: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 40px;
-    margin: 10px auto;
-    padding-inline: 5px;
   }
   .machineInfo label span,
   .yarnCost label span,
   .additonal label span {
-    display: block;
-    width: 30%;
-    text-align: start;
-    line-height: 40px;
-    font-size: 18px;
+    width: 45%;
+    text-align: center;
+    letter-spacing: 2px;
   }
   .machineInfo label .textInput,
   .yarnCost label .textInput,
   .additonal label .textInput {
+    margin-block: 10px;
     width: 100%;
   }
   .machineInfo label span,
   .yarnCost label span,
   .additonal label span {
-    text-align: center;
-    font-size: 16px;
-  }
-  .machineInfo label select,
-  .yarnCost label select,
-  .additonal label select {
-    width: 70%;
+    letter-spacing: 0px;
+    text-align: justify;
   }
 }/*# sourceMappingURL=yarnList.module.css.map */

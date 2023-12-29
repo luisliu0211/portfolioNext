@@ -15,62 +15,91 @@ export default function FabricInfo(props) {
     <QCard>
       <div className={styles.container}>
         <div className={styles.productInfo}>
-          <label htmlFor="clientId">
-            <span>客戶</span>
-            {/* TODO: 自動輸入 */}
-            <Autocomplete
-              variant="standard"
-              value={getSthById(selectedItemId, clientDB).name}
-              id="clientId"
-              name="clientId"
-              onChange={(_, newValue) => {
-                console.log(newValue);
-                let type = newValue.DBtype;
-                let id = newValue.id;
-                let brandName = newValue.name;
-                updateAutoValue(componentID, type, id);
-                setBrand(brandName);
-                setSelectedItemId(id);
-                updateAutoValue(componentID, 'brand', brandName);
-              }}
-              disablePortal
-              options={clientDB}
-              className={styles.textInput}
-              getOptionLabel={(option) => option.label}
-              renderInput={(params) => (
-                <TextField variant="standard" {...params} />
-              )}
-            />
-          </label>
-          <label htmlFor="fabricItem">
-            <span>布號</span>
-            <TextField
-              variant="standard"
-              type="text"
-              id="fabricItem"
-              name="fabricItem"
-              value={quote.fabricInfo.fabricItem}
-              onChange={(e) => {
-                updateTextField(e, componentID);
-              }}
-              className={styles.textInput}
-            />
-          </label>
-          <label htmlFor="brand">
-            <span>品牌</span>
-            <TextField
-              variant="standard"
-              type="text"
-              id="brand"
-              name="brand"
-              value={brand}
-              onChange={(e) => {
-                setBrand(e.target.value);
-                updateTextField(e, componentID);
-              }}
-              className={styles.textInput}
-            />
-          </label>
+          <div className={styles.twoinRow}>
+            <label htmlFor="clientId">
+              <span>客戶</span>
+              {/* TODO: 自動輸入 */}
+              <Autocomplete
+                variant="standard"
+                id="clientId"
+                name="clientId"
+                onChange={(_, newValue) => {
+                  console.log(newValue);
+                  if (newValue) {
+                    let type = newValue.DBtype;
+                    let id = newValue.id;
+                    let brandName = newValue.name;
+                    updateAutoValue(componentID, type, id);
+                    setBrand(brandName);
+                    setSelectedItemId(id);
+                    updateAutoValue(componentID, 'brand', brandName);
+                  }
+                }}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                disablePortal
+                options={clientDB}
+                className={styles.textInput}
+                getOptionLabel={(option) => option.label}
+                renderInput={(params) => (
+                  <TextField
+                    variant="standard"
+                    {...params}
+                    InputProps={{
+                      ...params.InputProps,
+                      placeholder: '選擇客戶',
+                    }}
+                  />
+                )}
+              />
+            </label>
+            <label htmlFor="brand">
+              <span>品牌</span>
+              <TextField
+                variant="standard"
+                type="text"
+                id="brand"
+                name="brand"
+                value={brand}
+                onChange={(e) => {
+                  setBrand(e.target.value);
+                  updateTextField(e, componentID);
+                }}
+                className={styles.textInput}
+              />
+            </label>
+          </div>
+          <div className={styles.twoinRow}>
+            <label htmlFor="fabricItem">
+              <span>布號</span>
+              <TextField
+                variant="standard"
+                type="text"
+                id="fabricItem"
+                name="fabricItem"
+                value={quote.fabricInfo.fabricItem}
+                onChange={(e) => {
+                  updateTextField(e, componentID);
+                }}
+                className={styles.textInput}
+              />
+            </label>
+            <label htmlFor="quoteDate">
+              <span>報價日</span>
+              <TextField
+                variant="standard"
+                id="quoteDate"
+                name="quoteDate"
+                type="date"
+                value={quote.createDate}
+                onChange={(e) => {
+                  updateTextField(e, componentID);
+                }}
+                className={styles.textInput}
+                min={0}
+                inputProps={{ step: 0.5, min: 0 }}
+              />
+            </label>
+          </div>
         </div>
         <hr />
         <div className={styles.productDescription}>
@@ -90,70 +119,58 @@ export default function FabricInfo(props) {
           </label>
         </div>
         <div className={styles.productSpec}>
-          <label htmlFor="width">
-            <span>幅寬</span>
-            <TextField
-              variant="standard"
-              type="number"
-              id="width"
-              name="width"
-              value={quote.fabricInfo.width}
-              onChange={(e) => {
-                updateNumberField(e, componentID);
-              }}
-              className={styles.textInput}
-              inputProps={{ step: 0.5, min: 0 }}
-            />
-          </label>
-          <label htmlFor="gsm">
-            <span>克重</span>
-            <TextField
-              variant="standard"
-              type="number"
-              id="gsm"
-              name="gsm"
-              value={quote.fabricInfo.gsm}
-              onChange={(e) => {
-                updateNumberField(e, componentID);
-              }}
-              className={styles.textInput}
-              min={0}
-              inputProps={{ step: 0.5, min: 0 }}
-            />
-          </label>
-          <label htmlFor="gy">
-            <span>碼重</span>
-            <TextField
-              variant="standard"
-              disabled
-              id="gy"
-              name="gy"
-              type="number"
-              value={quote.fabricInfo.gy}
-              onChange={(e) => {
-                updateNumberField(e, componentID);
-              }}
-              className={styles.textInput}
-              min={0}
-              inputProps={{ step: 0.5, min: 0 }}
-            />
-          </label>
-          <label htmlFor="quoteDate">
-            <span>報價日</span>
-            <TextField
-              variant="standard"
-              id="quoteDate"
-              name="quoteDate"
-              type="date"
-              // value={quote.createDate}
-              onChange={(e) => {
-                updateTextField(e, componentID);
-              }}
-              className={styles.textInput}
-              min={0}
-              inputProps={{ step: 0.5, min: 0 }}
-            />
-          </label>
+          <div className={styles.threeinRow}>
+            <label htmlFor="width">
+              <span>幅寬</span>
+              <TextField
+                variant="standard"
+                type="number"
+                id="width"
+                name="width"
+                value={quote.fabricInfo.width || ''}
+                onChange={(e) => {
+                  updateNumberField(e, componentID);
+                }}
+                placeholder="針內幅寬"
+                className={styles.textInput}
+                inputProps={{ step: 0.5, min: 0 }}
+              />
+            </label>
+            <label htmlFor="gsm">
+              <span>克重</span>
+              <TextField
+                variant="standard"
+                type="number"
+                id="gsm"
+                name="gsm"
+                value={quote.fabricInfo.gsm || ''}
+                onChange={(e) => {
+                  updateNumberField(e, componentID);
+                }}
+                className={styles.textInput}
+                placeholder="gsm"
+                inputProps={{ step: 0.5, min: 0 }}
+              />
+            </label>
+            <label htmlFor="gy">
+              <span>碼重</span>
+              <TextField
+                variant="standard"
+                disabled
+                id="gy"
+                name="gy"
+                type="number"
+                placeholder="gy"
+                value={quote.fabricInfo.gy || ''}
+                onChange={(e) => {
+                  updateNumberField(e, componentID);
+                }}
+                className={styles.textInput}
+                min={0}
+                inputProps={{ step: 0.5, min: 0 }}
+              />
+            </label>
+          </div>
         </div>
       </div>
     </QCard>

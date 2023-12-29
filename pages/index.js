@@ -13,9 +13,7 @@ import MyContext from '@/lib/context';
 import throttle from '@/lib/throttle';
 export default function Home({ postData }) {
   const { data: session, status } = useSession();
-  console.log(postData, 'pp');
   const [itemPerPage, setItemPerPage] = useState(6);
-  console.log(postData, 'pp ');
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     resizeSet(setIsMobile, setItemPerPage);

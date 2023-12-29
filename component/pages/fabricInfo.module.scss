@@ -1,77 +1,124 @@
-@mixin labelSizeInput(
-  $height: auto,
-  $fontSize: 18px,
-  $inputWidth: 100%,
-  $spanWidth: 100px
-) {
+@mixin labelSizeInput($labelWidth: 100%, $spanWidth: 30%) {
   label {
+    width: $labelWidth;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
     align-items: center;
-    // height: $height;
-    // margin: 10px auto;
-    // padding-inline: 5px;
+    flex-grow: 1;
     span {
-      width: 100px;
+      width: $spanWidth;
       text-align: center;
-      // display: block;
-      // width: $spanWidth;
-      // text-align: start;
-      // line-height: $height;
-      // font-size: $fontSize;
+      letter-spacing: 3px;
     }
     .textInput {
-      // display: block;
       margin-block: 10px;
       width: 100%;
-
-      // background-color: white;
     }
-    // input,
-    // select {
-    //   display: block;
-    //   width: $inputWidth;
-    //   border-radius: 5px;
-    //   height: 100%;
-    //   border: none;
-    //   padding-inline: 10px;
-    //   font-size: $fontSize;
-    //   box-shadow: 0px 0px 3px grey;
-    // }
   }
 }
 @mixin flexRow {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 .container {
   .productInfo {
     margin-bottom: 10px;
-    // @include flexRow;
-    @include labelSizeInput;
+    .twoinRow {
+      @include flexRow;
+      @include labelSizeInput;
+    }
   }
   .productDescription {
-    @include labelSizeInput;
+    @include labelSizeInput(_, 12.5%);
   }
   .productSpec {
-    // @include flexRow;
-    @include labelSizeInput;
+    .threeinRow {
+      @include flexRow;
+      @include labelSizeInput(_, 50%);
+    }
   }
 }
-
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 992px) {
   .container {
-    .productInfo,
-    .productDescription,
-    .productSpec {
-      // @include labelSizeInput(40px, 18px, 85%, 15%);
-      // flex-direction: column;
+    padding: 3px;
+    // border: 1px solid #000;
+    .productInfo {
+      .twoinRow {
+        @include labelSizeInput(_, 35%);
+        label {
+          span {
+            letter-spacing: 1px;
+          }
+        }
+      }
+    }
+    .productDescription {
+      @include labelSizeInput(_, 15%);
       label {
-        // width: 100%;
         span {
-          // text-align: center;
+          letter-spacing: 1px;
+        }
+      }
+    }
+    .productSpec {
+      .threeinRow {
+        @include labelSizeInput(_, 65%);
+        label {
+          span {
+            letter-spacing: 1px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .container {
+    padding: 5px;
+    .productInfo {
+      .twoinRow {
+        flex-direction: column;
+        @include labelSizeInput(_, 30%);
+      }
+    }
+    .productDescription {
+      @include labelSizeInput(_, 30%);
+    }
+    .productSpec {
+      .threeinRow {
+        flex-direction: column;
+        @include labelSizeInput(_, 30%);
+      }
+    }
+  }
+}
+@media screen and (max-width: 390px) {
+  .container {
+    .productInfo {
+      .twoinRow {
+        @include labelSizeInput(_, 28%);
+        label {
+          span {
+            letter-spacing: 0.5px;
+          }
+        }
+      }
+    }
+    .productDescription {
+      @include labelSizeInput(_, 28%);
+      label {
+        span {
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+    .productSpec {
+      .threeinRow {
+        @include labelSizeInput(_, 28%);
+        label {
+          span {
+            letter-spacing: 0.5px;
+          }
         }
       }
     }
