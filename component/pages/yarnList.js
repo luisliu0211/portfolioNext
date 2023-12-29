@@ -36,6 +36,24 @@ export default function YarnList(props) {
     yarnUnit: 2,
     yarnType: '',
   };
+  const dummyData = [
+    {
+      yarnPort: 94,
+      yarnPrice: 85,
+      yarnSource: '台化',
+      yarnSpec: 2,
+      yarnType: 'Polyester',
+      yarnUnit: 1,
+    },
+    {
+      yarnPort: 6,
+      yarnPrice: 120,
+      yarnSource: '台化',
+      yarnSpec: 2,
+      yarnType: 'OP',
+      yarnUnit: 1,
+    },
+  ];
   const [editingIndex, setEditingIndex] = useState(null);
   const [totalPort, setTotalPort] = useState(0);
   const [ifEdit, setIfEdit] = useState(false);

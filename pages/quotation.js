@@ -184,7 +184,24 @@ const initState = {
     fabricProcessFee: 0,
     fabricCost: 0,
     totalWastage: 0,
-    yarnInfo: [],
+    yarnInfo: [
+      {
+        yarnPort: 94,
+        yarnPrice: 85,
+        yarnSource: '台化',
+        yarnSpec: 2,
+        yarnType: 'Polyester',
+        yarnUnit: 1,
+      },
+      {
+        yarnPort: 6,
+        yarnPrice: 120,
+        yarnSource: '台化',
+        yarnSpec: 3,
+        yarnType: 'OP',
+        yarnUnit: 1,
+      },
+    ],
     totalYarnCost: null,
   },
   dyeCost: {
