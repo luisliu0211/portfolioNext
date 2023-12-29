@@ -24,7 +24,7 @@ export default function QuotationDetail(props) {
     setCostTWDKG(
       quote.dyeCost.totalCost + excuteCost + shippingCost + testingCost
     );
-    if (exchangeRate !== null && costUSDKG !== null && profit !== null) {
+    if (exchangeRate !== null && costTWDKG !== null && profit !== null) {
       // 执行数学运算
       setCostUSDKG((costTWDKG / exchangeRate).toFixed(2));
       setCostUSDY(((costUSDKG * quote.fabricInfo.gy) / 1000).toFixed(2));

@@ -36,24 +36,7 @@ export default function YarnList(props) {
     yarnUnit: 2,
     yarnType: '',
   };
-  const dummyData = [
-    {
-      yarnPort: 94,
-      yarnPrice: 85,
-      yarnSource: '台化',
-      yarnSpec: 2,
-      yarnType: 'Polyester',
-      yarnUnit: 1,
-    },
-    {
-      yarnPort: 6,
-      yarnPrice: 120,
-      yarnSource: '台化',
-      yarnSpec: 2,
-      yarnType: 'OP',
-      yarnUnit: 1,
-    },
-  ];
+
   const [editingIndex, setEditingIndex] = useState(null);
   const [totalPort, setTotalPort] = useState(0);
   const [ifEdit, setIfEdit] = useState(false);
@@ -64,6 +47,8 @@ export default function YarnList(props) {
   const [fabricCost, setFabricCost] = useState(null);
   const [totalWastage, setTotalWastage] = useState(null);
   const [fabricProcessFee, setFabricProcessFee] = useState(null);
+  const [expandRowIndex, setExpandRowIndex] = useState(null);
+
   const handleAddNewYarn = () => {
     setEditingIndex(null);
     if (ifEdit) {
@@ -107,6 +92,9 @@ export default function YarnList(props) {
     } else {
       deleteListInfo(index);
     }
+  };
+  const openRow = (index) => {
+    setExpandRowIndex((prevIndex) => (prevIndex === index ? null : index));
   };
   const updateData = () => {
     // 計算總比例
@@ -251,7 +239,7 @@ export default function YarnList(props) {
                     ) : (
                       <>
                         <td name="yarnNo">{index + 1}</td>
-                        <td name="yarnSpec">
+                        <td name="yarnSpec" onClick={() => openRow(index)}>
                           {getSthById(tr.yarnSpec, yarnDB)
                             ? getSthById(tr.yarnSpec, yarnDB).title
                             : '尚未選擇紗種'}
@@ -285,6 +273,11 @@ export default function YarnList(props) {
                           ></DeleteIcon>
                         </td>
                       </>
+                    )}
+                  </tr>
+                  <tr className={styles.yarnDetails}>
+                    {index === expandRowIndex && (
+                      <td colSpan={7}> {tr.yarnQuoteText}</td>
                     )}
                   </tr>
                 </React.Fragment>
@@ -336,7 +329,11 @@ export default function YarnList(props) {
           </thead>
           {quote.yarnCost.yarnInfo.map((tr, index) => {
             return (
-              <tbody key={index} className={styles.trStyle}>
+              <tbody
+                key={index}
+                className={styles.trStyle}
+                onClick={() => openRow(index)}
+              >
                 <tr>
                   <td rowSpan={4} name="yarnNo">
                     {index + 1}
@@ -379,6 +376,11 @@ export default function YarnList(props) {
                 </tr>
                 <tr className={styles.divider}>
                   <td colSpan={3}></td>
+                </tr>
+                <tr className={styles.yarnDetails}>
+                  {index === expandRowIndex && (
+                    <td colSpan={7}> {tr.yarnQuoteText}</td>
+                  )}
                 </tr>
               </tbody>
             );
@@ -595,6 +597,7 @@ const EditYarnInfo = ({
                   yarnSource: newValue.source,
                   yarnUnit: newValue.unit,
                   yarnType: newValue.type,
+                  yarnQuoteText: newValue.text,
                 });
               }
             }}
@@ -666,20 +669,6 @@ const EditYarnInfo = ({
           inputProps={{ step: 1, min: 0 }}
         />
         {getSthById(yarnInput.yarnUnit, yarnDB).yarnUnit}
-        {/* <Select
-          disabled
-          name="yarnUnit"
-          value={getSthById(yarnInput.yarnUnit, yarnDB)}
-          onChange={(e) => handleYarnInputChange(e)}
-          className={styles.textInput}
-          autoWidth
-        >
-          {priceUnit.map((option) => (
-            <MenuItem key={option.id} value={option.id}>
-              {option.title}
-            </MenuItem>
-          ))}
-        </Select> */}
       </td>
       <td name="singleYarnCost">
         {parseFloat(

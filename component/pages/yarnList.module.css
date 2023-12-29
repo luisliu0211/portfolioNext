@@ -53,6 +53,9 @@
 .table thead th[name=singleYarnCost] {
   width: 10%;
 }
+.table tbody {
+  position: relative;
+}
 .table tbody .trStyle {
   cursor: pointer;
   transition: 0.1s linear;
@@ -84,6 +87,19 @@
   background-color: white;
   border: 0;
   outline: 0;
+}
+.table tbody .trStyle:hover {
+  background-color: grey;
+}
+.table tbody .yarnDetails {
+  width: 100%;
+  transition: 0.3s ease;
+  border-top: 1px solid #b3b3b3;
+  transition: 0.2s linear;
+}
+.table tbody .yarnDetails td {
+  width: auto;
+  text-align: center;
 }
 .table tfoot tr {
   height: 40px;

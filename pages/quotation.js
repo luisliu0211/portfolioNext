@@ -31,7 +31,7 @@ let yarnDB = [
   {
     id: 1,
     title: 'T75D/72F DTY SD',
-    text: '...text',
+    text: '麗雪12/31報價',
     label: 'T75D/72F DTY SD',
     price: 50,
     source: '遠東',
@@ -42,7 +42,7 @@ let yarnDB = [
   {
     id: 2,
     title: 'T75D/36F FDY SD',
-    text: '...text',
+    text: '麗雪12/31報價',
     label: 'T75D/72F FDY SD',
     price: 85,
     source: '台化',
@@ -53,7 +53,7 @@ let yarnDB = [
   {
     id: 3,
     title: 'OP20D',
-    text: '...tttext',
+    text: '麗雪1/3報價',
     label: 'OP20D',
     price: 205,
     source: '台化',
@@ -64,7 +64,7 @@ let yarnDB = [
   {
     id: 4,
     title: 'OP30D',
-    text: '...tttext',
+    text: '麗雪1/3報價',
     label: 'OP30D',
     price: 100,
     source: '立統',
@@ -75,7 +75,7 @@ let yarnDB = [
   {
     id: 5,
     title: 'OP40D',
-    text: '...tttext',
+    text: '麗雪1/5報價',
     label: 'OP40D',
     source: '立統',
     price: 290,
@@ -189,9 +189,10 @@ const initState = {
         yarnPort: 94,
         yarnPrice: 85,
         yarnSource: '台化',
-        yarnSpec: 2,
+        yarnSpec: 1,
         yarnType: 'Polyester',
-        yarnUnit: 1,
+        yarnUnit: 2,
+        yarnQuoteText: '麗雪1/1報價',
       },
       {
         yarnPort: 6,
@@ -199,7 +200,8 @@ const initState = {
         yarnSource: '台化',
         yarnSpec: 3,
         yarnType: 'OP',
-        yarnUnit: 1,
+        yarnUnit: 2,
+        yarnQuoteText: '麗雪12/31報價',
       },
     ],
     totalYarnCost: null,

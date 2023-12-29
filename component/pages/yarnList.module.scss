@@ -80,6 +80,7 @@
     }
   }
   tbody {
+    position: relative;
     .trStyle {
       cursor: pointer;
       transition: 0.1s linear;
@@ -113,7 +114,17 @@
         }
       }
       &:hover {
-        // background-color: grey;
+        background-color: grey;
+      }
+    }
+    .yarnDetails {
+      width: 100%;
+      transition: 0.3s ease;
+      border-top: 1px solid lighten(grey, 20%);
+      transition: 0.2s linear;
+      td {
+        width: auto;
+        text-align: center;
       }
     }
   }
