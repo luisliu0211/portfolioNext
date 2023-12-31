@@ -410,6 +410,7 @@ export default function YarnList(props) {
         </table>
       </QCard>
       <QCard>
+        <div className={styles.title}>胚布資料</div>
         <div className={styles.machineInfo}>
           <label>
             <span>機台種類</span>

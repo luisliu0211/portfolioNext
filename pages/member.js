@@ -9,24 +9,19 @@ import FlexBox from '@/component/layouts/flexBox';
 import MemberInfo from '@/component/pages/memberInfo';
 export default function Member() {
   const { data, status } = useSession();
-  console.log(data);
+  // console.log(data);
   if (status === 'loading') {
     return <h3>loading...</h3>;
   }
   if (status === 'unauthenticated') {
     return <h3>{status}</h3>;
   }
-  let memberSideBar = [
-    { id: 1, title: '會員資料', url: '/' },
-    { id: 2, title: '按讚文章', url: '/' },
-    { id: 3, title: '我的文章', url: '/' },
-    { id: 4, title: '博主私訊', url: '/' },
-  ];
+
   return (
     <>
       <Layout>
         <FlexBox>
-          <SideBar prop={memberSideBar} />
+          <SideBar />
           <MemberInfo />
         </FlexBox>
         {/* <pre>{JSON.stringify(data.user, null, 2)}</pre> */}

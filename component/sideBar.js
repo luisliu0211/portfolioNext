@@ -2,13 +2,12 @@ import { signOut } from 'next-auth/react';
 import styles from './sideBar.module.css';
 import Link from 'next/link';
 export default function SideBar() {
-  // const { memberSideBar } = data;
-
+  // const { memberSideBar } = props;
   let memberSideBar = [
     { id: 1, title: '會員資料', url: '/' },
-    { id: 2, title: '按讚文章', url: '/' },
-    { id: 3, title: '我的文章', url: '/' },
-    { id: 4, title: '博主私訊', url: '/' },
+    { id: 2, title: '報價總表', url: '/' },
+    { id: 3, title: '我的報價', url: '/' },
+    { id: 4, title: '聯絡我', url: '/' },
   ];
   return (
     <>

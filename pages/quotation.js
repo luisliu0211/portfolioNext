@@ -1,5 +1,6 @@
 import React, { use, useEffect } from 'react';
 import Layout from '@/component/layouts/layout';
+
 import Content from '@/component/layouts/content';
 import Column from '@/component/layouts/column';
 import Breadcrumbs from '@/component/props/breadcrumbs';
@@ -26,6 +27,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import MyContext from '@/lib/context';
 import { getFormattedDate } from '@/lib/getDate';
 import { useCheckMobile } from '@/hook/useCheckMobile';
+import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 let yarnDB = [
   {
@@ -37,7 +40,6 @@ let yarnDB = [
     source: '遠東',
     unit: 2,
     type: 'Polyester',
-    por: 30,
   },
   {
     id: 2,
@@ -48,7 +50,6 @@ let yarnDB = [
     source: '台化',
     unit: 1,
     type: 'Polyester',
-    por: 20,
   },
   {
     id: 3,
@@ -59,7 +60,6 @@ let yarnDB = [
     source: '台化',
     unit: 2,
     type: 'OP',
-    por: 20,
   },
   {
     id: 4,
@@ -70,7 +70,6 @@ let yarnDB = [
     source: '立統',
     unit: 2,
     type: 'OP',
-    por: 25,
   },
   {
     id: 5,
@@ -81,7 +80,6 @@ let yarnDB = [
     price: 290,
     unit: 2,
     type: 'OP',
-    por: 25,
   },
 ];
 let clientDB = [
@@ -358,8 +356,92 @@ export default function Quotation() {
   };
   const [open, setOpen] = useState(false);
   const isMobile = useCheckMobile();
-  const handleClear = (e) => {
-    console.log('clear');
+  const handleClear = async (data) => {
+    const response = await fetch(
+      `http://localhost:8080/public/quotationList.xlsx`
+    );
+    if (!response.ok) {
+      throw new Error(`Failed to fetch Excel file. Status: ${response.status}`);
+    }
+    const blobData = await response.blob();
+    const arrayBuffer = await new Response(blobData).arrayBuffer();
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.load(arrayBuffer);
+
+    const sheetName = '報價分析單'; // 假设你要修改的工作表的名称是 Sheet1
+    const sheet = workbook.getWorksheet(sheetName);
+    sheet.views = [
+      {
+        showGridLines: false, // 关闭默认的网格线
+      },
+    ];
+    // 基本資料
+    let client = getSthById(data.fabricInfo.clientId, clientDB).label;
+    sheet.getCell('B3').value = client;
+    sheet.getCell('E3').value = data.fabricInfo.fabricItem;
+    sheet.getCell('H3').value = data.fabricInfo.brand;
+    sheet.getCell('B5').value = data.fabricInfo.width;
+    sheet.getCell('D5').value = data.fabricInfo.gsm;
+    sheet.getCell('F5').value = data.fabricInfo.gy;
+    sheet.getCell('J5').value = data.createDate.replace(/-/g, '/');
+    sheet.getCell('B4').value = data.fabricInfo.description;
+    sheet.getCell('H34').value = data.authur;
+
+    // 紗支資料
+    let yarnNumber = data.yarnCost.yarnInfo.length;
+    for (let i = 0; i < yarnNumber; i++) {
+      let yarnTitle = getSthById(
+        data.yarnCost.yarnInfo[i].yarnSpec,
+        yarnDB
+      ).title;
+      let yarnUnit = getSthById(
+        data.yarnCost.yarnInfo[i].yarnUnit,
+        priceUnit
+      ).title;
+      sheet.getCell(`B${7 + i}`).value = yarnTitle;
+      sheet.getCell(`D${7 + i}`).value =
+        data.yarnCost.yarnInfo[i].yarnPort / 100;
+      sheet.getCell(`F${7 + i}`).value = data.yarnCost.yarnInfo[i].yarnSource;
+      sheet.getCell(`H${7 + i}`).value = data.yarnCost.yarnInfo[i].yarnPrice;
+      sheet.getCell(`I${7 + i}`).value = yarnUnit;
+    }
+    // // 紗規格
+    sheet.getCell('B13').value = data.yarnCost.machineSpec;
+    sheet.getCell('E13').value = data.yarnCost.fabricProcessFee;
+    sheet.getCell('I13').value = data.yarnCost.totalWastage / 100;
+    sheet.getCell(
+      'H20'
+    ).value = `1英吋經向密度目數:${data.yarnCost.densityWarp}`;
+    sheet.getCell(
+      'H21'
+    ).value = `1英吋緯向密度目數:${data.yarnCost.densityWeft}`;
+    // // 染整工繳
+    sheet.getCell('D20').value = data.dyeCost.dyeAverageCost;
+    // 業務工繳
+    sheet.getCell('G24').value = data.salesCost.excuteCost;
+    sheet.getCell('G25').value = data.salesCost.testingCost;
+    sheet.getCell('G26').value = data.salesCost.shippingCost;
+    sheet.getCell('G27').value = data.salesCost.profit / 100;
+    sheet.getCell('G28').value = data.salesCost.exchangeRate;
+    sheet.getCell('G32').value = data.salesCost.quoteDueDate.replace(/-/g, '/');
+    // 将修改后的数据转换为 Blob
+    const modifiedBlob = await workbook.xlsx.writeBuffer();
+
+    // 創建一個連結
+    const a = document.createElement('a');
+    const blobUrl = URL.createObjectURL(
+      new Blob([modifiedBlob], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      })
+    );
+    a.href = blobUrl;
+    a.download = `報價分析單-${quote.fabricInfo.fabricItem}.xlsx`; // 指定下載的檔案名稱
+    document.body.appendChild(a);
+    // 模擬點選連結以觸發下載
+    a.click();
+    // 清理釋放效能
+    document.body.removeChild(a);
+    URL.revokeObjectURL(blobUrl);
   };
   const handleSave = (e) => {
     console.log(quote, 'final quote save');
@@ -385,8 +467,105 @@ export default function Quotation() {
     //   console.error('Error saving data to the database:', error);
     // }
   };
-  const handleIssue = (e) => {
-    console.log(quote, 'issue quote');
+  const handleIssue = async (data) => {
+    const response = await fetch(
+      `http://localhost:8080/public/quotationList.xlsx`
+    );
+    if (!response.ok) {
+      throw new Error(`Failed to fetch Excel file. Status: ${response.status}`);
+    }
+    const blobData = await response.blob();
+    const arrayBuffer = await new Response(blobData).arrayBuffer();
+    const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
+
+    const sheetName = '報價分析單'; // 假设你要修改的工作表的名称是 Sheet1
+    const sheet = workbook.Sheets[sheetName];
+    const originalRef = sheet['!ref'];
+    sheet['!ref'] = originalRef;
+    // 基本資料
+    let client = getSthById(data.fabricInfo.clientId, clientDB).label;
+    sheet['B3'] = { t: 's', v: client };
+    sheet['E3'] = { t: 's', v: data.fabricInfo.fabricItem };
+    sheet['H3'] = { t: 's', v: data.fabricInfo.brand };
+    sheet['B5'] = { t: 'n', v: data.fabricInfo.width };
+    sheet['D5'] = { t: 'n', v: data.fabricInfo.gsm };
+    sheet['F5'] = { t: 'n', v: data.fabricInfo.gy };
+    sheet['J5'] = { t: 's', v: data.createDate.replace(/-/g, '/') };
+    sheet['B4'] = { t: 's', v: data.fabricInfo.description };
+    sheet['H34'] = { t: 's', v: data.authur };
+
+    // 紗支資料
+    let yarnNumber = data.yarnCost.yarnInfo.length;
+    for (let i = 0; i < yarnNumber; i++) {
+      let yarnTitle = getSthById(
+        data.yarnCost.yarnInfo[i].yarnSpec,
+        yarnDB
+      ).title;
+      let yarnUnit = getSthById(
+        data.yarnCost.yarnInfo[i].yarnUnit,
+        priceUnit
+      ).title;
+      sheet[`B${7 + i}`] = {
+        t: 's',
+        v: yarnTitle,
+      };
+      sheet[`D${7 + i}`] = {
+        t: 'n',
+        v: data.yarnCost.yarnInfo[i].yarnPort / 100,
+      };
+      sheet[`F${7 + i}`] = { t: 's', v: data.yarnCost.yarnInfo[i].yarnSource };
+      sheet[`H${7 + i}`] = { t: 'n', v: data.yarnCost.yarnInfo[i].yarnPrice };
+      sheet[`I${7 + i}`] = {
+        t: 's',
+        v: yarnUnit,
+      };
+    }
+    // 紗規格
+    sheet['B13'] = {
+      t: 's',
+      v: data.yarnCost.machineSpec,
+    };
+    sheet['E13'] = { t: 'n', v: data.yarnCost.fabricProcessFee };
+    sheet['I13'] = { t: 'n', v: data.yarnCost.totalWastage / 100 };
+    sheet['H20'] = {
+      t: 's',
+      v: `1英吋經向密度目數:${data.yarnCost.densityWarp}`,
+    };
+    sheet['H21'] = {
+      t: 's',
+      v: `1英吋緯向密度目數:${data.yarnCost.densityWeft}`,
+    };
+    // 染整工繳
+    sheet['D20'] = { t: 'n', v: data.dyeCost.dyeAverageCost };
+    // 業務工繳
+    sheet['G24'] = { t: 'n', v: data.salesCost.excuteCost };
+    sheet['G25'] = { t: 'n', v: data.salesCost.testingCost };
+    sheet['G26'] = { t: 'n', v: data.salesCost.shippingCost };
+    sheet['G27'] = { t: 'n', v: data.salesCost.profit / 100 };
+    sheet['G28'] = { t: 'n', v: data.salesCost.exchangeRate };
+    sheet['G32'] = {
+      t: 's',
+      v: data.salesCost.quoteDueDate.replace(/-/g, '/'),
+    };
+    // 将修改后的数据转换为 Blob
+    const modifiedBlob = new Blob([
+      XLSX.write(workbook, { bookType: 'xlsx', type: 'array' }),
+    ]);
+    // 創建一個連結
+    const a = document.createElement('a');
+    const blobUrl = URL.createObjectURL(modifiedBlob);
+    a.href = blobUrl;
+    a.download = `報價分析單-${quote.fabricInfo.fabricItem}.xlsx`; // 指定下載的檔案名稱
+    document.body.appendChild(a);
+    // 模擬點選連結以觸發下載
+    a.click();
+    // 清理釋放效能
+    document.body.removeChild(a);
+    URL.revokeObjectURL(blobUrl);
+  };
+  const getSthById = (id, DB) => {
+    const sthValue = DB.find((item) => item.id === id);
+    return sthValue ? sthValue : undefined;
   };
   const toggleDrawer = (e) => {
     if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
@@ -430,13 +609,13 @@ export default function Quotation() {
               bussinessTermDB={bussinessTermDB}
             />
             <ButtonGroup size="large">
-              <Button variant="contained" onClick={handleClear}>
+              <Button variant="contained" onClick={() => handleClear(quote)}>
                 清空
               </Button>
               <Button variant="contained" onClick={handleSave}>
                 儲存
               </Button>
-              <Button variant="contained" onClick={handleIssue}>
+              <Button variant="contained" onClick={() => handleIssue(quote)}>
                 發布
               </Button>
               <Button variant="contained" onClick={toggleDrawer}>

@@ -112,7 +112,7 @@ export default function DyeMethod(props) {
   return (
     <QCard>
       <div className={styles.title}>染色</div>
-      <div className={styles.dyeList}>
+      {/* <div className={styles.dyeList}>
         <label htmlFor="dyeLightCost">
           <span>淺色工繳</span>
           <TextField
@@ -130,23 +130,7 @@ export default function DyeMethod(props) {
             inputProps={{ step: 1, min: 0 }}
           />
         </label>
-        <label htmlFor="dyeAverageCost">
-          <span>染色工繳</span>
-          <TextField
-            variant="standard"
-            type="number"
-            id="dyeAverageCost"
-            name="dyeAverageCost"
-            value={dyeAverageCost || ''}
-            onChange={(e) => {
-              updateNumberField(e, componentID);
-              setDyeAverageCost(parseFloat(e.target.value));
-            }}
-            className={styles.textInput}
-            placeholder="TWD/KG"
-            inputProps={{ step: 1, min: 0 }}
-          />
-        </label>
+
         <label htmlFor="dyeDarkCost">
           <span>深色工繳</span>
           <TextField
@@ -164,7 +148,7 @@ export default function DyeMethod(props) {
             inputProps={{ step: 1, min: 0 }}
           />
         </label>
-      </div>
+      </div> */}
       <div className={styles.finalCost}>
         <label htmlFor="totalCost">
           <span>織染總成本</span>
@@ -175,9 +159,25 @@ export default function DyeMethod(props) {
             id="totalCost"
             name="totalCost"
             value={totalCost || ''}
-            // onChange={(e) => updateNumberField(e, componentID)}
             className={styles.textInput}
             inputProps={{ step: 0.5, min: 0 }}
+          />
+        </label>
+        <label htmlFor="dyeAverageCost">
+          <span>染色工繳</span>
+          <TextField
+            variant="standard"
+            type="number"
+            id="dyeAverageCost"
+            name="dyeAverageCost"
+            value={dyeAverageCost || ''}
+            onChange={(e) => {
+              updateNumberField(e, componentID);
+              setDyeAverageCost(parseFloat(e.target.value));
+            }}
+            className={styles.textInput}
+            placeholder="TWD/KG"
+            inputProps={{ step: 1, min: 0 }}
           />
         </label>
         <label htmlFor="RDReference">
