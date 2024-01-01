@@ -1,5 +1,6 @@
 import { signOut } from 'next-auth/react';
 import styles from './sideBar.module.css';
+import React from 'react';
 import Link from 'next/link';
 export default function SideBar() {
   // const { memberSideBar } = props;
@@ -14,12 +15,12 @@ export default function SideBar() {
       <ul className={styles.container}>
         {memberSideBar.map((item, id) => {
           return (
-            <>
-              <li key={id}>
+            <React.Fragment key={id}>
+              <li>
                 <Link href={item.url}>{item.title}</Link>
               </li>
               <hr />
-            </>
+            </React.Fragment>
           );
         })}
 

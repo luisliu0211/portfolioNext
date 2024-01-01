@@ -27,7 +27,6 @@ export default function MemberInfo() {
   const [selectedImage, setSelectedImage] = useState(defaultImg);
   const handleUserUpdate = async (e) => {
     e.preventDefault();
-    console.log(user);
     //TODO: 打api存入資料庫
     try {
       const response = await fetch(`${apiUrl}/api/user/update`, {
@@ -75,7 +74,6 @@ export default function MemberInfo() {
         setSelectedImage(fileUrl);
         // 將檔案照片名稱存入資料
         let imageUploadRes = await handleImageUpload(file);
-        console.log(imageUploadRes, 'jiejf');
         setUser((prevUser) => ({
           ...prevUser,
           image: imageUploadRes
@@ -211,6 +209,7 @@ export default function MemberInfo() {
                     alt="Preview"
                     height={200}
                     width={200}
+                    priority
                     // style={{ maxWidth: '100%' }}
                   />
                 )}
@@ -231,12 +230,6 @@ export default function MemberInfo() {
           </form>
         </div>
       </div>
-      {/* <div className={styles.container}>
-        <div className={styles.detailBox}>feafeafe {userData.name}</div>
-      </div>
-      <div className={styles.container}>
-        <div className={styles.detailBox}>feafeafe {userData.name}</div>
-      </div> */}
     </>
   );
 }
