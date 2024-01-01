@@ -196,12 +196,12 @@ export default function QuotationDetail(props) {
                   inputProps={{ step: 1, min: 0 }}
                 />
               </label>
-              <label htmlFor="tradeTermL">
+              <label htmlFor="tradeTerm">
                 <span>貿易條件</span>
                 {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                 <Select
-                  id="tradeTermL"
-                  name="tradeTermL"
+                  id="tradeTerm"
+                  name="tradeTerm"
                   value={tradeTerm}
                   onChange={(e) => {
                     updateNumberField(e, componentID);

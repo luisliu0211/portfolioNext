@@ -150,19 +150,6 @@ export default function DyeMethod(props) {
         </label>
       </div> */}
       <div className={styles.finalCost}>
-        <label htmlFor="totalCost">
-          <span>織染總成本</span>
-          <TextField
-            disabled
-            variant="standard"
-            type="number"
-            id="totalCost"
-            name="totalCost"
-            value={totalCost || ''}
-            className={styles.textInput}
-            inputProps={{ step: 0.5, min: 0 }}
-          />
-        </label>
         <label htmlFor="dyeAverageCost">
           <span>染色工繳</span>
           <TextField
@@ -180,6 +167,20 @@ export default function DyeMethod(props) {
             inputProps={{ step: 1, min: 0 }}
           />
         </label>
+        <label htmlFor="totalCost">
+          <span>織染總成本</span>
+          <TextField
+            disabled
+            variant="standard"
+            type="number"
+            id="totalCost"
+            name="totalCost"
+            value={totalCost || ''}
+            className={styles.textInput}
+            inputProps={{ step: 0.5, min: 0 }}
+          />
+        </label>
+
         <label htmlFor="RDReference">
           <span>RD參考</span>
           <TextField

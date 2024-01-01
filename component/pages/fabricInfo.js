@@ -5,11 +5,12 @@ import { useState, useContext } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import MyContext from '@/lib/context';
+import { Tooltip } from '@mui/material';
 export default function FabricInfo(props) {
   const { componentID, clientDB } = props;
   const { quote, updateTextField, updateNumberField, updateAutoValue } =
     useContext(MyContext);
-  const [selectedItemId, setSelectedItemId] = useState(null);
+  // const [selectedItemId, setSelectedItemId] = useState(null);
   const [brand, setBrand] = useState(quote.fabricInfo.brand);
   return (
     <QCard>
@@ -31,7 +32,7 @@ export default function FabricInfo(props) {
                     let brandName = newValue.name;
                     updateAutoValue(componentID, type, id);
                     setBrand(brandName);
-                    setSelectedItemId(id);
+                    // setSelectedItemId(id);
                     updateAutoValue(componentID, 'brand', brandName);
                   }
                 }}
@@ -103,20 +104,25 @@ export default function FabricInfo(props) {
         </div>
         <hr />
         <div className={styles.productDescription}>
-          <label htmlFor="description">
-            <span>品名</span>
-            <TextField
-              variant="standard"
-              type="text"
-              id="description"
-              name="description"
-              value={quote.fabricInfo.description}
-              onChange={(e) => {
-                updateTextField(e, componentID);
-              }}
-              className={styles.textInput}
-            />
-          </label>
+          <Tooltip
+            title="僅填寫品名 布種規格＆紗支＆成分會自動帶上"
+            placement="top-start"
+          >
+            <label htmlFor="description">
+              <span>品名</span>
+              <TextField
+                variant="standard"
+                type="text"
+                id="description"
+                name="description"
+                value={quote.fabricInfo.description}
+                onChange={(e) => {
+                  updateTextField(e, componentID);
+                }}
+                className={styles.textInput}
+              />
+            </label>
+          </Tooltip>
         </div>
         <div className={styles.productSpec}>
           <div className={styles.threeinRow}>

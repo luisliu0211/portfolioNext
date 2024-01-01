@@ -235,15 +235,31 @@ const initState = {
 };
 const quoteReducer = (quote = initState, action) => {
   // console.log(quote, action);
-  const { field, value, name, newYarn, index, saveInfo, data, selectedIds } =
-    action.payload;
+  const {
+    field,
+    value,
+    name,
+    newYarn,
+    index,
+    saveInfo,
+    data,
+    selectedIds,
+    fabricSpecString,
+  } = action.payload;
   // console.log(action.type);
   let yarnList = quote.yarnCost.yarnInfo;
   switch (action.type) {
     case 'fieldTextChange':
       return { ...quote, [field]: { ...quote[field], [name]: value } };
     case 'fieldNumberChange':
-      return { ...quote, [field]: { ...quote[field], [name]: value } };
+      return {
+        ...quote,
+        [field]: {
+          ...quote[field],
+          [name]: value,
+          ...(fabricSpecString ? { fabricSpecString: fabricSpecString } : {}),
+        },
+      };
     case 'yarnAdd':
       // 複製原始陣列 加入新資料
       yarnList = [...yarnList, newYarn];
@@ -316,9 +332,15 @@ export default function Quotation() {
         if (gsm !== null && width !== null) {
           let newGy = (((value + 2) * roundedGsm) / 43).toFixed(2);
           let name = 'gy';
+          let fabricSpecString = `針內${value}吋X${roundedGsm}GSM ${newGy}g/y`;
           dispatch({
             type: 'fieldNumberChange',
-            payload: { field, name: name, value: parseFloat(newGy) }, // Corrected to use newName and parseFloat
+            payload: {
+              field,
+              name: name,
+              value: parseFloat(newGy),
+              fabricSpecString: fabricSpecString,
+            }, // Corrected to use newName and parseFloat
           });
         }
         break;
@@ -326,9 +348,15 @@ export default function Quotation() {
         if (gsm !== null && width !== null) {
           let newGy = (((roundedWidth + 2) * value) / 43).toFixed(2);
           let name = 'gy';
+          let fabricSpecString = `針內${roundedWidth}吋X${value}GSM ${newGy}g/y`;
           dispatch({
             type: 'fieldNumberChange',
-            payload: { field, name: name, value: parseFloat(newGy) }, // Corrected to use newName and parseFloat
+            payload: {
+              field,
+              name: name,
+              value: parseFloat(newGy),
+              fabricSpecString: fabricSpecString,
+            }, // Corrected to use newName and parseFloat
           });
         }
         break;
@@ -356,7 +384,27 @@ export default function Quotation() {
   };
   const [open, setOpen] = useState(false);
   const isMobile = useCheckMobile();
-  const handleClear = async (data) => {
+  const handleItemClick = (text) => {
+    // 根据不同的文本执行不同的功能
+    switch (text) {
+      case '轉成PDF':
+        // 执行转成PDF的功能
+        console.log('轉成PDF TBA');
+        break;
+      case '轉成Excel':
+        // 执行转成Excel的功能
+        handleShifttoExcel(quote);
+        break;
+      case '返回報價清單':
+        // 执行返回报价清单的功能
+        console.log('返回報價清單 TBA');
+        break;
+      default:
+        // 默认情况
+        break;
+    }
+  };
+  const handleShifttoExcel = async (data) => {
     const response = await fetch(`${apiUrl}/public/quotationList.xlsx`);
     if (!response.ok) {
       throw new Error(`Failed to fetch Excel file. Status: ${response.status}`);
@@ -382,9 +430,16 @@ export default function Quotation() {
     sheet.getCell('H3').value = data.fabricInfo.brand;
     sheet.getCell('B5').value = data.fabricInfo.width;
     sheet.getCell('D5').value = data.fabricInfo.gsm;
-    // sheet.getCell('F5').value = data.fabricInfo.gy;
+    sheet.getCell('F5').value = data.fabricInfo.gy;
     sheet.getCell('I5').value = data.createDate.replace(/-/g, '/');
-    sheet.getCell('B4').value = data.fabricInfo.description;
+    sheet.getCell('B4').value =
+      data.yarnCost.yarnTextString +
+      ' ' +
+      data.yarnCost.portionText +
+      ' ' +
+      data.fabricInfo.description +
+      ' ' +
+      data.fabricInfo.fabricSpecString;
     sheet.getCell('H34').value = data.authur;
 
     // 紗支資料
@@ -401,9 +456,16 @@ export default function Quotation() {
       sheet.getCell(`B${7 + i}`).value = yarnTitle;
       sheet.getCell(`D${7 + i}`).value =
         data.yarnCost.yarnInfo[i].yarnPort / 100;
-      sheet.getCell(`F${7 + i}`).value = data.yarnCost.yarnInfo[i].yarnSource;
-      sheet.getCell(`H${7 + i}`).value = data.yarnCost.yarnInfo[i].yarnPrice;
-      sheet.getCell(`I${7 + i}`).value = yarnUnit;
+      sheet.getCell(`F${7 + i}`).value =
+        data.yarnCost.yarnInfo[i].yarnSource +
+        ' ' +
+        data.yarnCost.yarnInfo[i].yarnPrice +
+        getSthById(data.yarnCost.yarnInfo[i].yarnUnit, priceUnit).title;
+      sheet.getCell(`H${7 + i}`).value = parseFloat(
+        data.yarnCost.yarnInfo[i].yarnPrice *
+          getSthById(data.yarnCost.yarnInfo[i].yarnUnit, priceUnit).NTDrate
+      );
+      sheet.getCell(`I${7 + i}`).value = data.yarnCost.yarnInfo[i].yarnUnit;
     }
     // // 紗規格
     sheet.getCell('B13').value = data.yarnCost.machineSpec;
@@ -471,102 +533,7 @@ export default function Quotation() {
     //   console.error('Error saving data to the database:', error);
     // }
   };
-  const handleIssue = async (data) => {
-    const response = await fetch(
-      `http://localhost:8080/public/quotationList.xlsx`
-    );
-    if (!response.ok) {
-      throw new Error(`Failed to fetch Excel file. Status: ${response.status}`);
-    }
-    const blobData = await response.blob();
-    const arrayBuffer = await new Response(blobData).arrayBuffer();
-    const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
-
-    const sheetName = '報價分析單'; // 假设你要修改的工作表的名称是 Sheet1
-    const sheet = workbook.Sheets[sheetName];
-    const originalRef = sheet['!ref'];
-    sheet['!ref'] = originalRef;
-    // 基本資料
-    let client = getSthById(data.fabricInfo.clientId, clientDB).label;
-    sheet['B3'] = { t: 's', v: client };
-    sheet['E3'] = { t: 's', v: data.fabricInfo.fabricItem };
-    sheet['H3'] = { t: 's', v: data.fabricInfo.brand };
-    sheet['B5'] = { t: 'n', v: data.fabricInfo.width };
-    sheet['D5'] = { t: 'n', v: data.fabricInfo.gsm };
-    sheet['F5'] = { t: 'n', v: data.fabricInfo.gy };
-    sheet['J5'] = { t: 's', v: data.createDate.replace(/-/g, '/') };
-    sheet['B4'] = { t: 's', v: data.fabricInfo.description };
-    sheet['H34'] = { t: 's', v: data.authur };
-
-    // 紗支資料
-    let yarnNumber = data.yarnCost.yarnInfo.length;
-    for (let i = 0; i < yarnNumber; i++) {
-      let yarnTitle = getSthById(
-        data.yarnCost.yarnInfo[i].yarnSpec,
-        yarnDB
-      ).title;
-      let yarnUnit = getSthById(
-        data.yarnCost.yarnInfo[i].yarnUnit,
-        priceUnit
-      ).title;
-      sheet[`B${7 + i}`] = {
-        t: 's',
-        v: yarnTitle,
-      };
-      sheet[`D${7 + i}`] = {
-        t: 'n',
-        v: data.yarnCost.yarnInfo[i].yarnPort / 100,
-      };
-      sheet[`F${7 + i}`] = { t: 's', v: data.yarnCost.yarnInfo[i].yarnSource };
-      sheet[`H${7 + i}`] = { t: 'n', v: data.yarnCost.yarnInfo[i].yarnPrice };
-      sheet[`I${7 + i}`] = {
-        t: 's',
-        v: yarnUnit,
-      };
-    }
-    // 紗規格
-    sheet['B13'] = {
-      t: 's',
-      v: data.yarnCost.machineSpec,
-    };
-    sheet['E13'] = { t: 'n', v: data.yarnCost.fabricProcessFee };
-    sheet['I13'] = { t: 'n', v: data.yarnCost.totalWastage / 100 };
-    sheet['H20'] = {
-      t: 's',
-      v: `1英吋經向密度目數:${data.yarnCost.densityWarp}`,
-    };
-    sheet['H21'] = {
-      t: 's',
-      v: `1英吋緯向密度目數:${data.yarnCost.densityWeft}`,
-    };
-    // 染整工繳
-    sheet['D20'] = { t: 'n', v: data.dyeCost.dyeAverageCost };
-    // 業務工繳
-    sheet['G24'] = { t: 'n', v: data.salesCost.excuteCost };
-    sheet['G25'] = { t: 'n', v: data.salesCost.testingCost };
-    sheet['G26'] = { t: 'n', v: data.salesCost.shippingCost };
-    sheet['G27'] = { t: 'n', v: data.salesCost.profit / 100 };
-    sheet['G28'] = { t: 'n', v: data.salesCost.exchangeRate };
-    sheet['G32'] = {
-      t: 's',
-      v: data.salesCost.quoteDueDate.replace(/-/g, '/'),
-    };
-    // 将修改后的数据转换为 Blob
-    const modifiedBlob = new Blob([
-      XLSX.write(workbook, { bookType: 'xlsx', type: 'array' }),
-    ]);
-    // 創建一個連結
-    const a = document.createElement('a');
-    const blobUrl = URL.createObjectURL(modifiedBlob);
-    a.href = blobUrl;
-    a.download = `報價分析單-${quote.fabricInfo.fabricItem}.xlsx`; // 指定下載的檔案名稱
-    document.body.appendChild(a);
-    // 模擬點選連結以觸發下載
-    a.click();
-    // 清理釋放效能
-    document.body.removeChild(a);
-    URL.revokeObjectURL(blobUrl);
-  };
+  const handleIssue = () => {};
   const getSthById = (id, DB) => {
     const sthValue = DB.find((item) => item.id === id);
     return sthValue ? sthValue : undefined;
@@ -613,9 +580,7 @@ export default function Quotation() {
               bussinessTermDB={bussinessTermDB}
             />
             <ButtonGroup size="large">
-              <Button variant="contained" onClick={() => handleClear(quote)}>
-                清空
-              </Button>
+              <Button variant="contained">清空</Button>
               <Button variant="contained" onClick={handleSave}>
                 儲存
               </Button>
@@ -639,7 +604,7 @@ export default function Quotation() {
           <List>
             {['轉成PDF', '轉成Excel', '返回報價清單'].map((text, index) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={() => handleItemClick(text)}>
                   <ListItemIcon>
                     <InboxIcon />
                   </ListItemIcon>

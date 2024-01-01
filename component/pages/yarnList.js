@@ -52,7 +52,6 @@ export default function YarnList(props) {
   const handleAddNewYarn = () => {
     setEditingIndex(null);
     if (quote.yarnCost.yarnInfo.length >= 5) {
-      console.log('不可再增新紗支');
       alert('不可再增新紗支');
       return;
     }
@@ -160,13 +159,23 @@ export default function YarnList(props) {
       return;
     } else {
       // TODO: 第一次不要渲染 等參數有變動再渲染 如何處理
+      let portionTextString = portionText
+        .filter((p) => p.portion > 0) // 过滤掉 portion <= 0 的元素
+        .map((p) => `${p.portion}%${p.type}`)
+        .join('');
+      let yarnTextString = quote.yarnCost.yarnInfo
+        .map((i) => {
+          return getSthById(i.yarnSpec, yarnDB).title;
+        })
+        .join('+');
       dispatch({
         type: 'updateAutoCountData',
         payload: {
           field: componentID,
           data: {
             totalYarnCost: totalYarnCost,
-            portionText: portionText,
+            portionText: portionTextString,
+            yarnTextString: yarnTextString,
             fabricCost: fabricCost,
           },
         },
@@ -607,6 +616,17 @@ const EditYarnInfo = ({
                 });
               }
             }}
+            sx={{
+              '.MuiInputBase-root': {
+                paddingRight: '5% !important',
+              },
+              '.MuiInputBase-root .MuiAutocomplete-endAdornment': {
+                width: '20%',
+              },
+              '.MuiInputBase-root .MuiAutocomplete-endAdornment button': {
+                width: '50%',
+              },
+            }}
             id="highlights-demo"
             options={yarnDB}
             isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -660,7 +680,7 @@ const EditYarnInfo = ({
           id="standard-basic"
           size="small"
           className={styles.textInput}
-          sz={{ width: 300 }}
+          sz={{ width: 200 }}
         />
       </td>
       <td name="yarnPrice">
@@ -685,11 +705,12 @@ const EditYarnInfo = ({
       </td>
       <td name="controls">
         <SaveIcon
+          className={styles.icons}
           onClick={() => {
             onSave(index + 1, yarnInput);
           }}
         ></SaveIcon>
-        <CancelIcon onClick={onCancel}></CancelIcon>
+        <CancelIcon className={styles.icons} onClick={onCancel}></CancelIcon>
       </td>
     </>
   );
