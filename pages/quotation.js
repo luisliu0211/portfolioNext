@@ -376,14 +376,16 @@ export default function Quotation() {
       },
     ];
     // 基本資料
-    let client = getSthById(data.fabricInfo.clientId, clientDB).label;
+    let client = getSthById(data.fabricInfo.clientId, clientDB)
+      ? getSthById(data.fabricInfo.clientId, clientDB).label
+      : '未設定';
     sheet.getCell('B3').value = client;
     sheet.getCell('E3').value = data.fabricInfo.fabricItem;
     sheet.getCell('H3').value = data.fabricInfo.brand;
     sheet.getCell('B5').value = data.fabricInfo.width;
     sheet.getCell('D5').value = data.fabricInfo.gsm;
-    sheet.getCell('F5').value = data.fabricInfo.gy;
-    sheet.getCell('J5').value = data.createDate.replace(/-/g, '/');
+    // sheet.getCell('F5').value = data.fabricInfo.gy;
+    sheet.getCell('I5').value = data.createDate.replace(/-/g, '/');
     sheet.getCell('B4').value = data.fabricInfo.description;
     sheet.getCell('H34').value = data.authur;
 
@@ -424,6 +426,10 @@ export default function Quotation() {
     sheet.getCell('G27').value = data.salesCost.profit / 100;
     sheet.getCell('G28').value = data.salesCost.exchangeRate;
     sheet.getCell('G32').value = data.salesCost.quoteDueDate.replace(/-/g, '/');
+    let tradeTerm = getSthById(data.salesCost.tradeTerm, bussinessTermDB)
+      ? getSthById(data.salesCost.tradeTerm, bussinessTermDB).title
+      : '未設定';
+    sheet.getCell('H31').value = tradeTerm;
     // 将修改后的数据转换为 Blob
     const modifiedBlob = await workbook.xlsx.writeBuffer();
 

@@ -18,6 +18,7 @@ export default function UserList() {
     const fetchData = async () => {
       try {
         setLoading(true);
+        console.log('http://portfolio-next-b.zeabur.internal/api/posts');
         const response = await fetch(`https://randomuser.me/api/?results=${p}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');

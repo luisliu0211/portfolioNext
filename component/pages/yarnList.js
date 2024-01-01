@@ -51,6 +51,11 @@ export default function YarnList(props) {
 
   const handleAddNewYarn = () => {
     setEditingIndex(null);
+    if (quote.yarnCost.yarnInfo.length >= 5) {
+      console.log('不可再增新紗支');
+      alert('不可再增新紗支');
+      return;
+    }
     if (ifEdit) {
       alert('編輯尚未結束');
       return;
