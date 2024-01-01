@@ -16,7 +16,6 @@ export function Todo({ todo, dispatch }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(todo.todoContent);
   const handleEdit = () => {
-    console.log('EDIT', todo.id);
     setIsEditing(true);
   };
   const handleSave = () => {

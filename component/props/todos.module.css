@@ -89,4 +89,9 @@
   .container .todoContent .text {
     line-height: 50px;
   }
+}
+@media screen and (max-width: 768px) {
+  .container .todoContent .editInput {
+    width: 100%;
+  }
 }/*# sourceMappingURL=todos.module.css.map */
