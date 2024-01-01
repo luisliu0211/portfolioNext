@@ -1,13 +1,6 @@
 import { useRouter } from 'next/router'; //用這個 hook 來做到
-import Head from 'next/head';
-import styles from '@/styles/Home.module.css';
-import Header from '@/component/layouts/header';
 import Content from '@/component/layouts/content';
 import Layout from '@/component/layouts/layout';
-import Footer from '@/component/layouts/footer';
-import breadcrumbs from '@/component/props/breadcrumbs';
-import { useState, useEffect } from 'react';
-import { Inter } from 'next/font/google';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 //頁面路徑依賴外部資料
@@ -25,6 +18,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   // Fetch necessary data for the blog post using params.id
   const res = await fetch(`${apiUrl}/api/posts/${params.id}`);
+  console.log(`${apiUrl}/api/posts/${params.id}`);
   const postData = await res.json();
   // Pass post data to the page via props
   return { props: { postData } };
