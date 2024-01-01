@@ -357,9 +357,7 @@ export default function Quotation() {
   const [open, setOpen] = useState(false);
   const isMobile = useCheckMobile();
   const handleClear = async (data) => {
-    const response = await fetch(
-      `http://localhost:8080/public/quotationList.xlsx`
-    );
+    const response = await fetch(`${apiUrl}/public/quotationList.xlsx`);
     if (!response.ok) {
       throw new Error(`Failed to fetch Excel file. Status: ${response.status}`);
     }
