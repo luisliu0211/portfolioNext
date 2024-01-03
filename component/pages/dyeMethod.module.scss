@@ -61,7 +61,7 @@
   padding-inline: 3.5%;
   margin-bottom: 20px;
   @include flexRow;
-  @include labelSizeInput(_, 50%);
+  @include labelSizeInput(_, 65%);
   label {
     span {
       letter-spacing: 2px;
@@ -85,7 +85,7 @@
   .finalCost {
     padding: 5px;
     margin-bottom: 20px;
-    @include labelSizeInput(_, 60%);
+    @include labelSizeInput(_, 65%);
     label {
       span {
         text-align: center;
@@ -99,6 +99,18 @@
     @include labelSizeInput(_, 18%);
     label {
       margin-bottom: 20px;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .finalCost {
+    @include labelSizeInput(_, 85%);
+    label {
+      span {
+        text-align: center;
+        letter-spacing: 0px;
+        font-size: 13px;
+      }
     }
   }
 }

@@ -16,10 +16,6 @@ export default function DyeMethod(props) {
 
   const [totalCost, setTotalCost] = useState(null);
   const [dyeAverageCost, setDyeAverageCost] = useState(null);
-  const [dyeLightCost, setDyeLightCost] = useState(null);
-  const [dyeDarkCost, setDyeDarkCost] = useState(null);
-  const [totalCostL, setTotalCostL] = useState(null);
-  const [totalCostD, setTotalCostD] = useState(null);
   const [process, setProcess] = useState(quote.dyeCost.process);
   const [specialProcess, setSpecialProcess] = useState(
     quote.dyeCost.specialProcess
@@ -35,9 +31,6 @@ export default function DyeMethod(props) {
     },
   };
   const selectStyles = {
-    selectInput: {
-      // width: '80%',
-    },
     outlinedInput: {
       width: '300px',
       height: '75px',
@@ -54,7 +47,6 @@ export default function DyeMethod(props) {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    // console.log(id, value, 'vv');
     // 根據不同的 id 做不同的處理
     let selectedIds;
     if (name == 'process') {
@@ -90,8 +82,6 @@ export default function DyeMethod(props) {
   };
   const updateData = () => {
     setTotalCost((quote.yarnCost.fabricCost + dyeAverageCost).toFixed(2));
-    setTotalCostL((quote.yarnCost.fabricCost + dyeLightCost).toFixed(2));
-    setTotalCostD((quote.yarnCost.fabricCost + dyeDarkCost).toFixed(2));
   };
   useEffect(() => {
     dispatch({
@@ -100,12 +90,10 @@ export default function DyeMethod(props) {
         field: componentID,
         data: {
           totalCost: parseFloat(totalCost),
-          totalCostL: parseFloat(totalCostL),
-          totalCostD: parseFloat(totalCostD),
         },
       },
     });
-  }, [totalCost, totalCostL, totalCostD]);
+  }, [totalCost]);
   useEffect(() => {
     updateData();
   }, [quote]);

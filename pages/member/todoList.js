@@ -1,8 +1,8 @@
 import Layout from '@/component/layouts/layout';
 import Breadcrumbs from '@/component/props/breadcrumbs';
 import React, { useState, useReducer, useEffect } from 'react';
-import Todos from '../component/props/todos';
-import TodoForm from '../component/props/todoForm';
+import Todos from '../../component/props/todos';
+import TodoForm from '../../component/props/todoForm';
 import { getFormattedDateTime } from '@/lib/getDate';
 import Button from '@mui/material/Button';
 import Grid from '@/component/layouts/grid';

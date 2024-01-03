@@ -1,6 +1,6 @@
 import React, { use, useEffect } from 'react';
 import Layout from '@/component/layouts/layout';
-
+import { handleShifttoExcel } from '@/lib/downloadXlsx';
 import Content from '@/component/layouts/content';
 import Column from '@/component/layouts/column';
 import Breadcrumbs from '@/component/props/breadcrumbs';
@@ -23,139 +23,16 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import MyContext from '@/lib/context';
 import { getFormattedDate } from '@/lib/getDate';
 import { useCheckMobile } from '@/hook/useCheckMobile';
-import * as XLSX from 'xlsx';
-import ExcelJS from 'exceljs';
-const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
-let yarnDB = [
-  {
-    id: 1,
-    title: 'T75D/72F DTY SD',
-    text: '麗雪12/31報價',
-    label: 'T75D/72F DTY SD',
-    price: 50,
-    source: '遠東',
-    unit: 2,
-    type: 'Polyester',
-  },
-  {
-    id: 2,
-    title: 'T75D/36F FDY SD',
-    text: '麗雪12/31報價',
-    label: 'T75D/72F FDY SD',
-    price: 85,
-    source: '台化',
-    unit: 1,
-    type: 'Polyester',
-  },
-  {
-    id: 3,
-    title: 'OP20D',
-    text: '麗雪1/3報價',
-    label: 'OP20D',
-    price: 205,
-    source: '台化',
-    unit: 2,
-    type: 'OP',
-  },
-  {
-    id: 4,
-    title: 'OP30D',
-    text: '麗雪1/3報價',
-    label: 'OP30D',
-    price: 100,
-    source: '立統',
-    unit: 2,
-    type: 'OP',
-  },
-  {
-    id: 5,
-    title: 'OP40D',
-    text: '麗雪1/5報價',
-    label: 'OP40D',
-    source: '立統',
-    price: 290,
-    unit: 2,
-    type: 'OP',
-  },
-];
-let clientDB = [
-  { id: 1, team: '353E', name: 'TNF', label: '353E TNF', DBtype: 'clientId' },
-  {
-    id: 2,
-    team: '048E',
-    name: 'Columbia',
-    label: '048E Columbia',
-    DBtype: 'clientId',
-  },
-  {
-    id: 3,
-    team: '342E',
-    name: 'Adidas',
-    label: '342E Adidas',
-    DBtype: 'clientId',
-  },
-];
-let processDB = [
-  { id: 1, title: '下水', DBtype: 'process' },
-  { id: 2, title: '縮練', DBtype: 'process' },
-  { id: 3, title: '胚定', DBtype: 'process' },
-  { id: 4, title: '染色', DBtype: 'process' },
-  { id: 5, title: '上油', DBtype: 'process' },
-  { id: 6, title: '單刷', DBtype: 'process' },
-  { id: 7, title: '雙刷', DBtype: 'process' },
-  { id: 8, title: '梳剪', DBtype: 'process' },
-  { id: 9, title: '拋光', DBtype: 'process' },
-  { id: 10, title: '雙搖', DBtype: 'process' },
-  { id: 11, title: '背刷剪', DBtype: 'process' },
-  { id: 12, title: '雙搖', DBtype: 'process' },
-  { id: 13, title: '磨毛', DBtype: 'process' },
-  { id: 14, title: '定型', DBtype: 'process' },
-  { id: 15, title: '上漿', DBtype: 'process' },
-  { id: 16, title: '切邊', DBtype: 'process' },
-];
-let specialProcessDB = [
-  { id: 1, title: '熱燙', DBtype: 'specialProcess' },
-  { id: 2, title: '吸濕', DBtype: 'specialProcess' },
-  { id: 3, title: '排汗', DBtype: 'specialProcess' },
-  { id: 4, title: '抗菌', DBtype: 'specialProcess' },
-  { id: 5, title: '抗臭', DBtype: 'specialProcess' },
-  { id: 6, title: '防霉', DBtype: 'specialProcess' },
-  { id: 7, title: '抗靜電', DBtype: 'specialProcess' },
-  { id: 8, title: '抗UV', DBtype: 'specialProcess' },
-  { id: 9, title: '防勾紗', DBtype: 'specialProcess' },
-  { id: 10, title: '潑水', DBtype: 'specialProcess' },
-  { id: 11, title: '超潑水', DBtype: 'specialProcess' },
-  { id: 12, title: '貼合', DBtype: 'specialProcess' },
-  { id: 13, title: '印花', DBtype: 'specialProcess' },
-  { id: 14, title: '上膠', DBtype: 'specialProcess' },
-];
-let machineList = [
-  { id: 1, title: '經編' },
-  { id: 2, title: '橫編YOKO' },
-  { id: 3, title: '毛巾' },
-  { id: 4, title: '台車' },
-  { id: 5, title: '單面' },
-  { id: 6, title: '單面大剖' },
-  { id: 7, title: '雙面' },
-  { id: 8, title: '螺紋' },
-];
-let priceUnit = [
-  { id: 1, title: 'USD/KG', NTDrate: 28 },
-  { id: 2, title: 'TWD/KG', NTDrate: 1 },
-];
-let bussinessTermDB = [
-  { id: 1, title: 'FOB HCMC' },
-  { id: 2, title: 'FOR HCMC' },
-  { id: 3, title: 'CIF HCMC' },
-  { id: 4, title: 'FOB TW' },
-  { id: 5, title: 'CIF TW' },
-  { id: 6, title: 'DDU HCMC' },
-  { id: 7, title: 'DDP HCMC' },
-];
+import yarnDB from '@/yarnDB';
+import clientDB from '@/clientDB';
+import processDB from '@/processDB';
+import specialProcessDB from '@/specialProcessDB';
+import machineList from '@/machineList';
+import priceUnit from '@/priceUnit';
+import bussinessTermDB from '@/bussinessTermDB';
 // item
 const initState = {
   id: 1,
@@ -182,26 +59,7 @@ const initState = {
     fabricProcessFee: 0,
     fabricCost: 0,
     totalWastage: 0,
-    yarnInfo: [
-      {
-        yarnPort: 94,
-        yarnPrice: 85,
-        yarnSource: '台化',
-        yarnSpec: 1,
-        yarnType: 'Polyester',
-        yarnUnit: 2,
-        yarnQuoteText: '麗雪1/1報價',
-      },
-      {
-        yarnPort: 6,
-        yarnPrice: 120,
-        yarnSource: '台化',
-        yarnSpec: 3,
-        yarnType: 'OP',
-        yarnUnit: 2,
-        yarnQuoteText: '麗雪12/31報價',
-      },
-    ],
+    yarnInfo: [],
     totalYarnCost: null,
   },
   dyeCost: {
@@ -404,111 +262,6 @@ export default function Quotation() {
         break;
     }
   };
-  const handleShifttoExcel = async (data) => {
-    const response = await fetch(`${apiUrl}/public/quotationList.xlsx`);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch Excel file. Status: ${response.status}`);
-    }
-    const blobData = await response.blob();
-    const arrayBuffer = await new Response(blobData).arrayBuffer();
-    const workbook = new ExcelJS.Workbook();
-    await workbook.xlsx.load(arrayBuffer);
-
-    const sheetName = '報價分析單'; // 假设你要修改的工作表的名称是 Sheet1
-    const sheet = workbook.getWorksheet(sheetName);
-    sheet.views = [
-      {
-        showGridLines: false, // 关闭默认的网格线
-      },
-    ];
-    // 基本資料
-    let client = getSthById(data.fabricInfo.clientId, clientDB)
-      ? getSthById(data.fabricInfo.clientId, clientDB).label
-      : '未設定';
-    sheet.getCell('B3').value = client;
-    sheet.getCell('E3').value = data.fabricInfo.fabricItem;
-    sheet.getCell('H3').value = data.fabricInfo.brand;
-    sheet.getCell('B5').value = data.fabricInfo.width;
-    sheet.getCell('D5').value = data.fabricInfo.gsm;
-    sheet.getCell('F5').value = data.fabricInfo.gy;
-    sheet.getCell('I5').value = data.createDate.replace(/-/g, '/');
-    sheet.getCell('B4').value =
-      data.yarnCost.yarnTextString +
-      ' ' +
-      data.yarnCost.portionText +
-      ' ' +
-      data.fabricInfo.description +
-      ' ' +
-      data.fabricInfo.fabricSpecString;
-    sheet.getCell('H34').value = data.authur;
-
-    // 紗支資料
-    let yarnNumber = data.yarnCost.yarnInfo.length;
-    for (let i = 0; i < yarnNumber; i++) {
-      let yarnTitle = getSthById(
-        data.yarnCost.yarnInfo[i].yarnSpec,
-        yarnDB
-      ).title;
-      let yarnUnit = getSthById(
-        data.yarnCost.yarnInfo[i].yarnUnit,
-        priceUnit
-      ).title;
-      sheet.getCell(`B${7 + i}`).value = yarnTitle;
-      sheet.getCell(`D${7 + i}`).value =
-        data.yarnCost.yarnInfo[i].yarnPort / 100;
-      sheet.getCell(`F${7 + i}`).value =
-        data.yarnCost.yarnInfo[i].yarnSource +
-        ' ' +
-        data.yarnCost.yarnInfo[i].yarnPrice +
-        getSthById(data.yarnCost.yarnInfo[i].yarnUnit, priceUnit).title;
-      sheet.getCell(`H${7 + i}`).value = parseFloat(
-        data.yarnCost.yarnInfo[i].yarnPrice *
-          getSthById(data.yarnCost.yarnInfo[i].yarnUnit, priceUnit).NTDrate
-      );
-      sheet.getCell(`I${7 + i}`).value = data.yarnCost.yarnInfo[i].yarnUnit;
-    }
-    // // 紗規格
-    sheet.getCell('B13').value = data.yarnCost.machineSpec;
-    sheet.getCell('E13').value = data.yarnCost.fabricProcessFee;
-    sheet.getCell('I13').value = data.yarnCost.totalWastage / 100;
-    sheet.getCell(
-      'H20'
-    ).value = `1英吋經向密度目數:${data.yarnCost.densityWarp}`;
-    sheet.getCell(
-      'H21'
-    ).value = `1英吋緯向密度目數:${data.yarnCost.densityWeft}`;
-    // // 染整工繳
-    sheet.getCell('D20').value = data.dyeCost.dyeAverageCost;
-    // 業務工繳
-    sheet.getCell('G24').value = data.salesCost.excuteCost;
-    sheet.getCell('G25').value = data.salesCost.testingCost;
-    sheet.getCell('G26').value = data.salesCost.shippingCost;
-    sheet.getCell('G27').value = data.salesCost.profit / 100;
-    sheet.getCell('G28').value = data.salesCost.exchangeRate;
-    sheet.getCell('G32').value = data.salesCost.quoteDueDate.replace(/-/g, '/');
-    let tradeTerm = getSthById(data.salesCost.tradeTerm, bussinessTermDB)
-      ? getSthById(data.salesCost.tradeTerm, bussinessTermDB).title
-      : '未設定';
-    sheet.getCell('H31').value = tradeTerm;
-    // 将修改后的数据转换为 Blob
-    const modifiedBlob = await workbook.xlsx.writeBuffer();
-
-    // 創建一個連結
-    const a = document.createElement('a');
-    const blobUrl = URL.createObjectURL(
-      new Blob([modifiedBlob], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      })
-    );
-    a.href = blobUrl;
-    a.download = `報價分析單-${quote.fabricInfo.fabricItem}.xlsx`; // 指定下載的檔案名稱
-    document.body.appendChild(a);
-    // 模擬點選連結以觸發下載
-    a.click();
-    // 清理釋放效能
-    document.body.removeChild(a);
-    URL.revokeObjectURL(blobUrl);
-  };
   const handleSave = (e) => {
     console.log(quote, 'final quote save');
     handleSavetoDB();
@@ -534,10 +287,7 @@ export default function Quotation() {
     // }
   };
   const handleIssue = () => {};
-  const getSthById = (id, DB) => {
-    const sthValue = DB.find((item) => item.id === id);
-    return sthValue ? sthValue : undefined;
-  };
+
   const toggleDrawer = (e) => {
     if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
       return;
