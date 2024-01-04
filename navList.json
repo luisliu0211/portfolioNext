@@ -2,7 +2,6 @@
   { "id": 2, "href": "/skills", "title": "Skills" },
   { "id": 3, "href": "/posts", "title": "Posts" },
   { "id": 4, "href": "/works", "title": "Works" },
-  { "id": 6, "href": "/member/quotation", "title": "Quotation" },
   {"id":7,"href":"/member/todoList","title":"TodoList"},
   {"id":8,"href":"/member/userList","title":"UserList"}
 ]

@@ -4,6 +4,7 @@
     display: flex;
     align-items: center;
     flex-grow: 1;
+
     span {
       width: $spanWidth;
       text-align: center;
@@ -18,23 +19,57 @@
 @mixin flexRow {
   display: flex;
   flex-direction: row;
+
   justify-content: space-around;
 }
 .container {
   .productInfo {
     margin-bottom: 10px;
     .twoinRow {
+      label {
+        .viewDataText {
+          width: 100%;
+          height: 50px;
+          line-height: 50px;
+          background-color: lighten(grey, 20%);
+          border-radius: 10px;
+          margin-bottom: 10px;
+          padding-left: 15px;
+        }
+      }
       @include flexRow;
       @include labelSizeInput;
     }
   }
   .productDescription {
     @include labelSizeInput(_, 12.5%);
+    label {
+      .viewDataText {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        background-color: lighten(grey, 20%);
+        border-radius: 10px;
+        margin-bottom: 10px;
+        padding-left: 15px;
+      }
+    }
   }
   .productSpec {
     .threeinRow {
       @include flexRow;
       @include labelSizeInput(_, 50%);
+      label {
+        .viewDataText {
+          width: 90%;
+          height: 50px;
+          line-height: 50px;
+          background-color: lighten(grey, 20%);
+          border-radius: 10px;
+          margin-bottom: 10px;
+          padding-left: 15px;
+        }
+      }
     }
   }
 }

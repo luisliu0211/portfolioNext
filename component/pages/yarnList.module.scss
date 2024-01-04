@@ -4,6 +4,16 @@
     display: flex;
     align-items: center;
     flex-grow: 1;
+
+    .viewDataText {
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      background-color: lighten(grey, 20%);
+      border-radius: 10px;
+      padding-left: 15px;
+    }
+
     span {
       width: $spanWidth;
       text-align: center;

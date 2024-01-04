@@ -14,7 +14,7 @@ import Papa from 'papaparse';
 import FetchDataButton from '@/component/props/fetchDataButton';
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 
-export default function Msdocument() {
+export default function Downloads() {
   const options = ['下載紗價資料庫', '下載客戶資料庫'];
   const jsonOptions = ['載入紗價json資料庫', '載入客戶json資料庫'];
   const [jsonData, setJsonData] = useState(null);
@@ -49,7 +49,6 @@ export default function Msdocument() {
     return JSON.stringify(parsed.data, null, 2);
   };
   const sendToBackend = (jsonData, jsonTitle) => {
-    // let apiBE = `http://localhost:8080`;
     fetch(`${apiUrl}/api/json/saveFile`, {
       method: 'POST',
       headers: {

@@ -8,7 +8,7 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
-import { downloadFile, downloadDB } from '@/lib/downloadXlsx';
+import { downloadDataJson } from '@/lib/downloadXlsx';
 import yarnDB from '@/yarnDB';
 import clientDB from '@/clientDB';
 import processDB from '@/processDB';
@@ -26,10 +26,10 @@ export default function FetchDataButton({ options, getJsonFile }) {
     // console.info(`You clicked ${options[selectedIndex]}`);
     switch (options[selectedIndex]) {
       case '下載客戶資料庫':
-        downloadDB('客戶資料庫', clientDB);
+        downloadDataJson('客戶資料庫', clientDB);
         break;
       case '下載紗價資料庫':
-        downloadDB('紗價資料庫', yarnDB);
+        downloadDataJson('紗價資料庫', yarnDB);
         break;
       case '載入紗價json資料庫':
         getJsonFile('yarnDB');

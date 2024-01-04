@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .body {
   display: flex;
   flex-direction: column;
@@ -11,6 +12,14 @@
   width: 80%;
   padding: 40px;
   flex: 1;
+}
+.body .container .fabContainer {
+  position: fixed;
+  background-color: grey;
+  width: 70px;
+  height: 70px;
+  bottom: 10%; /* 距離底部的距離，您可以調整這個值以滿足您的需求 */
+  right: 5%; /* 距離右側的距離，您可以調整這個值以滿足您的需求 */
 }
 
 @media screen and (max-width: 1280px) {

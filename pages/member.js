@@ -7,6 +7,7 @@ import SideBar from '@/component/sideBar';
 import Breadcrumbs from '@/component/props/breadcrumbs';
 import FlexBox from '@/component/layouts/flexBox';
 import MemberInfo from '@/component/pages/memberInfo';
+
 export default function Member() {
   const { data, status } = useSession();
   // console.log(data);
@@ -24,6 +25,7 @@ export default function Member() {
           <SideBar />
           <MemberInfo />
         </FlexBox>
+
         {/* <pre>{JSON.stringify(data.user, null, 2)}</pre> */}
       </Layout>
     </>

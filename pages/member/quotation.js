@@ -1,5 +1,6 @@
 import React, { use, useEffect } from 'react';
 import Layout from '@/component/layouts/layout';
+import router from 'next/router';
 import { handleShifttoExcel } from '@/lib/downloadXlsx';
 import Content from '@/component/layouts/content';
 import Column from '@/component/layouts/column';
@@ -33,14 +34,16 @@ import specialProcessDB from '@/specialProcessDB';
 import machineList from '@/machineList';
 import priceUnit from '@/priceUnit';
 import bussinessTermDB from '@/bussinessTermDB';
+import _ from 'lodash';
+
+const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 // item
+
 const initState = {
-  id: 1,
-  authur: 'Luis',
-  team: 1,
+  userId: 1,
   createDate: getFormattedDate(),
-  lastRevise: '2023-12-25',
-  state: 'issue',
+  lastRevise: getFormattedDate(),
+  state: 1,
   fabricInfo: {
     clientId: 0,
     fabricItem: '',
@@ -51,37 +54,33 @@ const initState = {
     brand: '',
   },
   yarnCost: {
-    machineType: '',
+    machineType: 0,
     machineSpec: '',
     other: '',
-    densityWarp: '',
-    densityWeft: '',
+    densityWarp: null,
+    densityWeft: null,
     fabricProcessFee: 0,
     fabricCost: 0,
     totalWastage: 0,
-    yarnInfo: [],
+    yarnInfoList: [],
     totalYarnCost: null,
   },
   dyeCost: {
-    dyeLightCost: 0,
     dyeAverageCost: 0,
-    dyeDarkCost: 0,
     process: [],
     specialProcess: [],
     totalCost: null,
     RDReference: '',
     totalCost: 0,
-    totalCostD: 0,
-    totalCostL: 0,
   },
   salesCost: {
-    excuteCost: null,
-    shippingCost: null,
-    testingCost: null,
+    excuteCost: 0,
+    shippingCost: 0,
+    testingCost: 0,
     profit: 0,
     exchangeRate: 28,
     tradeTerm: 0,
-    quoteDueDate: getFormattedDate(),
+    quoteDueDate: getFormattedDate(7),
     quoteUSDY: null,
     quoteUSDM: null,
     quoteTWDY: null,
@@ -91,7 +90,7 @@ const initState = {
     costUSDY: null,
   },
 };
-const quoteReducer = (quote = initState, action) => {
+const quoteReducer = (quote = _.isEmpty(data) ? initState : data, action) => {
   // console.log(quote, action);
   const {
     field,
@@ -105,7 +104,7 @@ const quoteReducer = (quote = initState, action) => {
     fabricSpecString,
   } = action.payload;
   // console.log(action.type);
-  let yarnList = quote.yarnCost.yarnInfo;
+  let yarnList = quote.yarnCost.yarnInfoList;
   switch (action.type) {
     case 'fieldTextChange':
       return { ...quote, [field]: { ...quote[field], [name]: value } };
@@ -115,13 +114,16 @@ const quoteReducer = (quote = initState, action) => {
         [field]: {
           ...quote[field],
           [name]: value,
-          ...(fabricSpecString ? { fabricSpecString: fabricSpecString } : {}),
+          ...(fabricSpecString ? { fabricSpecStr: fabricSpecString } : {}),
         },
       };
     case 'yarnAdd':
       // 複製原始陣列 加入新資料
       yarnList = [...yarnList, newYarn];
-      return { ...quote, yarnCost: { ...quote.yarnCost, yarnInfo: yarnList } };
+      return {
+        ...quote,
+        yarnCost: { ...quote.yarnCost, yarnInfoList: yarnList },
+      };
     case 'yarnSave':
       // console.log('儲存哪一筆', index, saveInfo);
       // 複製原始陣列 加入新資料
@@ -132,11 +134,17 @@ const quoteReducer = (quote = initState, action) => {
           return item;
         }
       });
-      return { ...quote, yarnCost: { ...quote.yarnCost, yarnInfo: yarnList } };
+      return {
+        ...quote,
+        yarnCost: { ...quote.yarnCost, yarnInfoList: yarnList },
+      };
     case 'yarnDelete':
       // console.log('刪除第幾個', index);
       yarnList = [...yarnList].filter((_, itemIndex) => itemIndex !== index);
-      return { ...quote, yarnCost: { ...quote.yarnCost, yarnInfo: yarnList } };
+      return {
+        ...quote,
+        yarnCost: { ...quote.yarnCost, yarnInfoList: yarnList },
+      };
     // case 'fieldAutoCompleteChange':
     //   // 修改在quote裡面 yarnCost下層裡面的yarnInfo 陣列 選取第2個 修改key value為 yarnSpec:3
     //   // console.log(name, value);
@@ -164,8 +172,12 @@ const quoteReducer = (quote = initState, action) => {
   }
 };
 
-export default function Quotation() {
-  const [quote, dispatch] = useReducer(quoteReducer, initState);
+export default function Quotation({ data }) {
+  const [quote, dispatch] = useReducer(
+    quoteReducer,
+    _.isEmpty(data) ? initState : data
+  );
+  const [ifEdit, setEdit] = useState(_.isEmpty(data) ? true : false);
   const updateTextField = (e, field) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -197,7 +209,7 @@ export default function Quotation() {
               field,
               name: name,
               value: parseFloat(newGy),
-              fabricSpecString: fabricSpecString,
+              fabricSpecStr: fabricSpecString,
             }, // Corrected to use newName and parseFloat
           });
         }
@@ -262,41 +274,39 @@ export default function Quotation() {
         break;
     }
   };
-  const handleSave = (e) => {
-    console.log(quote, 'final quote save');
-    handleSavetoDB();
+  const handleSaveEdit = async () => {
+    //TODO
   };
   const handleSavetoDB = async () => {
-    alert('測試中');
-    // try {
-    //   const response = await fetch(`${apiUrl}/api/quotation`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ quote }),
-    //     credentials: 'include',
-    //   });
-    //   if (!response.ok) {
-    //     throw new Error('Network response was not ok');
-    //   }
-    //   // const result = await response.json();
-    //   router.reload();
-    // } catch (error) {
-    //   console.error('Error saving data to the database:', error);
-    // }
-  };
-  const handleIssue = () => {};
+    try {
+      let test = 'http://localhost:8080';
+      const response = await fetch(`${apiUrl}/api/quotationAdd`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ quote }),
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
 
+      router.reload();
+    } catch (error) {
+      console.error('Error saving data to the database:', error);
+    }
+  };
   const toggleDrawer = (e) => {
     if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
       return;
     }
     setOpen((prev) => !prev);
   };
+
   useEffect(() => {
     console.log('quote', quote);
-  }, [quote]);
+  }, [quote, ifEdit]);
   return (
     <Layout>
       <Content />
@@ -309,6 +319,7 @@ export default function Quotation() {
           deleteListInfo,
           updateAutoValue,
           isMobile,
+          ifEdit,
         }}
       >
         <FlexBox>
@@ -329,18 +340,36 @@ export default function Quotation() {
               componentID="salesCost"
               bussinessTermDB={bussinessTermDB}
             />
-            <ButtonGroup size="large">
-              <Button variant="contained">清空</Button>
-              <Button variant="contained" onClick={handleSave}>
-                儲存
-              </Button>
-              <Button variant="contained" onClick={() => handleIssue(quote)}>
-                發布
-              </Button>
-              <Button variant="contained" onClick={toggleDrawer}>
-                其他
-              </Button>
-            </ButtonGroup>
+            {quote.id ? (
+              <ButtonGroup size="large">
+                {ifEdit ? (
+                  <Button variant="contained" onClick={handleSaveEdit}>
+                    儲存修改
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setEdit(!ifEdit);
+                    }}
+                  >
+                    編輯
+                  </Button>
+                )}
+                <Button variant="contained" onClick={toggleDrawer}>
+                  其他
+                </Button>
+              </ButtonGroup>
+            ) : (
+              <ButtonGroup size="large">
+                <Button variant="contained" onClick={handleSavetoDB}>
+                  儲存資料庫
+                </Button>
+                <Button variant="contained" onClick={toggleDrawer}>
+                  其他
+                </Button>
+              </ButtonGroup>
+            )}
           </Column>
         </FlexBox>
       </MyContext.Provider>

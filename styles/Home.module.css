@@ -18,6 +18,11 @@
   z-index: 2;
   font-family: var(--font-mono);
 }
+.fabContainer {
+  position: fixed;
+  bottom: 20px; /* 距離底部的距離，您可以調整這個值以滿足您的需求 */
+  right: 20px; /* 距離右側的距離，您可以調整這個值以滿足您的需求 */
+}
 
 .description a {
   display: flex;

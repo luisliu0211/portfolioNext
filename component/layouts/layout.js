@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Inter } from 'next/font/google';
 import Breadcrumbs from '../props/breadcrumbs';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 export default function Layout({ title, children }) {
   const router = useRouter();
   let nowPage = router.asPath;
@@ -35,6 +37,9 @@ export default function Layout({ title, children }) {
           <Breadcrumbs nowPage={nowPage} />
           <br />
           {children}
+          <Fab className={styles.fabContainer} color="primary" aria-label="add">
+            <AddIcon />
+          </Fab>
         </div>{' '}
         {/* 子组件位置 */}
         <Footer />
