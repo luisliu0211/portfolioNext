@@ -23,7 +23,7 @@ let currentRank;
 // const socket = new WebSocket('wss://pxnationbig.zeabur.app/:8080');
 // 連接市長泰山資料表
 // const socket = new WebSocket('wss://pkmajor.zeabur.app/:8080');
-const socket = new WebSocket('wss://pk-gameserver.zeabur.internal/:8080');
+const socket = new WebSocket('wss://pkgamer.zeabur.app/');
 const audio = document.createElement('audio');
 const audioAnthemloop = document.createElement('audio');
 audioAnthemloop.src = './img/nationsongv2.mp3';
