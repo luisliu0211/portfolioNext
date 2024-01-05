@@ -29,7 +29,6 @@ export async function getStaticProps() {
   try {
     let workDataUrl = `${apiUrl}/api/works`;
     const response = await fetch(workDataUrl);
-
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
