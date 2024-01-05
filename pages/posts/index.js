@@ -16,8 +16,8 @@ import throttle from '@/lib/throttle';
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 const context = {
   order: 'ASC',
-  dateRangeFrom: '2020-01-01',
-  dateRangeTo: '2023-12-31',
+  dateRangeFrom: '2023-01-01',
+  dateRangeTo: '2024-12-31',
   category: '',
   keywordSearch: '',
   tags: '',
@@ -39,6 +39,8 @@ export default function Posts() {
     const fetchData = async () => {
       try {
         const queryParams = new URLSearchParams(filter).toString();
+        console.log(queryParams, 'query');
+        let t = 'http://localhost:8080';
         const response = await fetch(`${apiUrl}/api/posts?${queryParams}`, {
           credentials: 'include',
         });
@@ -46,7 +48,7 @@ export default function Posts() {
           throw new Error('Network response was not ok');
         }
         const result = await response.json();
-        // console.log('資料庫抓的', result);
+        console.log('資料庫抓的', result);
         const totalItems = result.length;
         // console.log(totalItems, '總數量');
         const totalPages = Math.ceil(totalItems / itemPerPage);

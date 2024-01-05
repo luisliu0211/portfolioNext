@@ -8,6 +8,7 @@ export async function getStaticPaths() {
   // Fetch data from an external API
   const res = await fetch(`${apiUrl}/api/posts`);
   const data = await res.json();
+  console.log(data, 'dd');
   // Get the paths we want to pre-render based on posts
   const paths = data.map((post) => ({
     params: { id: post.id.toString() },
@@ -26,7 +27,7 @@ export default function Post({ postData }) {
   const router = useRouter();
   let nowPage = router.asPath;
   let pageTitle;
-
+  console.log(postData, 'pppddd');
   nowPage.split('/').length == 2
     ? (pageTitle = nowPage.split('/')[1].toUpperCase())
     : (pageTitle = nowPage.split('/')[2].toUpperCase());

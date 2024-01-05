@@ -6,7 +6,7 @@ import throttle from '@/lib/throttle';
 const tagsData = ['css/scss', 'javascript', 'html', 'react/next', 'database'];
 export default function FilterBar() {
   const [dateRangeFrom, setDateRangeFrom] = useState(getFormattedDate());
-  const [dateRangeTo, setDateRangeTo] = useState('2023-12-31');
+  const [dateRangeTo, setDateRangeTo] = useState(getFormattedDate(30));
   const context = useContext(MyContext);
   const handleDateOrder = (e) => {
     e.preventDefault();
@@ -96,6 +96,7 @@ export default function FilterBar() {
   }, 500);
   useEffect(() => {
     document.querySelector('input[name="dateRangeTo"]').style.display = 'none';
+    console.log(context.filter);
   }, []);
 
   return (

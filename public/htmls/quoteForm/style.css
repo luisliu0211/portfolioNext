@@ -1,0 +1,277 @@
+@charset "UTF-8";
+body {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding-top: 30px;
+}
+body .container {
+  box-shadow: 10px 10px 50px;
+  background-color: white;
+  width: 1040px;
+  padding: 3%;
+  box-sizing: content-box;
+  width: 210mm; /* 设置宽度为A4页面宽度 */
+  max-width: 100%;
+  margin: 0 auto;
+}
+body .container header {
+  display: flex;
+  justify-content: space-between;
+}
+body .container header .left {
+  max-width: 50%;
+}
+body .container header .left.logo {
+  overflow: hidden;
+}
+body .container header .left.logo img {
+  width: 100%;
+  height: auto;
+}
+body .container header .right {
+  width: 50%;
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
+  align-items: end;
+}
+body .container header .right.bpInfo ul {
+  margin: 0;
+  width: 70%;
+  height: 100%;
+  padding: 0;
+}
+body .container header .right.bpInfo ul li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 50%;
+  display: flex;
+  align-items: center;
+}
+body .container header .right.bpInfo ul li .icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: black;
+  margin: 10px;
+}
+body .container header .right.bpInfo ul li .icon .fa-regular,
+body .container header .right.bpInfo ul li .icon .fa-solid {
+  color: white;
+  padding: 6px;
+}
+body .container header .right.bpInfo ul li .text {
+  font-size: 18px;
+}
+body .container header .right.bpInfo .formTitle {
+  position: relative;
+  right: -4%;
+  bottom: -20px;
+  width: 80%;
+  color: white;
+  background-color: black;
+  padding: 10px 15px;
+  font-size: 20px;
+  text-align: end;
+  letter-spacing: 2px;
+}
+body .container .caseInfo {
+  margin-top: 30px;
+}
+body .container .caseInfo .caseTitle {
+  display: flex;
+}
+body .container .caseInfo .caseTitle span {
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+body .container .caseInfo .caseTitle .infoText {
+  font-size: 20px;
+  font-weight: 600;
+}
+body .container .caseInfo .caseTitle .infoText.caseTitleInput > input {
+  display: none;
+}
+body .container .caseInfo .caseTitle .infoText.caseTitleInput.open > input {
+  display: block;
+}
+body .container .rowsParty {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+body .container .rowsParty .partyA {
+  width: 40%;
+}
+body .container .rowsParty .partyA .caseTitle {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+body .container .rowsParty .partyA ul {
+  padding: 0;
+  margin: 0;
+}
+body .container .rowsParty .partyA ul li {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+}
+body .container .rowsParty .partyA ul li span {
+  margin-right: 10px;
+}
+body .container .rowsParty .partyB {
+  width: 40%;
+}
+body .container .rowsParty .partyB .caseTitle {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+body .container .rowsParty .partyB ul {
+  padding: 0;
+  margin: 0;
+}
+body .container .rowsParty .partyB ul li {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+}
+body .container .rowsParty .partyB ul li span {
+  margin-right: 10px;
+}
+body .container .rowsParty .quotations {
+  width: 15%;
+}
+body .container .rowsParty .quotations .quoteDate {
+  margin-block-end: 10px;
+}
+body .container .rowsParty .quotations .quoteDate > span {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+body .container .rowsParty .quotations .quoteDate .infoText {
+  font-size: 18px;
+  font-weight: 500;
+}
+body .container .rowsParty .quotations .quoteAmount {
+  margin-block-end: 10px;
+}
+body .container .rowsParty .quotations .quoteAmount > span {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+body .container .rowsParty .quotations .quoteAmount .infoText {
+  font-size: 18px;
+  font-weight: 500;
+}
+body .container table {
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+body .container table tr,
+body .container table th,
+body .container table td {
+  border-collapse: collapse;
+}
+body .container table thead tr {
+  border-bottom: 3px solid black;
+}
+body .container table thead tr > td {
+  padding: 10px 0px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 18px;
+}
+body .container table tbody tr {
+  border-bottom: 1px solid darkgrey;
+}
+body .container table tbody tr > td {
+  padding: 10px 0px;
+}
+body .container table tr td[data-title=itemName] {
+  width: 15%;
+  text-align: center;
+}
+body .container table tr td[data-title=description] {
+  width: 45%;
+}
+body .container table tr td[data-title=qty] {
+  width: 5%;
+  text-align: center;
+}
+body .container table tr td[data-title=unit] {
+  width: 5%;
+  text-align: center;
+}
+body .container table tr td[data-title=unitPrice] {
+  width: 15%;
+  text-align: center;
+}
+body .container table tr td[data-title=Amount] {
+  width: 15%;
+  text-align: center;
+}
+body .container table tr td[data-title=totalAmount] {
+  width: 30%;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+body .container table tr td[data-title=textRecord] {
+  vertical-align: top;
+  padding: 10px 10px;
+}
+body .container table tr td[data-title=textRecord] span {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+body .container .rowsPartySign {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+}
+body .container .rowsPartySign .partyA,
+body .container .rowsPartySign .partyB {
+  width: 80%;
+}
+body .container .rowsPartySign .partyA p,
+body .container .rowsPartySign .partyB p {
+  margin: 0;
+  letter-spacing: 0.5px;
+  font-size: 18px;
+  text-align: center;
+  font-weight: 600;
+}
+body .container .rowsPartySign .partyA .signUp,
+body .container .rowsPartySign .partyB .signUp {
+  margin: 0 auto;
+  text-align: center;
+}
+body .container .rowsPartySign .partyA .signUp img,
+body .container .rowsPartySign .partyB .signUp img {
+  max-width: 70%;
+}
+body .container footer {
+  text-align: end;
+}
+body .tools {
+  max-width: 1280px;
+  margin: 30px auto;
+  text-align: center;
+}
+body .tools button {
+  padding: 15px;
+  border-radius: 30px;
+  letter-spacing: 2px;
+  font-size: 1rem;
+  cursor: pointer;
+}/*# sourceMappingURL=style.css.map */

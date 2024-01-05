@@ -1,0 +1,182 @@
+body {
+  overflow: hidden;
+}
+#opening {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .imgBoxforLogo {
+    margin: 0 auto;
+    width: 310px;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    img {
+      position: absolute;
+      width: 100%;
+    }
+    .gradient-mask {
+      background-image: linear-gradient(to bottom, white 90%, transparent);
+      position: absolute;
+      bottom: -10%;
+      z-index: 1;
+      width: 100%;
+      height: 110%;
+      animation-name: gradientAnimate;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+      animation-delay: 3.75s;
+      animation-iteration-count: 1;
+      animation-timing-function: linear;
+    }
+  }
+  .imgBoxforText {
+    margin: 0 auto;
+    width: 400px;
+    height: 95px;
+    position: relative;
+    margin-top: 50px;
+    z-index: 2;
+    img {
+      position: absolute;
+      width: 100%;
+    }
+  }
+  .imgboxforBg {
+    // opacity: 0;
+
+    .gradient-mask {
+      // border: 1px solid #000;
+      opacity: 1;
+      background-image: linear-gradient(
+        to bottom,
+        white 80%,
+        rgba(255, 255, 255, 0.5) 85%,
+        rgba(255, 255, 255, 0.4) 88%,
+        rgba(255, 255, 255, 0.3) 92%,
+        rgba(255, 255, 255, 0.2) 95%,
+        rgba(255, 255, 255, 0.1) 98%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      background-repeat: no-repeat;
+      position: absolute;
+      left: 0;
+      bottom: -100%;
+      z-index: 1;
+      width: 15%;
+      height: 200%;
+      animation-name: gradientAnimateBG;
+      animation-duration: 1.25s;
+      animation-fill-mode: forwards;
+      animation-delay: 5.7s;
+      animation-iteration-count: 1;
+      animation-timing-function: linear;
+    }
+    img {
+      height: 100%;
+      width: 15%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    // animation-name: fadeInAnimate;
+    // animation-duration: 2s;
+    // animation-fill-mode: forwards;
+    // animation-delay: 6.1s;
+    // animation-iteration-count: 1;
+    // animation-timing-function: linear;
+  }
+}
+// 動畫圖層
+@for $i from 1 to 8 {
+  .animate#{$i} {
+    z-index: 2;
+    opacity: 0;
+    animation-name: fadeInAnimate;
+    animation-duration: 1.8s;
+    animation-fill-mode: forwards;
+    animation-delay: 0.3s * $i;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+  }
+}
+.animate8 {
+  z-index: 2;
+  opacity: 0;
+  animation-name: fadeInAnimate;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-delay: 2.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+@for $j from 1 to 3 {
+  .animateText#{$j} {
+    z-index: 2;
+    opacity: 0;
+    animation-name: fadeInAnimate;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-delay: calc(5.1s + 0.2s * $j);
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+  }
+}
+@keyframes fadeInAnimate {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes gradientAnimate {
+  0% {
+    bottom: -10%;
+  }
+  100% {
+    bottom: 100%;
+  }
+}
+@keyframes gradientAnimateBG {
+  0% {
+    bottom: -100%;
+  }
+  100% {
+    bottom: 100%;
+  }
+}
+@media (max-width: 992px) {
+  #opening {
+    .imgBoxforLogo {
+      width: 140px;
+      height: 180px;
+    }
+    .imgBoxforText {
+      margin-top: 20px;
+      width: 210px;
+      height: 95px;
+    }
+  }
+}
+@media (max-width: 576px) {
+  #opening {
+    // .imgBoxforLogo {
+    //   width: 140px;
+    //   height: 180px;
+    // }
+    // .imgBoxforText {
+    //   width: 210px;
+    //   height: 95px;
+    // }
+    .imgboxforBg {
+      display: none;
+    }
+  }
+}

@@ -2,6 +2,7 @@ import styles from './featureCard.module.css';
 import Link from 'next/link';
 import LoadMoreBtn from './loadMoreBtn';
 import { useEffect, useState } from 'react';
+import { logging } from '@/next.config';
 export default function FeatureCard(props) {
   let { data } = props;
   const [filter, setFilter] = useState(4);
@@ -16,18 +17,18 @@ export default function FeatureCard(props) {
     setFilter,
     LoadTitle: '載入作品',
   };
+
   return (
     <div>
       {data.dataName == 'skills' ? (
         <div className={styles.container}>
           {data.data.map((item) => {
-            let newArr = JSON.parse(item.skills);
             return (
               <li key={item.id} className={styles.cardsSkills}>
                 <div className={styles.cardInfo}>
                   <div className={styles.textTitle}>{item.title}</div>
                   <div className={styles.skillList}>
-                    {newArr.map((i, index) => {
+                    {item.skills.map((i, index) => {
                       return (
                         <div key={index} className={styles.skillItem}>
                           <div className={styles.skillName}>{i.name}</div>
@@ -49,7 +50,11 @@ export default function FeatureCard(props) {
             {dataCopy.map((item) => {
               let newArr = JSON.parse(item.usingSkills);
               return (
-                <Link key={item.id} href={item.links} target="_blank">
+                <Link
+                  key={item.id}
+                  href={item.links ? item.links : ''}
+                  target="_blank"
+                >
                   <li className={styles.cardsWorks}>
                     <div className={styles.workInfo}>
                       <div className={styles.typeTag}>{item.workType}</div>

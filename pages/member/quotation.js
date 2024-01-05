@@ -279,7 +279,7 @@ export default function Quotation({ data }) {
   };
   const handleSavetoDB = async () => {
     try {
-      let test = 'http://localhost:8080';
+      // let test = 'http://localhost:8080';
       const response = await fetch(`${apiUrl}/api/quotationAdd`, {
         method: 'POST',
         headers: {

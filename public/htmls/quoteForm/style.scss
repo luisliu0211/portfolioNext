@@ -1,0 +1,310 @@
+body {
+  // .fa-solid {
+  //   margin: 2px;
+  //   padding: 3px;
+  //   color: grey;
+  //   cursor: pointer;
+  //   transition: 0.1s linear;
+  //   &:hover {
+  //     color: black;
+  //   }
+  // }
+
+  ///
+  background-color: rgba(black, 0.8);
+  padding-top: 30px;
+  .container {
+    box-shadow: 10px 10px 50px;
+    background-color: white;
+    width: 1040px;
+    padding: 3%;
+    box-sizing: content-box;
+    width: 210mm; /* 设置宽度为A4页面宽度 */
+    max-width: 100%;
+    margin: 0 auto;
+    header {
+      display: flex;
+      justify-content: space-between;
+      .left {
+        max-width: 50%;
+        &.logo {
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: auto;
+          }
+        }
+      }
+
+      .right {
+        width: 50%;
+        display: flex;
+        justify-content: end;
+        flex-direction: column;
+        align-items: end;
+        &.bpInfo {
+          ul {
+            margin: 0;
+            // border: 1px solid #000;
+            width: 70%;
+            height: 100%;
+            padding: 0;
+            li {
+              list-style: none;
+              padding: 0;
+              margin: 0;
+              height: 50%;
+              display: flex;
+              align-items: center;
+              .icon {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background-color: black;
+                margin: 10px;
+                .fa-regular,
+                .fa-solid {
+                  color: white;
+                  padding: 6px;
+                }
+              }
+              .text {
+                font-size: 18px;
+              }
+            }
+          }
+          .formTitle {
+            position: relative;
+            right: -4%;
+            bottom: -20px;
+            width: 80%;
+            color: white;
+            background-color: black;
+            padding: 10px 15px;
+            font-size: 20px;
+            text-align: end;
+            letter-spacing: 2px;
+          }
+        }
+      }
+    }
+    .caseInfo {
+      margin-top: 30px;
+      .caseTitle {
+        display: flex;
+        span {
+          font-size: 18px;
+          letter-spacing: 1px;
+        }
+        .infoText {
+          font-size: 20px;
+          font-weight: 600;
+          // text-decoration: underline;
+          &.caseTitleInput {
+            > input {
+              display: none;
+            }
+          }
+          &.caseTitleInput.open {
+            > input {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+    .rowsParty {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      .partyA {
+        width: 40%;
+        .caseTitle {
+          font-weight: 600;
+          margin-bottom: 5px;
+        }
+        ul {
+          padding: 0;
+          margin: 0;
+          li {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            letter-spacing: 0.5px;
+            font-size: 16px;
+            span {
+              margin-right: 10px;
+            }
+            .infoText {
+              // text-decoration: underline;
+            }
+          }
+        }
+      }
+      .partyB {
+        width: 40%;
+        .caseTitle {
+          font-weight: 600;
+          margin-bottom: 5px;
+        }
+        ul {
+          padding: 0;
+          margin: 0;
+          li {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            letter-spacing: 0.5px;
+            font-size: 16px;
+            span {
+              margin-right: 10px;
+            }
+            .infoText {
+              // text-decoration: underline;
+            }
+          }
+        }
+      }
+      .quotations {
+        width: 15%;
+        .quoteDate {
+          margin-block-end: 10px;
+          > span {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 16px;
+          }
+          .infoText {
+            font-size: 18px;
+            font-weight: 500;
+            // text-decoration: underline;
+          }
+        }
+        .quoteAmount {
+          margin-block-end: 10px;
+          > span {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 16px;
+          }
+          .infoText {
+            font-size: 18px;
+            font-weight: 500;
+            // text-decoration: underline;
+          }
+        }
+      }
+    }
+    table {
+      margin-top: 10px;
+      border-collapse: collapse;
+      tr,
+      th,
+      td {
+        border-collapse: collapse;
+      }
+      thead {
+        tr {
+          border-bottom: 3px solid black;
+          > td {
+            padding: 10px 0px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 18px;
+          }
+        }
+      }
+      tbody {
+        tr {
+          border-bottom: 1px solid darkgrey;
+          > td {
+            padding: 10px 0px;
+          }
+        }
+      }
+      tr {
+        td[data-title='itemName'] {
+          width: 15%;
+          text-align: center;
+        }
+        td[data-title='description'] {
+          width: 45%;
+        }
+        td[data-title='qty'] {
+          width: 5%;
+          text-align: center;
+        }
+        td[data-title='unit'] {
+          width: 5%;
+          text-align: center;
+        }
+        td[data-title='unitPrice'] {
+          width: 15%;
+          text-align: center;
+        }
+        td[data-title='Amount'] {
+          width: 15%;
+          text-align: center;
+        }
+        td[data-title='totalAmount'] {
+          width: 30%;
+          text-align: center;
+          padding: 15px;
+          font-weight: 600;
+          font-size: 18px;
+          letter-spacing: 0.5px;
+          // text-decoration: underline;
+        }
+        td[data-title='textRecord'] {
+          // background-color: red;
+          vertical-align: top;
+          padding: 10px 10px;
+          span {
+            font-weight: 600;
+            letter-spacing: 1px;
+          }
+        }
+      }
+    }
+    .rowsPartySign {
+      display: flex;
+      width: 90%;
+      margin: 0 auto;
+      .partyA,
+      .partyB {
+        p {
+          margin: 0;
+          letter-spacing: 0.5px;
+          font-size: 18px;
+          text-align: center;
+          font-weight: 600;
+        }
+        .signUp {
+          margin: 0 auto;
+          text-align: center;
+          img {
+            max-width: 70%;
+          }
+        }
+        width: 80%;
+      }
+    }
+    footer {
+      text-align: end;
+    }
+  }
+  .tools {
+    max-width: 1280px;
+    margin: 30px auto;
+    text-align: center;
+    button {
+      padding: 15px;
+      border-radius: 30px;
+      letter-spacing: 2px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  }
+}

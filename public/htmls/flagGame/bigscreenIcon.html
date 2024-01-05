@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta property="og:site_name" content="桃園市政府國慶月線上升旗遊戲活動" />
+    <meta property="og:description" content="快來線上升旗好康禮品等你來抽" />
+    <meta name="”twitter:title”" content="桃園市政府國慶月線上升旗遊戲活動" />
+    <meta property="og:image" content="./img/taoyuanGovernmentLogo.png" />
+    <title>桃園市政府國慶月線上升旗遊戲-線下活動用</title>
+    <link href="img/favicon.ico" rel="shortcut icon" />
+    <link rel="stylesheet" href="./bigscreen.css" />
+  </head>
+  <body>
+    <div class="loading">
+      <img src="./img/taoyuanGovernmentLogo_1.webp" alt="" />
+      <div class="progress-bar"></div>
+    </div>
+    <dialog class="characterBox" id="infoModal" onclick="playNationalAnthem()">
+      <h3>方向鍵左右<span style="color: red">↔</span><br />選擇ＰＫ角色</h3>
+      <div class="characterList">
+        <div class="box player1 active">
+          <img class="p1" src alt="" />
+        </div>
+        <div class="box player2">
+          <img class="p2" src alt="" />
+        </div>
+      </div>
+      <div class="confirmBtn">
+        方向鍵按下<span style="color: red">↓</span>確認
+      </div>
+    </dialog>
+    <div class="background" id="background">
+      <div class="flagScene">
+        <canvas id="firework"></canvas>
+        <div class="airplane1" id="d"></div>
+        <div class="btnleft"><img src="./img/leftV2.webp" alt="" /></div>
+        <div class="pole">
+          <img class="poly" src="./img/flagpole01v2.png" alt="" />
+          <img class="flag" src="./img/flag.webp" alt="" />
+        </div>
+        <div class="btnright"><img src="./img/rightV2.webp" alt="" /></div>
+        <div class="startMusic">
+          <img src="./img/play.webp" alt="" />
+          <div class="hintText">
+            遊戲玩法：<br />點選鍵盤方向鍵左右<span style="color: red">↔</span
+            >交替<br />讓國旗升上去
+          </div>
+          <div class="hintText textN">
+            方向鍵按上<span style="color: red">↑</span>開始遊戲
+          </div>
+        </div>
+      </div>
+      <div class="nowState">
+        <div class="box">
+          <h3 class="nightText">
+            目前上線人數：<span class="currentOnline"></span>人
+          </h3>
+          <h3 class="timeText">剩餘時間：<span class="leftTime"></span>秒</h3>
+        </div>
+        <div class="nowList">
+          <ul data-number></ul>
+        </div>
+      </div>
+      <div class="titleBox">
+        <img src="./img/taoyuanGovernmentLogo_1.webp" alt="" />
+      </div>
+      <div class="myFile" data-courage></div>
+      <div class="crowded">
+        <img class="crowd" src="./img/people2.webp" alt="" />
+      </div>
+      <div class="finalBox" data-gameTime>
+        <div class="congrats">
+          <img src="./img/congrats.png" alt="" />
+        </div>
+        <div class="shareBox">
+          <div class="gradeBox">
+            <span class="finishedText"></span>
+            <span class="ranking"></span>
+          </div>
+          <div class="replay">
+            <span
+              >我想雪恥！<br />方向鍵按下<span style="color: red">↓</span
+              >重新遊玩！</span
+            >
+          </div>
+
+          <div class="instructText">
+            <span
+              >使用手機/平板/電腦<br />
+              完成遊戲後<br />到<span
+                style="color: blue; text-decoration: underline"
+                >ＦＢ粉絲專頁</span
+              >參加抽獎吧！</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="pkModeWin">
+        <img src="./img/win.png" alt="" />
+      </div>
+      <div class="pkModeLoose">
+        <img src="./img/loose.png" alt="" />
+      </div>
+    </div>
+
+    <dialog id="alertModal">
+      <div class="box">
+        為確保功能正常，且讓您有最好的使用體驗，請將您的螢幕旋轉為直向並重整，謝謝！
+      </div>
+    </dialog>
+    <script src="./bigscreenIcon.js"></script>
+  </body>
+</html>

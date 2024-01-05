@@ -1,0 +1,226 @@
+body {
+  overflow: hidden;
+}
+
+#opening {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#opening .imgBoxforLogo {
+  margin: 0 auto;
+  width: 310px;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+#opening .imgBoxforLogo img {
+  position: absolute;
+  width: 100%;
+}
+#opening .imgBoxforLogo .gradient-mask {
+  background-image: linear-gradient(to bottom, white 90%, transparent);
+  position: absolute;
+  bottom: -10%;
+  z-index: 1;
+  width: 100%;
+  height: 110%;
+  animation-name: gradientAnimate;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-delay: 3.75s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+#opening .imgBoxforText {
+  margin: 0 auto;
+  width: 400px;
+  height: 95px;
+  position: relative;
+  margin-top: 50px;
+  z-index: 2;
+}
+#opening .imgBoxforText img {
+  position: absolute;
+  width: 100%;
+}
+#opening .imgboxforBg .gradient-mask {
+  opacity: 1;
+  background-image: linear-gradient(to bottom, white 80%, rgba(255, 255, 255, 0.5) 85%, rgba(255, 255, 255, 0.4) 88%, rgba(255, 255, 255, 0.3) 92%, rgba(255, 255, 255, 0.2) 95%, rgba(255, 255, 255, 0.1) 98%, rgba(255, 255, 255, 0) 100%);
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 0;
+  bottom: -100%;
+  z-index: 1;
+  width: 15%;
+  height: 200%;
+  animation-name: gradientAnimateBG;
+  animation-duration: 1.25s;
+  animation-fill-mode: forwards;
+  animation-delay: 5.7s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+#opening .imgboxforBg img {
+  height: 100%;
+  width: 15%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.animate1 {
+  z-index: 2;
+  opacity: 0;
+  animation-name: fadeInAnimate;
+  animation-duration: 1.8s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.3s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+.animate2 {
+  z-index: 2;
+  opacity: 0;
+  animation-name: fadeInAnimate;
+  animation-duration: 1.8s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.6s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+.animate3 {
+  z-index: 2;
+  opacity: 0;
+  animation-name: fadeInAnimate;
+  animation-duration: 1.8s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.9s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+.animate4 {
+  z-index: 2;
+  opacity: 0;
+  animation-name: fadeInAnimate;
+  animation-duration: 1.8s;
+  animation-fill-mode: forwards;
+  animation-delay: 1.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+.animate5 {
+  z-index: 2;
+  opacity: 0;
+  animation-name: fadeInAnimate;
+  animation-duration: 1.8s;
+  animation-fill-mode: forwards;
+  animation-delay: 1.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+.animate6 {
+  z-index: 2;
+  opacity: 0;
+  animation-name: fadeInAnimate;
+  animation-duration: 1.8s;
+  animation-fill-mode: forwards;
+  animation-delay: 1.8s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+.animate7 {
+  z-index: 2;
+  opacity: 0;
+  animation-name: fadeInAnimate;
+  animation-duration: 1.8s;
+  animation-fill-mode: forwards;
+  animation-delay: 2.1s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+.animate8 {
+  z-index: 2;
+  opacity: 0;
+  animation-name: fadeInAnimate;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-delay: 2.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+.animateText1 {
+  z-index: 2;
+  opacity: 0;
+  animation-name: fadeInAnimate;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-delay: 5.3s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+.animateText2 {
+  z-index: 2;
+  opacity: 0;
+  animation-name: fadeInAnimate;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-delay: 5.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+@keyframes fadeInAnimate {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes gradientAnimate {
+  0% {
+    bottom: -10%;
+  }
+  100% {
+    bottom: 100%;
+  }
+}
+@keyframes gradientAnimateBG {
+  0% {
+    bottom: -100%;
+  }
+  100% {
+    bottom: 100%;
+  }
+}
+@media (max-width: 992px) {
+  #opening .imgBoxforLogo {
+    width: 140px;
+    height: 180px;
+  }
+  #opening .imgBoxforText {
+    margin-top: 20px;
+    width: 210px;
+    height: 95px;
+  }
+}
+@media (max-width: 576px) {
+  #opening .imgboxforBg {
+    display: none;
+  }
+}/*# sourceMappingURL=opening.css.map */

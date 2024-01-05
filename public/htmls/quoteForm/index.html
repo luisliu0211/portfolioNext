@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>百典報價單轉PDF</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/08baf95eb8.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  </head>
+  <body>
+    <div class="container" id="pdf-content">
+      <header>
+        <div class="left logo"><img src="./logo.jpg" alt="" /></div>
+        <div class="right bpInfo">
+          <ul>
+            <li>
+              <div class="icon"><i class="fa-regular fa-envelope"></i></div>
+              <div class="text">service@bpmkt.com.tw</div>
+            </li>
+            <li>
+              <div class="icon"><i class="fa-solid fa-phone"></i></div>
+              <div class="text">03-428-4647</div>
+            </li>
+          </ul>
+          <div class="formTitle">百典生活科技報價單</div>
+        </div>
+      </header>
+      <div class="caseInfo">
+        <div class="caseTitle">
+          <span>案件名稱：</span>
+          <div class="infoText caseTitleInput">
+            <span>【台味恢復中心】官方網站專案</span>
+            <input type="text" placeholder="輸入專案名稱" />
+          </div>
+        </div>
+        <div class="rowsParty">
+          <div class="partyA">
+            <div class="caseTitle">
+              <span>報價人</span>
+            </div>
+            <ul>
+              <li>
+                <span>統一編號：</span>
+                <div class="infoText partyAUniNum">80071619</div>
+              </li>
+              <li>
+                <span>報價單位：</span>
+                <div class="infoText partyATitle">百典生活科技股份有限公司</div>
+              </li>
+              <li>
+                <span>聯絡人：</span>
+                <div class="infoText partyArep">林豐儀</div>
+              </li>
+              <li>
+                <span>聯絡電話：</span>
+                <div class="infoText partyAContact">0979316993</div>
+              </li>
+              <li>
+                <span>Email: </span>
+                <div class="infoText partyAEmail">fengyi@bpmkt.com.tw</div>
+              </li>
+              <li>
+                <span>地址：</span>
+                <div class="infoText">桃園市中壢區龍勇路42巷8弄2號</div>
+              </li>
+            </ul>
+          </div>
+          <div class="partyB">
+            <div class="caseTitle">
+              <span>報價對象</span>
+            </div>
+            <ul>
+              <li>
+                <span>客戶名稱：</span>
+                <div class="infoText partyBTitle">台三味有限公司</div>
+              </li>
+              <li>
+                <span>統編</span>
+                <div class="infoText partyBUniNum">91108037</div>
+              </li>
+            </ul>
+          </div>
+          <div class="quotations">
+            <div class="quoteDate">
+              <span>報價日期</span>
+              <div class="infoText">2023/05/11</div>
+            </div>
+            <div class="quoteAmount">
+              <span>總金額</span>
+              <div class="infoText"><span>NT$</span>173,250</div>
+            </div>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <td data-title="itemName">項目</td>
+              <td data-title="description">說明</td>
+              <td data-title="qty">數量</td>
+              <td data-title="unit">單位</td>
+              <td data-title="unitPrice">單價</td>
+              <td data-title="Amount">總計</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-title="itemName" class="infoText">官方網站架設</td>
+              <td data-title="description">
+                說明文字Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Molestiae vel ipsum dignissimos expedita corporis dicta sapiente
+              </td>
+              <td data-title="qty" class="infoText">1</td>
+              <td data-title="unit" class="infoText">式</td>
+              <td data-title="unitPrice" class="infoText">
+                <span>$</span>135000
+              </td>
+              <td data-title="Amount"><span>$</span>135,000</td>
+            </tr>
+            <tr>
+              <td data-title="itemName" class="infoText">伺服器租賃</td>
+              <td data-title="description">
+                說明文字Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Molestiae vel ipsum dignissimos expedita corporis dicta sapiente
+              </td>
+              <td data-title="qty" class="infoText">1</td>
+              <td data-title="unit" class="infoText">年</td>
+              <td data-title="unitPrice" class="infoText">
+                <span>$</span>15000
+              </td>
+              <td data-title="Amount"><span>$</span>15,000</td>
+            </tr>
+            <tr>
+              <td data-title="itemName" class="infoText">網站維護服務</td>
+              <td data-title="description">
+                說明文字Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Molestiae vel ipsum dignissimos expedita corporis dicta sapiente
+              </td>
+              <td data-title="qty" class="infoText">1</td>
+              <td data-title="unit" class="infoText">年</td>
+              <td data-title="unitPrice" class="infoText">
+                <span>$</span>15000
+              </td>
+              <td data-title="Amount"><span>$</span>15,000</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td data-title="textRecord" colspan="4" rowspan="2">
+                <span>備註：</span>
+                <div class="infoText">
+                  注意事項：所有網站相關諮詢包括：文案、品牌資訊、服務資訊、團隊照片……等，所有網站所需相關素材皆須由被報價方提供。
+                </div>
+              </td>
+              <td data-title="unitPrice" colspan="">小計(未稅)</td>
+              <td data-title="totalAmount" colspan=""><span>$</span>165,000</td>
+            </tr>
+            <tr>
+              <td data-title="unitPrice" colspan="">總計(含稅)</td>
+              <td data-title="totalAmount" colspan=""><span>$</span>173,250</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="rowsPartySign">
+        <div class="partyA">
+          <p>報價方用印</p>
+          <div class="signUp">
+            <img src="./partyAsign.jpg" alt="" />
+          </div>
+        </div>
+        <div class="partyB">
+          <p>報價對象用印</p>
+        </div>
+      </div>
+      <footer>
+        <div class="text infoText">報價單保留期限：2023/05/18</div>
+      </footer>
+    </div>
+    <div class="tools">
+      <button id="generate-pdf">一鍵匯出PDF</button>
+    </div>
+    <script src="./js.js"></script>
+    <script></script>
+  </body>
+</html>
