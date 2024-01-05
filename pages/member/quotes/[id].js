@@ -46,7 +46,7 @@ export async function getServerSideProps(context) {
   const { id } = params;
 
   try {
-    const response = await fetch(`http://localhost:8080/api/quotes/${id}`, {
+    const response = await fetch(`${apiUrl}/api/quotes/${id}`, {
       credentials: 'include',
     });
 
