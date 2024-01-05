@@ -119,7 +119,12 @@ export default function DyeMethod(props) {
               value={quote.dyeCost.dyeAverageCost || ''}
               onChange={(e) => {
                 updateNumberField(e, componentID);
-                setDyeAverageCost(parseFloat(e.target.value));
+
+                setDyeAverageCost(
+                  isNaN(parseFloat(e.target.value))
+                    ? 0
+                    : parseFloat(e.target.value)
+                );
               }}
               className={styles.textInput}
               placeholder="TWD/KG"

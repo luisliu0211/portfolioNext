@@ -21,6 +21,10 @@ export default function QuotationDetail(props) {
   const updateData = () => {
     let { excuteCost, shippingCost, testingCost, exchangeRate, profit } =
       salesCost;
+    excuteCost = isNaN(excuteCost) ? 0 : excuteCost;
+    shippingCost = isNaN(shippingCost) ? 0 : shippingCost;
+    testingCost = isNaN(testingCost) ? 0 : testingCost;
+    profit = isNaN(profit) ? 0 : profit;
     setCostTWDKG(
       quote.dyeCost.totalCost + excuteCost + shippingCost + testingCost
     );
@@ -78,7 +82,9 @@ export default function QuotationDetail(props) {
                     name="excuteCost"
                     value={salesCost.excuteCost || ''}
                     onChange={(e) => {
+                      console.log(e.target.value, 'vv');
                       updateNumberField(e, componentID);
+
                       setSalesCost({
                         ...salesCost,
                         [e.target.name]: parseFloat(e.target.value),
@@ -275,10 +281,10 @@ export default function QuotationDetail(props) {
                   </Select>
                 ) : (
                   <div className={styles.viewDataText}>
-                    {
-                      getSthById(quote.salesCost.tradeTerm, bussinessTermDB)
-                        .title
-                    }
+                    {quote.salesCost.tradeTerm == 0
+                      ? '未選擇條件'
+                      : getSthById(quote.salesCost.tradeTerm, bussinessTermDB)
+                          .title}
                   </div>
                 )}
               </label>

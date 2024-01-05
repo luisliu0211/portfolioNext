@@ -11,6 +11,7 @@ import machineList from '@/machineList';
 import userDB from '@/userDB';
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 export default function QuotationRecap() {
+  const [gridKey, setGridKey] = useState(0);
   const [data, setData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedData, setSelectedData] = useState([]);
@@ -56,7 +57,7 @@ export default function QuotationRecap() {
               }
             }
           }
-          console.log(convertedObj, 'ojbcover');
+          // console.log(convertedObj, 'ojbcover');
           let formattedProcess = item.process.map((p) => {
             let po = processDB.find((i) => i.id == p);
             return po ? po.title : null;
@@ -165,8 +166,6 @@ export default function QuotationRecap() {
 
         let formattedData = result.map((i) => {
           // 把json裡面的key值替換成中文
-          console.log(i, 'ii');
-
           return quoteDataKeyTranslate(i);
         });
         setSelectedData(formattedData);
@@ -181,6 +180,7 @@ export default function QuotationRecap() {
     <Layout>
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
+          key={gridKey}
           rows={data}
           columns={columns}
           initialState={{
@@ -203,6 +203,8 @@ export default function QuotationRecap() {
               return;
             }
             downloadDataJson('報價表', selectedData);
+            setSelectedRows([]);
+            setGridKey((prevKey) => prevKey + 1); // 強制重新渲染
           }}
         >
           下載選取的資料

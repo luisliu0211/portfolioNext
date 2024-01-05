@@ -188,7 +188,12 @@ export default function Quotation({ data }) {
   };
   const updateNumberField = (e, field) => {
     let name = e.target.name;
-    let value = parseFloat(e.target.value);
+    let value;
+    if (e.target.value == '') {
+      value = 0;
+    } else {
+      value = parseFloat(e.target.value);
+    }
     dispatch({
       type: 'fieldNumberChange',
       payload: { field, name, value },
@@ -262,15 +267,10 @@ export default function Quotation({ data }) {
         console.log('轉成PDF TBA');
         break;
       case '轉成Excel':
-        // 执行转成Excel的功能
         handleShifttoExcel(quote);
         break;
       case '返回報價清單':
-        // 执行返回报价清单的功能
-        console.log('返回報價清單 TBA');
-        break;
-      default:
-        // 默认情况
+        router.push('/member/quotationRecap');
         break;
     }
   };
@@ -343,9 +343,19 @@ export default function Quotation({ data }) {
             {quote.id ? (
               <ButtonGroup size="large">
                 {ifEdit ? (
-                  <Button variant="contained" onClick={handleSaveEdit}>
-                    儲存修改
-                  </Button>
+                  <>
+                    <Button variant="contained" onClick={handleSaveEdit}>
+                      儲存修改
+                    </Button>
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                        setEdit(!ifEdit);
+                      }}
+                    >
+                      取消修改
+                    </Button>
+                  </>
                 ) : (
                   <Button
                     variant="contained"

@@ -91,6 +91,7 @@ export default function YarnList(props) {
     });
     setIfEditYarn(false);
     setEditingIndex(null);
+    updateData();
   };
   const handleDeleteYarn = (index) => {
     if (ifEditYarn) {
@@ -558,7 +559,11 @@ export default function YarnList(props) {
                 value={fabricProcessFee || ''}
                 onChange={(e) => {
                   updateNumberField(e, componentID);
-                  setFabricProcessFee(parseFloat(e.target.value));
+                  setFabricProcessFee(
+                    isNaN(parseFloat(e.target.value))
+                      ? 0
+                      : parseFloat(e.target.value)
+                  );
                 }}
                 className={styles.textInput}
                 inputProps={{ step: 1, min: 0 }}
@@ -580,7 +585,6 @@ export default function YarnList(props) {
                 name="fabricCost"
                 placeholder="TWD/KG"
                 value={fabricCost || ''}
-                // onChange={(e) => updateNumberField(e, componentID)}
                 className={styles.textInput}
                 inputProps={{ step: 1, min: 0 }}
               />
@@ -640,10 +644,11 @@ const EditYarnInfo = ({
       setYarnInput({ ...yarnInput, [e.target.name]: e.target.value });
     } else {
       // 在設置狀態之前確保值不為null
+
       const numericValue = parseFloat(e.target.value);
       setYarnInput({
         ...yarnInput,
-        [e.target.name]: numericValue,
+        [e.target.name]: isNaN(numericValue) ? 0 : numericValue,
       });
     }
   };
