@@ -19,9 +19,6 @@ let user = {
 };
 
 let currentRank;
-// 連接阿桃園哥資料表
-// const socket = new WebSocket('wss://pxnationbig.zeabur.app/:8080');
-// 連接市長泰山資料表
 // const socket = new WebSocket('wss://pkmajor.zeabur.app/:8080');
 const socket = new WebSocket('wss://pkgamer.zeabur.app/');
 const audio = document.createElement('audio');
@@ -528,7 +525,7 @@ let dataNw;
 let ifLoginOrder;
 socket.addEventListener('message', (event) => {
   const data = JSON.parse(event.data);
-  console.log(data, '伺服器來的資料');
+  // console.log(data, '伺服器來的資料');
   if (data.type === 'loadingState') {
     if (data.number == 2) {
       ifLoginOrder = data.number;
@@ -544,6 +541,7 @@ socket.addEventListener('message', (event) => {
     if (data.icon == p1Icon) {
       player1.style.backgroundColor = 'rgba(0,0,0,0.5)';
       player2.classList.add('taken');
+      player2.classList.add('ready');
       player1.classList.remove('taken');
       dataNw.forEach((item) => {
         const li = document.createElement('li');
@@ -559,6 +557,8 @@ socket.addEventListener('message', (event) => {
     if (data.icon == p2Icon) {
       player2.style.backgroundColor = 'rgba(0,0,0,0.5)';
       player1.classList.add('taken');
+      console.log('tji');
+      player1.classList.add('ready');
       player2.classList.remove('taken');
       dataNw.forEach((item) => {
         const li = document.createElement('li');

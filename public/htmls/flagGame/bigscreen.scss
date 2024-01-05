@@ -1062,6 +1062,30 @@
         border: 5px solid black;
         filter: drop-shadow(5px 5px 10px rgb(0 0 0 / 0.6));
       }
+      .player1.ready {
+        &::after {
+          content: '等待第二名玩家進入';
+          display: block;
+          position: absolute;
+          color: red;
+          top: -35px;
+          width: 200px;
+          text-align: center;
+          left: calc(50% - 20px);
+        }
+      }
+      .player2.ready {
+        &::after {
+          content: '等待第二名玩家進入';
+          display: block;
+          position: absolute;
+          color: red;
+          top: -35px;
+          width: 200px;
+          text-align: center;
+          left: calc(-50% - 60px);
+        }
+      }
     }
     .content {
       display: flex;
