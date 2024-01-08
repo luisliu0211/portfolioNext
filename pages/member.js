@@ -1,10 +1,8 @@
 import Layout from '@/component/layouts/layout';
-import { useRouter } from 'next/router';
 import ButtonActive from '@/component/props/buttonActive';
 import { signOut, useSession } from 'next-auth/react';
 import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]';
 import SideBar from '@/component/sideBar';
-import Breadcrumbs from '@/component/props/breadcrumbs';
 import FlexBox from '@/component/layouts/flexBox';
 import MemberInfo from '@/component/pages/memberInfo';
 

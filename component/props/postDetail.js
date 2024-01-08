@@ -1,52 +1,45 @@
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import styles from './postDetail.module.css';
+import MarkdownIt from 'markdown-it';
+import { mdOpt } from '@/lib/markdownConfig';
+import userDB from '@/userDB';
+import MarkdownContent from '@/component/layouts/markdownContent';
+import markdownItCheckbox from 'markdown-it-checkbox';
+import { style } from '@mui/system';
+import { Avatar } from '@mui/material';
 export default function PostDetail(props) {
   const { data } = props;
-  if (data[0].contentType == 'markdown') {
-    console.log('this is markDown file');
-    //TODO: 讀取後端的markdown檔案 渲染到前端
-    // let id = data[0].id;
-    // let postsDataUrl = `http://localhost:8080/api/posts/markdownPost/${id}`;
-    // fetch(postsDataUrl)
-    //   .then((res) => res.json())
-    //   .then((data) => console.log(data))
-    //   .catch((err) => console.log(err));
-    // console.log(response);
+  console.log(data);
+  const md = MarkdownIt(mdOpt)
+    .use(markdownItCheckbox)
+    .use(require('markdown-it-highlightjs'));
+  const [markdownContent, setMarkdownContent] = useState('');
+  useEffect(() => {
+    setMarkdownContent(md.render(data.content));
+  }, [data]);
+  const getSthById = (id, DB) => {
+    const sthValue = DB.find((item) => item.id === id);
+    return sthValue ? sthValue : undefined;
+  };
+  return (
+    <>
+      <div className={styles.container}>
+        <div
+          className={styles.coverImg}
+          style={{ backgroundImage: `url(${data.coverImage})` }}
+        >
+          <div className={styles.title}>{data.title}</div>
+          <div className={styles.subtitle}>{data.subtitle}</div>
+          <div className={styles.date}>{data.create_date.split('T')[0]}</div>
+          {/* <div className={styles.authur}>{data.authur}</div> */}
+          <Avatar className={styles.authur} alt={data.authur}>
+            {getSthById(data.authur, userDB).name}
+          </Avatar>
+        </div>
 
-    return (
-      <div className={styles.container}>
-        <Image
-          // src={`../public/image/posts/${data.img}`}
-          src={require(`../../public/image/posts/${data[0].coverImage}`)}
-          width={100}
-          height={100}
-          alt=""
-          priority
-        />
-        <div>{data[0].id}</div>
-        <div
-          className={styles.content}
-          dangerouslySetInnerHTML={{ __html: data[0].content }}
-        />
+        <MarkdownContent data={markdownContent} />
       </div>
-    );
-  } else {
-    console.log('as usual');
-    return (
-      <div className={styles.container}>
-        <Image
-          // src={`../public/image/posts/${data.img}`}
-          src={require(`../../public/image/posts/${data[0].coverImage}`)}
-          width={100}
-          height={100}
-          alt=""
-        />
-        <div>{data[0].id}</div>
-        <div
-          className={styles.content}
-          dangerouslySetInnerHTML={{ __html: data[0].content }}
-        />
-      </div>
-    );
-  }
+    </>
+  );
 }

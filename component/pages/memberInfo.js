@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './memberInfo.module.css';
 import Image from 'next/image';
 import { handleImageUpload } from '@/lib/uploadPhoto';
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
+import useImagePreview from '@/hook/useImagePreview';
+
 export default function MemberInfo() {
+  // 預覽圖片
+  const { previewImage, handleImageChange } = useImagePreview();
   let userData = {
-    id: 53,
+    id: 12,
     name: 'Luis',
     gender: 'male',
     password: 'fefaefaw',
@@ -14,6 +18,7 @@ export default function MemberInfo() {
     telephone: ['0912345678', '03-XXXXX'],
     image: 'efewaef.jpg',
   };
+
   const [user, setUser] = useState({
     id: userData.id,
     name: userData.name,
@@ -23,8 +28,6 @@ export default function MemberInfo() {
     character: userData.character,
     image: userData.image,
   });
-  const defaultImg = '/image/9-1-600x600.jpg';
-  const [selectedImage, setSelectedImage] = useState(defaultImg);
   const handleUserUpdate = async (e) => {
     e.preventDefault();
     //TODO: 打api存入資料庫
@@ -60,62 +63,9 @@ export default function MemberInfo() {
       ...user,
       [e.target.name]: e.target.value,
     });
-  // 預覽圖片
-  const handleImageChange = (e) => {
-    //選擇到的圖片內容
-    const file = e.target.files[0];
-
-    if (file) {
-      // 讀取文件顯示預覽功能
-      console.log(file);
-      const reader = new FileReader();
-      reader.onload = async () => {
-        const fileUrl = URL.createObjectURL(file);
-        setSelectedImage(fileUrl);
-        // 將檔案照片名稱存入資料
-        let imageUploadRes = await handleImageUpload(file);
-        setUser((prevUser) => ({
-          ...prevUser,
-          image: imageUploadRes
-            ? imageUploadRes.uniqueFilename
-            : prevUser.image,
-          // 其他欄位的更新，例如 name, email, password, ...
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  //TODO: 上傳照片到後端
-  // const handleImageUpload = async (selectedImage) => {
-  //   if (!selectedImage) {
-  //     console.error('No image selected');
-  //     return;
-  //   }
-  //   const formData = new FormData();
-  //   formData.append('image', selectedImage); //
-  //   try {
-  //     const response = await fetch(
-  //       `https://2df8-2001-b011-5c06-f0fa-718a-8fa0-9099-4d68.ngrok-free.app/api/upload`,
-  //       {
-  //         method: 'POST',
-  //         body: formData,
-  //       }
-  //     );
-
-  //     if (response.ok) {
-  //       const result = await response.json();
-  //       console.log('Image uploaded successfully:', result);
-  //       console.log(response, 'fejiajfei');
-  //       setUser({ ...user, image: result.uniqueFilename }); // 注意這裡的屬性名稱可能需要根據後端返回的 JSON 資料進行調整
-  //       // Handle the response from the server if needed
-  //     } else {
-  //       console.error('Failed to upload image');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error uploading image:', error);
-  //   }
-  // };
+  useEffect(() => {
+    console.log('test', previewImage);
+  }, [previewImage]);
   return (
     <>
       <div className={styles.container}>
@@ -203,14 +153,13 @@ export default function MemberInfo() {
               <h3>Personal Image</h3>
               <pre>upload retangle photo</pre>
               <div className={styles.previewBox}>
-                {selectedImage && (
+                {previewImage && (
                   <Image
-                    src={selectedImage}
+                    src={previewImage}
                     alt="Preview"
-                    height={200}
-                    width={200}
+                    height={150}
+                    width={150}
                     priority
-                    // style={{ maxWidth: '100%' }}
                   />
                 )}
               </div>

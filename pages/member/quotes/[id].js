@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'; //用這個 hook 來做到
 import Content from '@/component/layouts/content';
 import Layout from '@/component/layouts/layout';
-import Quotation from '../quotation';
+import Quotation from '../../quotation';
 import { useEffect, useState } from 'react';
 import { quoteDataFormatted } from '@/lib/quoteDataFormatted';
 const apiUrl = process.env.REACT_APP_API_URL;

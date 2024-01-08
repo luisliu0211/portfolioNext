@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import Pagination from '@/component/pagination';
 import { resizeSet } from '@/utils/loadMoreData';
 import throttle from '@/lib/throttle';
+import CircularProgress from '@mui/material/CircularProgress';
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 const context = {
   order: 'ASC',
@@ -20,7 +21,7 @@ const context = {
   dateRangeTo: '2024-12-31',
   category: '',
   keywordSearch: '',
-  tags: '',
+  tags: [],
 };
 export default function Posts() {
   const [postData, setPostData] = useState({});
@@ -41,7 +42,7 @@ export default function Posts() {
         const queryParams = new URLSearchParams(filter).toString();
         console.log(queryParams, 'query');
         let t = 'http://localhost:8080';
-        const response = await fetch(`${apiUrl}/api/posts?${queryParams}`, {
+        const response = await fetch(`${t}/api/posts?${queryParams}`, {
           credentials: 'include',
         });
         if (!response.ok) {
@@ -73,6 +74,7 @@ export default function Posts() {
       }
     };
     fetchData();
+    console.log(filter);
   }, [filter, currentPage, itemPerPage]);
 
   useEffect(() => {
@@ -105,8 +107,15 @@ export default function Posts() {
           }}
         >
           <FilterBar />
-          <Cards data={postData.data || []} />
-          <Pagination />
+          {postData.data ? (
+            <>
+              {' '}
+              <Cards data={postData.data || []} />
+              <Pagination />
+            </>
+          ) : (
+            <CircularProgress />
+          )}
         </MyContext.Provider>
       </div>
     </Layout>

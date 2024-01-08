@@ -69,7 +69,6 @@
 }
 .process label .selecetInput {
   flex-grow: 0.8;
-  border: 1px solid grey;
 }
 .process label .selecetInput span {
   color: white;

@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import Breadcrumbs from '../props/breadcrumbs';
 import FeatureCard from '../props/featureCard';
-import PostDetail from '../props/postDetail';
 
 export default function Content(props) {
   let { data } = props;
@@ -23,15 +22,7 @@ export default function Content(props) {
           <h1>{title}</h1>
           <hr />
           <div className={styles.contents}>
-            {data ? (
-              data.dataName != 'work' && data.dataName != 'skills' ? (
-                <PostDetail data={data} />
-              ) : (
-                <FeatureCard data={data} />
-              )
-            ) : (
-              ''
-            )}
+            {data && <FeatureCard data={data} />}
           </div>
         </div>
       </div>

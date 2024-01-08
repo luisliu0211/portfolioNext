@@ -1,11 +1,13 @@
 .container {
-  width: 85%;
+  width: 100%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-row-gap: 10px;
   grid-column-gap: 20px;
   place-items: center;
+  align-items: start;
+  // min-height: 144px;
   .cardsSkills {
     list-style-type: none;
     background-color: darkgrey;

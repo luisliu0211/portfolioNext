@@ -1,0 +1,70 @@
+.container {
+  padding: 10px;
+  font-size: 1.1rem;
+  overflow-x: scroll;
+  ul,
+  ol {
+    padding-left: 30px;
+    display: block;
+    li {
+      line-height: 40px;
+      > label {
+        font-weight: 500;
+        padding: 5px;
+        vertical-align: middle;
+      }
+      > input {
+        /* 調整 input 與文本之間的距離 */
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+        margin: 5px;
+        margin-right: 10px;
+      }
+    }
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    padding-left: 10px;
+    margin-block: 10px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    padding: 5px;
+    font-size: 1rem;
+    ul,
+    ol {
+      padding-left: 20px;
+
+      li {
+        line-height: 30px;
+        > label {
+          padding: 0px;
+        }
+        > input {
+          /* 調整 input 與文本之間的距離 */
+          width: 18px;
+          height: 18px;
+          margin-right: 8px;
+        }
+      }
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      padding-left: 8px;
+      margin-block: 5px;
+    }
+  }
+}

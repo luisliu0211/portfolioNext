@@ -4,9 +4,6 @@ import router from 'next/router';
 import { handleShifttoExcel } from '@/lib/downloadXlsx';
 import Content from '@/component/layouts/content';
 import Column from '@/component/layouts/column';
-import Breadcrumbs from '@/component/props/breadcrumbs';
-import { useRouter } from 'next/router';
-import SideBar from '@/component/sideBar';
 import FlexBox from '@/component/layouts/flexBox';
 import FabricInfo from '@/component/pages/fabricInfo';
 import DyeMethod from '@/component/pages/dyeMethod';
@@ -18,7 +15,6 @@ import Drawer from '@mui/material/Drawer';
 import { useState, useReducer } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -145,23 +141,6 @@ const quoteReducer = (quote = _.isEmpty(data) ? initState : data, action) => {
         ...quote,
         yarnCost: { ...quote.yarnCost, yarnInfoList: yarnList },
       };
-    // case 'fieldAutoCompleteChange':
-    //   // 修改在quote裡面 yarnCost下層裡面的yarnInfo 陣列 選取第2個 修改key value為 yarnSpec:3
-    //   // console.log(name, value);
-    //   // 篩選修改內容
-    //   let newInfo = [...quote[field][listName]].map((i, itemId) => {
-    //     if (itemId + 1 === index) {
-    //       return { ...i, [name]: value };
-    //     }
-    //     return i;
-    //   });
-    //   return {
-    //     ...quote,
-    //     [field]: {
-    //       ...quote[field],
-    //       [listName]: newInfo,
-    //     },
-    //   };
     case 'updateAutoCountData':
       return { ...quote, [field]: { ...quote[field], ...data } };
     case 'updateIDinArray':
@@ -260,17 +239,15 @@ export default function Quotation({ data }) {
   const [open, setOpen] = useState(false);
   const isMobile = useCheckMobile();
   const handleItemClick = (text) => {
-    // 根据不同的文本执行不同的功能
     switch (text) {
       case '轉成PDF':
-        // 执行转成PDF的功能
         console.log('轉成PDF TBA');
         break;
       case '轉成Excel':
         handleShifttoExcel(quote);
         break;
       case '返回報價清單':
-        router.push('/member/quotationRecap');
+        router.push('/posts/quotationRecap');
         break;
     }
   };
@@ -305,7 +282,7 @@ export default function Quotation({ data }) {
   };
 
   useEffect(() => {
-    console.log('quote', quote);
+    // console.log('quote', quote);
   }, [quote, ifEdit]);
   return (
     <Layout>

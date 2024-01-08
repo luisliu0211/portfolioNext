@@ -1,0 +1,76 @@
+@charset "UTF-8";
+.container {
+  padding: 10px;
+  font-size: 1.1rem;
+  overflow-x: scroll;
+}
+.container ul,
+.container ol {
+  padding-left: 30px;
+  display: block;
+}
+.container ul li,
+.container ol li {
+  line-height: 40px;
+}
+.container ul li > label,
+.container ol li > label {
+  font-weight: 500;
+  padding: 5px;
+  vertical-align: middle;
+}
+.container ul li > input,
+.container ol li > input {
+  /* 調整 input 與文本之間的距離 */
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin: 5px;
+  margin-right: 10px;
+}
+.container h1,
+.container h2,
+.container h3,
+.container h4,
+.container h5,
+.container h6,
+.container p {
+  padding-left: 10px;
+  margin-block: 10px;
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    padding: 5px;
+    font-size: 1rem;
+  }
+  .container ul,
+  .container ol {
+    padding-left: 20px;
+  }
+  .container ul li,
+  .container ol li {
+    line-height: 30px;
+  }
+  .container ul li > label,
+  .container ol li > label {
+    padding: 0px;
+  }
+  .container ul li > input,
+  .container ol li > input {
+    /* 調整 input 與文本之間的距離 */
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+  }
+  .container h1,
+  .container h2,
+  .container h3,
+  .container h4,
+  .container h5,
+  .container h6,
+  .container p {
+    padding-left: 8px;
+    margin-block: 5px;
+  }
+}/*# sourceMappingURL=markdownContent.module.css.map */

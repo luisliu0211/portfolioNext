@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import QCard from '../layouts/qCard';
-import FlexBox from '@/component/layouts/flexBox';
 import styles from './dyeMethod.module.css';
 import MyContext from '@/lib/context';
 import TextField from '@mui/material/TextField';
@@ -13,7 +12,6 @@ export default function DyeMethod(props) {
   const { componentID, processDB, specialProcessDB } = props;
   const { quote, dispatch, updateTextField, updateNumberField, ifEdit } =
     useContext(MyContext);
-
   const [totalCost, setTotalCost] = useState(quote.dyeCost.totalCost);
   const [dyeAverageCost, setDyeAverageCost] = useState(
     quote.dyeCost.dyeAverageCost
@@ -26,7 +24,6 @@ export default function DyeMethod(props) {
     const sthValue = DB.find((item) => item.id === id);
     return sthValue ? sthValue : undefined;
   };
-
   const ITEM_HEIGHT = 40;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -40,14 +37,13 @@ export default function DyeMethod(props) {
   const selectStyles = {
     outlinedInput: {
       width: '300px',
-      height: '75px',
-      padding: '5px', // 設定寬度為100%
-      '& fieldset': {
-        borderColor: 'transparent',
-        // border: '1px solid transparent', // 設定邊框顏色
-      },
+      height: '80px',
+      padding: '2px', // 設定寬度為100%
       '&.Mui-focused fieldset': {
         borderColor: 'transparent',
+      },
+      '& fieldset legend': {
+        display: 'none',
       },
     },
   };
@@ -199,7 +195,7 @@ export default function DyeMethod(props) {
                       display: 'flex',
                       flexWrap: 'wrap',
                       gap: 0.3,
-                      maxHeight: '70px',
+                      maxHeight: '80px',
                       overflowY: 'auto',
                     }}
                   >
@@ -213,7 +209,10 @@ export default function DyeMethod(props) {
                             fontSize: '16px',
                             backgroundColor: 'darkgrey',
                             padding: '5px',
-                            margin: '2px', // 适当调整间距
+                            margin: '2px',
+                            '& span': {
+                              padding: '0px',
+                            },
                           }}
                         />
                       );
@@ -277,7 +276,10 @@ export default function DyeMethod(props) {
                           fontSize: '16px',
                           backgroundColor: 'darkgrey',
                           padding: '5px',
-                          margin: '2px', // 适当调整间距
+                          margin: '2px',
+                          '& span': {
+                            padding: '0px',
+                          },
                         }}
                       />
                     );

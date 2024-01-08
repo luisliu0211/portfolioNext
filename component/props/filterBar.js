@@ -21,7 +21,7 @@ export default function FilterBar() {
     if (e.target.name == 'dateRangeFrom') {
       if (e.target.value > dateRangeTo) {
         alert('起始日不可大於結束日');
-        // setDateRangeFrom(todayDate);
+        // setDateRangeFrom(ttodayDate);
       } else {
         setDateRangeFrom(e.target.value);
         context.setFilter({
@@ -57,36 +57,21 @@ export default function FilterBar() {
   const handleTags = (value) => {
     context.setFilter((prevFilter) => {
       let updatedTags;
-      const currentTags = prevFilter.tags
-        .split(',')
-        .filter((tag) => tag.trim() !== '');
-
+      let currentTags = prevFilter.tags;
       if (currentTags.includes(value)) {
-        // 如果值已经存在，则从数组中移除
-        updatedTags = currentTags.filter((tag) => tag !== value).join(',');
+        // 如果值存在於陣列中，則將其從陣列中移除
+        updatedTags = currentTags.filter((item) => item !== value);
       } else {
-        // 如果值不存在且不为空字符串，则添加到数组中
-        if (value.trim() !== '') {
-          updatedTags = [...currentTags, value].join(',');
-        } else {
-          updatedTags = currentTags.join(',');
-        }
+        // 如果值不存在於陣列中，則將其添加到陣列中
+        updatedTags = [...currentTags, value];
       }
-
+      console.log(updatedTags);
       return {
         ...prevFilter,
         tags: updatedTags,
       };
     });
   };
-  // const handleKeyword = (e) => {
-  //   e.preventDefault();
-
-  //   context.setFilter((filter) => ({
-  //     ...filter,
-  //     keywordSearch: e.target.value,
-  //   }));
-  // };
   const handleKeyword = throttle((e) => {
     e.preventDefault();
     context.setFilter((filter) => ({
@@ -129,9 +114,10 @@ export default function FilterBar() {
           onChange={handleCategory}
         >
           <option value="">All</option>
-          <option value="frontend">FrontEnd</option>
-          <option value="backend">BackEnd</option>
-          <option value="other">other</option>
+          <option value="1">FrontEnd</option>
+          <option value="2">BackEnd</option>
+          <option value="3">Database</option>
+          <option value="4">Other</option>
         </select>
       </div>
 
