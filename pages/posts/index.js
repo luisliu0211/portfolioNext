@@ -42,7 +42,7 @@ export default function Posts() {
         const queryParams = new URLSearchParams(filter).toString();
         console.log(queryParams, 'query');
         let t = 'http://localhost:8080';
-        const response = await fetch(`${t}/api/posts?${queryParams}`, {
+        const response = await fetch(`${apiUrl}/api/posts?${queryParams}`, {
           credentials: 'include',
         });
         if (!response.ok) {

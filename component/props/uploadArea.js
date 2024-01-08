@@ -84,9 +84,13 @@ export default function UploadArea() {
       formData.append('file', file);
       formData.append('postDetail', JSON.stringify(postDetail));
 
-      const response = await axios.post(`${t}/api/posts/markDown`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const response = await axios.post(
+        `${apiUrl}/api/posts/markDown`,
+        formData,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        }
+      );
       // const response = await axios.post(`${t}/api/posts/`, postDetail);
       // Handle the response from the backend (e.g., save HTML content)
       console.log(response.data);

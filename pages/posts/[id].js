@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   // Fetch necessary data for the blog post using params.id
   let t = 'http://localhost:8080';
-  const res = await fetch(`${t}/api/posts/${params.id}`);
+  const res = await fetch(`${apiUrl}/api/posts/${params.id}`);
   const postData = await res.json();
   // Pass post data to the page via props
   return { props: { postData } };

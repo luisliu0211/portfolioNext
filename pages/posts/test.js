@@ -13,7 +13,7 @@ export default function Test() {
   useEffect(() => {
     let t = 'http://localhost:8080';
     // 在这里发送请求获取 Markdown 内容，你可以使用 fetch 或其他请求库
-    fetch(`${t}/api/posts/markdown`) // 根据你的后端路由来修改
+    fetch(`${apiUrl}/api/posts/markdown`) // 根据你的后端路由来修改
       .then((response) => response.json())
       .then((data) => {
         // 使用 marked 将 Markdown 转换为 HTML
