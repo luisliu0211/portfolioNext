@@ -115,7 +115,6 @@ export default function DyeMethod(props) {
               value={quote.dyeCost.dyeAverageCost || ''}
               onChange={(e) => {
                 updateNumberField(e, componentID);
-
                 setDyeAverageCost(
                   isNaN(parseFloat(e.target.value))
                     ? 0
@@ -229,7 +228,7 @@ export default function DyeMethod(props) {
               ))}
             </Select>
           ) : (
-            <div className={styles.viewDataText}>
+            <div key="process" className={styles.viewDataText}>
               {quote.dyeCost.process.map((p) => (
                 <span className={styles.chips} key={p.id}>
                   {getSthById(p, processDB).title}
@@ -295,7 +294,7 @@ export default function DyeMethod(props) {
               ))}
             </Select>
           ) : (
-            <div className={styles.viewDataText}>
+            <div key="specialProcess" className={styles.viewDataText}>
               {quote.dyeCost.specialProcess.map((p) => (
                 <span className={styles.chips} key={p.id}>
                   {getSthById(p, specialProcessDB).title}

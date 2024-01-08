@@ -5,7 +5,6 @@ import { useContext } from 'react';
 import MyContext from '@/lib/context';
 export default function Cards(props) {
   const { data } = props;
-  console.log(data, 't');
   const context = useContext(MyContext);
   let categoryList = [
     { id: 0, name: 'All' },

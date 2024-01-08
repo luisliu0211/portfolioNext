@@ -80,17 +80,11 @@ export default function UploadArea() {
     try {
       let t = 'http://localhost:8080';
       const formData = new FormData();
-      // setPostDetail({ ...postDetail, content: formData });
       formData.append('file', file);
       formData.append('postDetail', JSON.stringify(postDetail));
-
-      const response = await axios.post(
-        `${apiUrl}/api/posts/markDown`,
-        formData,
-        {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        }
-      );
+      const response = await axios.post(`${apiUrl}/api/posts/`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
       // const response = await axios.post(`${t}/api/posts/`, postDetail);
       // Handle the response from the backend (e.g., save HTML content)
       console.log(response.data);

@@ -27,7 +27,7 @@ export default function Home({ postData }) {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
+  console.log(postData, 'pp');
   let filterData = postData.data.slice(0, itemPerPage);
   if (session) {
     console.log(session, 'f');
@@ -75,7 +75,6 @@ export default function Home({ postData }) {
           <Cards data={filterData || []} />
         </MyContext.Provider>
       </div>
-
       <Footer />
     </>
   );

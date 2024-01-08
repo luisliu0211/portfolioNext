@@ -6,17 +6,19 @@ import { mdOpt } from '@/lib/markdownConfig';
 import userDB from '@/userDB';
 import MarkdownContent from '@/component/layouts/markdownContent';
 import markdownItCheckbox from 'markdown-it-checkbox';
-import { style } from '@mui/system';
 import { Avatar } from '@mui/material';
 export default function PostDetail(props) {
   const { data } = props;
-  console.log(data);
+  if (!data || data.length === 0) {
+    return <p>Data not available.</p>;
+  }
+  let itemDetail = data[0];
   const md = MarkdownIt(mdOpt)
     .use(markdownItCheckbox)
     .use(require('markdown-it-highlightjs'));
   const [markdownContent, setMarkdownContent] = useState('');
   useEffect(() => {
-    setMarkdownContent(md.render(data.content));
+    setMarkdownContent(md.render(itemDetail.content));
   }, [data]);
   const getSthById = (id, DB) => {
     const sthValue = DB.find((item) => item.id === id);
@@ -27,14 +29,18 @@ export default function PostDetail(props) {
       <div className={styles.container}>
         <div
           className={styles.coverImg}
-          style={{ backgroundImage: `url(${data.coverImage})` }}
+          style={{ backgroundImage: `url(${itemDetail.coverImage})` }}
         >
-          <div className={styles.title}>{data.title}</div>
-          <div className={styles.subtitle}>{data.subtitle}</div>
-          <div className={styles.date}>{data.create_date.split('T')[0]}</div>
-          {/* <div className={styles.authur}>{data.authur}</div> */}
-          <Avatar className={styles.authur} alt={data.authur}>
-            {getSthById(data.authur, userDB).name}
+          <div className={styles.title}>{itemDetail.title}</div>
+          <div className={styles.subtitle}>{itemDetail.subtitle}</div>
+          <div className={styles.date}>
+            {itemDetail.create_date.split('T')[0]}
+          </div>
+          <Avatar
+            className={styles.authur}
+            alt={getSthById(itemDetail.authur, userDB)?.name}
+          >
+            {getSthById(itemDetail.authur, userDB)?.name}
           </Avatar>
         </div>
 

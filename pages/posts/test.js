@@ -23,7 +23,7 @@ export default function Test() {
       })
       .catch((error) => console.error('Error fetching Markdown:', error));
     console.log(typeof markdownContent, 'mm');
-  }, []);
+  }, [markdownContent]);
 
   return (
     <Layout>

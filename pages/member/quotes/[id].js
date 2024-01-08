@@ -34,7 +34,7 @@ export default function QuoteDetail({ data }) {
   // }, []);
   useEffect(() => {
     console.log(initialState, 'dd');
-  }, []);
+  }, [initialState]);
   return (
     <>
       <Quotation data={initialState} />
@@ -49,14 +49,10 @@ export async function getServerSideProps(context) {
     const response = await fetch(`${apiUrl}/api/quotes/${id}`, {
       credentials: 'include',
     });
-
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-
     const result = await response.json();
-    console.log(result[0], 'tjij');
-
     return {
       props: {
         data: result[0],

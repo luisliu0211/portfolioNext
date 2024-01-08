@@ -92,7 +92,7 @@ export default function QuotationRecap() {
     };
     fetchData();
     console.log(data);
-  }, []);
+  }, [data]);
 
   const columns = [
     {
@@ -174,7 +174,7 @@ export default function QuotationRecap() {
       }
     };
     fetchData();
-  }, [selectedRows]);
+  }, [selectedRows, data]);
 
   return (
     <Layout>
