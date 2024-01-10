@@ -11,6 +11,7 @@ import ButtonUsage from '@/component/props/dialog';
 import { resizeSet } from '@/utils/loadMoreData';
 import MyContext from '@/lib/context';
 import throttle from '@/lib/throttle';
+import Column from '@/component/layouts/column';
 export default function Home({ postData }) {
   const { data: session, status } = useSession();
   const [itemPerPage, setItemPerPage] = useState(6);
@@ -72,7 +73,10 @@ export default function Home({ postData }) {
         <h1 style={{ display: 'block', textAlign: 'center' }}>Lastest Posts</h1>
         <hr />
         <MyContext.Provider value={{ isMobile }}>
-          <Cards data={filterData || []} />
+          <Column>
+            {' '}
+            <Cards data={filterData || []} />
+          </Column>
         </MyContext.Provider>
       </div>
       <Footer />

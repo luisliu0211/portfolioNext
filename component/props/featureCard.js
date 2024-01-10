@@ -1,8 +1,8 @@
 import styles from './featureCard.module.css';
 import Link from 'next/link';
 import LoadMoreBtn from './loadMoreBtn';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { logging } from '@/next.config';
 export default function FeatureCard(props) {
   let { data } = props;
   const [filter, setFilter] = useState(4);
@@ -49,21 +49,34 @@ export default function FeatureCard(props) {
           <div className={styles.container}>
             {dataCopy.map((item) => {
               let newArr = JSON.parse(item.usingSkills);
+              console.log(item.relatedImg);
               return (
                 <Link
                   key={item.id}
                   href={item.links ? item.links : ''}
                   target="_blank"
                 >
-                  <li className={styles.cardsWorks}>
+                  <li
+                    className={styles.cardsWorks}
+                    style={{
+                      backgroundImage: `url(/image/work/${item.relatedImg})`,
+                    }}
+                  >
                     <div className={styles.workInfo}>
                       <div className={styles.typeTag}>{item.workType}</div>
                       <div className={styles.textTitle}>{item.title}</div>
+
                       <ul className={styles.tags}>
                         {newArr.map((i, index) => {
                           return <li key={index}>{i}</li>;
                         })}
                       </ul>
+                      <Image
+                        width={200}
+                        height={100}
+                        alt={item.title}
+                        src={`/image/works/${item.relatedImg}`}
+                      />
                     </div>
                   </li>
                 </Link>

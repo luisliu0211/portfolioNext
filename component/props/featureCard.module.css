@@ -63,10 +63,12 @@
 .container a .cardsWorks .workInfo {
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 0px 0px 10px 0px;
   transition: 0.1s linear;
 }
 .container a .cardsWorks .workInfo .typeTag {
+  width: 100%;
   background-color: #5d5d5d;
   color: white;
   padding: 5px;

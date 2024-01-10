@@ -61,9 +61,11 @@
       .workInfo {
         display: flex;
         flex-direction: column;
+        align-items: center;
         padding: 0px 0px 10px 0px;
         transition: 0.1s linear;
         .typeTag {
+          width: 100%;
           background-color: darken(darkgrey, 30%);
           color: white;
           padding: 5px;

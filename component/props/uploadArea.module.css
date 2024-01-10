@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .container {
-  width: 80%;
+  width: 100%;
   min-width: 700px;
   margin: 0 auto;
   display: flex;
@@ -118,4 +118,7 @@
 }
 .container .grid .right > span {
   text-align: center;
+}
+.container #textField {
+  width: 50%;
 }/*# sourceMappingURL=uploadArea.module.css.map */

@@ -12,15 +12,11 @@ import Chip from '@mui/material/Chip';
 import useImagePreview from '@/hook/useImagePreview';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
-import MdEditArea from '@/component/props/mdEditArea';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 export default function UploadArea() {
-  const { previewImage, handleImageChange, clearPreview } = useImagePreview();
+  const { previewImage, base64, handleImageChange, clearPreview } =
+    useImagePreview();
   const [postTheme, setPostTheme] = useState('');
   const [file, setFile] = useState(null);
   const [postDetail, setPostDetail] = useState({
@@ -82,7 +78,7 @@ export default function UploadArea() {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('postDetail', JSON.stringify(postDetail));
-      const response = await axios.post(`${apiUrl}/api/posts/`, formData, {
+      const response = await axios.post(`${t}/api/posts/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       // const response = await axios.post(`${t}/api/posts/`, postDetail);
@@ -94,16 +90,10 @@ export default function UploadArea() {
   };
 
   useEffect(() => {
-    console.log(postDetail);
-    console.log(previewImage, 'pp');
-    console.log('handpic', handPickCover);
+    console.log(base64);
   }, [postDetail, handPickCover]);
   return (
     <>
-      <h3>上傳markdown檔案</h3>
-      <br />
-      <Divider />
-      <br />
       <div className={styles.container}>
         <div className={styles.grid}>
           {' '}
@@ -321,28 +311,6 @@ export default function UploadArea() {
           確認上傳MD檔案
         </Button>
       </div>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-          sx={{
-            textAlign: 'center',
-            '& .MuiAccordionSummary-contentGutters': { textAlign: 'center' },
-          }}
-        >
-          <h3>markdown編輯器</h3>
-          <Button variant="contained" onClick={handleUpload}>
-            確認上傳markdown資料
-          </Button>
-        </AccordionSummary>
-        <AccordionDetails>
-          <h4>
-            所見即所得 <span>範例參考</span>
-          </h4>
-          <MdEditArea />
-        </AccordionDetails>
-      </Accordion>
     </>
   );
 }

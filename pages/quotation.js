@@ -299,66 +299,64 @@ export default function Quotation({ data }) {
           ifEdit,
         }}
       >
-        <FlexBox>
-          <Column>
-            <FabricInfo componentID="fabricInfo" clientDB={clientDB} />
-            <YarnList
-              componentID="yarnCost"
-              yarnDB={yarnDB}
-              machineList={machineList}
-              priceUnit={priceUnit}
-            />
-            <DyeMethod
-              componentID="dyeCost"
-              processDB={processDB}
-              specialProcessDB={specialProcessDB}
-            />
-            <QuotationDetail
-              componentID="salesCost"
-              bussinessTermDB={bussinessTermDB}
-            />
-            {quote.id ? (
-              <ButtonGroup size="large">
-                {ifEdit ? (
-                  <>
-                    <Button variant="contained" onClick={handleSaveEdit}>
-                      儲存修改
-                    </Button>
-                    <Button
-                      variant="contained"
-                      onClick={() => {
-                        setEdit(!ifEdit);
-                      }}
-                    >
-                      取消修改
-                    </Button>
-                  </>
-                ) : (
+        <Column>
+          <FabricInfo componentID="fabricInfo" clientDB={clientDB} />
+          <YarnList
+            componentID="yarnCost"
+            yarnDB={yarnDB}
+            machineList={machineList}
+            priceUnit={priceUnit}
+          />
+          <DyeMethod
+            componentID="dyeCost"
+            processDB={processDB}
+            specialProcessDB={specialProcessDB}
+          />
+          <QuotationDetail
+            componentID="salesCost"
+            bussinessTermDB={bussinessTermDB}
+          />
+          {quote.id ? (
+            <ButtonGroup size="large">
+              {ifEdit ? (
+                <>
+                  <Button variant="contained" onClick={handleSaveEdit}>
+                    儲存修改
+                  </Button>
                   <Button
                     variant="contained"
                     onClick={() => {
                       setEdit(!ifEdit);
                     }}
                   >
-                    編輯
+                    取消修改
                   </Button>
-                )}
-                <Button variant="contained" onClick={toggleDrawer}>
-                  其他
+                </>
+              ) : (
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setEdit(!ifEdit);
+                  }}
+                >
+                  編輯
                 </Button>
-              </ButtonGroup>
-            ) : (
-              <ButtonGroup size="large">
-                <Button variant="contained" onClick={handleSavetoDB}>
-                  儲存資料庫
-                </Button>
-                <Button variant="contained" onClick={toggleDrawer}>
-                  其他
-                </Button>
-              </ButtonGroup>
-            )}
-          </Column>
-        </FlexBox>
+              )}
+              <Button variant="contained" onClick={toggleDrawer}>
+                其他
+              </Button>
+            </ButtonGroup>
+          ) : (
+            <ButtonGroup size="large">
+              <Button variant="contained" onClick={handleSavetoDB}>
+                儲存資料庫
+              </Button>
+              <Button variant="contained" onClick={toggleDrawer}>
+                其他
+              </Button>
+            </ButtonGroup>
+          )}
+        </Column>
       </MyContext.Provider>
       <Drawer open={open} onClose={toggleDrawer}>
         <Box

@@ -24,7 +24,7 @@ export default function QuotationRecap() {
         });
         const result = await response.json();
         let formattedResult = result.map((item) => {
-          console.log(item.yarnInfoList);
+          // console.log(item.yarnInfoList);
           const keysToConvert = [
             'width',
             'gy',
@@ -72,7 +72,6 @@ export default function QuotationRecap() {
           ).title;
           let formattedAuthur = userDB.find((i) => i.id == item.userId).name;
           let formattedTeam = userDB.find((i) => i.id == item.userId).team;
-
           let formattedlastRevise = item.lastRevise.split('T')[0];
           return {
             ...convertedObj,
@@ -84,15 +83,15 @@ export default function QuotationRecap() {
             formattedTeam: formattedTeam,
           };
         });
-        console.log(formattedResult);
+        // console.log(formattedResult);
         setData(formattedResult);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     fetchData();
-    console.log(data);
-  }, [data]);
+    // console.log(data);
+  }, []);
 
   const columns = [
     {
@@ -162,8 +161,6 @@ export default function QuotationRecap() {
           }
         );
         const result = await response.json();
-        console.log(result);
-
         let formattedData = result.map((i) => {
           // 把json裡面的key值替換成中文
           return quoteDataKeyTranslate(i);
