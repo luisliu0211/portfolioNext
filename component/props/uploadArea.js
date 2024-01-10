@@ -74,11 +74,11 @@ export default function UploadArea() {
   };
   const handleUpload = async () => {
     try {
-      let t = 'http://localhost:8080';
+      // let t = 'http://localhost:8080';
       const formData = new FormData();
       formData.append('file', file);
       formData.append('postDetail', JSON.stringify(postDetail));
-      const response = await axios.post(`${t}/api/posts/`, formData, {
+      const response = await axios.post(`${apiUrl}/api/posts/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       // const response = await axios.post(`${t}/api/posts/`, postDetail);

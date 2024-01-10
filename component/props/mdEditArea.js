@@ -22,6 +22,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import debounce from '@/lib/debounce';
 import throttle from '@/lib/throttle';
 import FlexBox from '../layouts/flexBox';
+const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 export default function MdEditArea() {
   const [success, setSuccess] = useState(false);
   const [curMd, setCurMd] = useState('');
@@ -78,8 +79,8 @@ export default function MdEditArea() {
   };
   const handleUpload = async () => {
     try {
-      let t = 'http://localhost:8080';
-      const response = await axios.post(`${t}/api/posts/edit`, postDetail);
+      // let t = 'http://localhost:8080';
+      const response = await axios.post(`${apiUrl}/api/posts/edit`, postDetail);
       // 檢查HTTP狀態碼
       if (response.status === 200) {
         console.log(response, 'data');
@@ -126,8 +127,6 @@ export default function MdEditArea() {
 
   return (
     <>
-      {/* <input type="text" onChange={a} /> */}
-
       <div className={styles.container}>
         <Snackbar
           open={success}
