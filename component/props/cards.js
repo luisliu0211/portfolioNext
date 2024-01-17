@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { useContext } from 'react';
 import MyContext from '@/lib/context';
 export default function Cards(props) {
-  const { data } = props;
+  const { data, editMode, isMobile } = props;
+
   const context = useContext(MyContext);
   let categoryList = [
     { id: 0, name: 'All' },
@@ -18,14 +19,17 @@ export default function Cards(props) {
       <ul className={styles.container}>
         {data.length !== 0 &&
           data.map((item) => {
+            let cM = context?.isMobile;
             const bgImg = {
-              backgroundImage: context.isMobile
-                ? `url(${item.coverImage})`
-                : 'none',
+              backgroundImage: cM ? `url(${item.coverImage})` : 'none',
             };
+            const link = editMode
+              ? `/member/postRecap/${item.id}`
+              : `/posts/${item.id}`;
+
             return (
               <li key={item.id} className={`${styles.cards}`} style={bgImg}>
-                <Link href={`/posts/${item.id}`}>
+                <Link href={link}>
                   <div className={styles.coverImg}>
                     <Image
                       src={item.coverImage}
@@ -50,6 +54,8 @@ export default function Cards(props) {
                       }
                     </div>
                   </div>
+
+                  {editMode && <div className={styles.editBtn}>Edit</div>}
                 </Link>
               </li>
             );

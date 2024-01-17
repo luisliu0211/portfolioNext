@@ -58,15 +58,8 @@
           object-fit: cover;
         }
         #handpickImg {
-          // border: 1px solid red;
           background-color: white;
           object-fit: contain;
-          &::after {
-            content: '味元素';
-            display: block; /* 将内容作为块级元素显示 */
-            color: red; /* 设置文字颜色 */
-            font-weight: bold; /* 设置文字粗细 */
-          }
         }
         #selectedImg {
           border: 1px solid #000;
@@ -85,9 +78,8 @@
         background-color: white;
         position: relative;
         #handpickImg {
-          width: 100%;
+          width: 50%;
           height: 100%;
-
           object-fit: contain;
         }
 

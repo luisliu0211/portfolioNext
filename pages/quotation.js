@@ -30,6 +30,7 @@ import specialProcessDB from '@/specialProcessDB';
 import machineList from '@/machineList';
 import priceUnit from '@/priceUnit';
 import bussinessTermDB from '@/bussinessTermDB';
+import Snackbar from '@mui/material/Snackbar';
 import _ from 'lodash';
 
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
@@ -156,6 +157,8 @@ export default function Quotation({ data }) {
     quoteReducer,
     _.isEmpty(data) ? initState : data
   );
+  const [success, setSuccess] = useState(false);
+  const [err, setErr] = useState(false);
   const [ifEdit, setEdit] = useState(_.isEmpty(data) ? true : false);
   const updateTextField = (e, field) => {
     let name = e.target.name;
@@ -255,6 +258,17 @@ export default function Quotation({ data }) {
     //TODO
   };
   const handleSavetoDB = async () => {
+    if (
+      quote.fabricInfo.fabricItem == '' ||
+      quote.fabricInfo.description == '' ||
+      quote.fabricInfo.width == null ||
+      quote.fabricInfo.gsm == null ||
+      quote.yarnCost.yarnInfoList == []
+    ) {
+      setErr(true);
+
+      return;
+    }
     try {
       // let test = 'http://localhost:8080';
       const response = await fetch(`${apiUrl}/api/quotationAdd`, {
@@ -268,7 +282,7 @@ export default function Quotation({ data }) {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
+      setSuccess(true);
       router.reload();
     } catch (error) {
       console.error('Error saving data to the database:', error);
@@ -299,6 +313,24 @@ export default function Quotation({ data }) {
           ifEdit,
         }}
       >
+        <Snackbar
+          open={success}
+          autoHideDuration={3000}
+          onClose={() => {
+            setSuccess(false);
+          }}
+          message="資料成功儲存！"
+          severity="success"
+        ></Snackbar>
+        <Snackbar
+          open={err}
+          autoHideDuration={3000}
+          onClose={() => {
+            setErr(false);
+          }}
+          message="欄位尚未填寫完成！"
+          severity="warning"
+        ></Snackbar>
         <Column>
           <FabricInfo componentID="fabricInfo" clientDB={clientDB} />
           <YarnList
@@ -366,7 +398,7 @@ export default function Quotation({ data }) {
           onKeyDown={toggleDrawer}
         >
           <List>
-            {['轉成PDF', '轉成Excel', '返回報價清單'].map((text, index) => (
+            {['轉成Excel', '返回報價清單'].map((text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton onClick={() => handleItemClick(text)}>
                   <ListItemIcon>

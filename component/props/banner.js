@@ -1,44 +1,42 @@
 import Image from 'next/image';
 import styles from './banner.module.css';
-import BannerImg1 from '../../public/image/banner/banner1.jpeg';
-import BannerImg2 from '../../public/image/banner/banner2.png';
-import BannerImg3 from '../../public/image/banner/banner3.png';
 // import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-fade';
 import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper/modules';
-
 // import './styles.css';
-
-import React, { useRef, useState } from 'react';
+const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
+import React, { useEffect, useRef, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Link from 'next/link';
 export default function Banner() {
-  let data = {
-    dataName: 'bannerData',
-    bannerDetail: [
-      {
-        id: 1,
-        bannerTitle: 'test1',
-        bannerSubtitle: 'testDescription1',
-        bannerImg: 'banner1.jpeg',
-      },
-      {
-        id: 2,
-        bannerTitle: 'test2',
-        bannerSubtitle: 'testDescription2',
-        bannerImg: 'banner2.png',
-      },
-      {
-        id: 3,
-        bannerTitle: 'test3',
-        bannerSubtitle: 'testDescription3',
-        bannerImg: 'banner3.png',
-      },
-    ],
-  };
+  const [bannerPost, setBannerPost] = useState([]);
+  function getRandomElements(array, numberOfElements) {
+    // Fisher-Yates 洗牌算法
+    const shuffledArray = array.sort(() => Math.random() - 0.5);
+
+    // 取前 numberOfElements 個元素
+    return shuffledArray.slice(0, numberOfElements);
+  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let response = await fetch(`${apiUrl}/api/posts`, {
+          credentials: 'include',
+        });
+        const data = await response.json();
+        let randomData = getRandomElements(data, 3);
+        setBannerPost(randomData);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className={styles.banner}>
@@ -54,25 +52,32 @@ export default function Banner() {
           }}
           loop={true}
         >
-          {data.bannerDetail.map((item) => {
-            return (
-              <SwiperSlide key={item.id}>
-                <Image
-                  src={require(`../../public/image/banner/${item.bannerImg}`)}
-                  width={1600}
-                  height={900}
-                  alt={item.bannerTitle}
-                  priority="high"
-                ></Image>
-                <div className={styles.bannerText}>
-                  <div className={styles.bannerTitle}>{item.bannerTitle}</div>
-                  <div className={styles.bannerSubtitle}>
-                    {item.bannerSubtitle}
-                  </div>
-                </div>
-              </SwiperSlide>
-            );
-          })}
+          {bannerPost.length !== 0
+            ? bannerPost.map((item) => {
+                return (
+                  <SwiperSlide key={item.id} className={styles.slider}>
+                    <Link href={`/posts/${item.id}`}>
+                      <div
+                        className={styles.bannerText}
+                        style={{ backgroundImage: `url(${item.coverImage})` }}
+                      >
+                        <div className={styles.bannerTitle}>{item.title}</div>
+                        <div className={styles.bannerSubtitle}>
+                          {item.subtitle}
+                        </div>
+                        <div className={styles.tagList}>
+                          {item.tags.map((tag, i) => (
+                            <div key={i} className={styles.tag}>
+                              {tag}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </Link>
+                  </SwiperSlide>
+                );
+              })
+            : ''}
         </Swiper>
       </div>
     </>

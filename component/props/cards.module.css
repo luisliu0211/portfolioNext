@@ -80,6 +80,18 @@
   -o-object-fit: cover;
      object-fit: cover;
 }
+.container .cards a .editBtn {
+  background-color: grey;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  padding: 10px;
+  border-radius: 10px;
+  color: black;
+  box-shadow: 0px 0px 10px grey;
+  transition: 0.2s linear;
+  cursor: pointer;
+}
 .container .cards:hover {
   color: white;
   background-color: #5d5d5d;

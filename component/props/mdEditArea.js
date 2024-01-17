@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Grid, Paper, Divider, Button } from '@mui/material';
+import React, { useState, useEffect, useRef } from 'react';
+import { TextField, Paper, Divider, Button } from '@mui/material';
 import MarkdownIt from 'markdown-it';
 import axios from 'axios';
 import { mdOpt } from '@/lib/markdownConfig';
@@ -10,36 +10,37 @@ import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import markdownItCheckbox from 'markdown-it-checkbox';
-import MarkdownContent from '../layouts/markdownContent';
+import MarkdownContent from '@/component/layouts/markdownContent';
 import styles from './uploadArea.module.css';
 import useImagePreview from '@/hook/useImagePreview';
 import { getFormattedDate } from '@/lib/getDate';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import debounce from '@/lib/debounce';
-import throttle from '@/lib/throttle';
-import FlexBox from '../layouts/flexBox';
+import FlexBox from '@/component/layouts/flexBox';
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
-export default function MdEditArea() {
+export default function MdEditArea(props) {
+  let { data } = props;
   const [success, setSuccess] = useState(false);
+  const [err, setErr] = useState(false);
   const [curMd, setCurMd] = useState('');
   const [mdOutput, setOutput] = useState('');
+  const textFieldRef = useRef(null);
+  const viewerRef = useRef(null);
   const { previewImage, handleImageChange, clearPreview } = useImagePreview();
-  const [postTheme, setPostTheme] = useState('');
   const [handPickCover, setHandPickCover] = useState('');
+  // const [textBlank, setTextBlank] = useState(0);
   const [postDetail, setPostDetail] = useState({
-    title: '尚未命名的資料',
+    title: '未命名',
     subTitle: '',
-    coverImg: '',
+    coverImg: '/image/photoDefault.png',
     create_date: getFormattedDate(),
     category: '',
     tags: [],
     content: '',
     contentType: 'markdown',
   });
+
   let tagsDetails = [
     'css/scss',
     'javascript',
@@ -75,18 +76,30 @@ export default function MdEditArea() {
   };
 
   const handleDetailChange = (e) => {
+    console.log(postDetail);
     setPostDetail({ ...postDetail, [e.target.name]: e.target.value });
   };
   const handleUpload = async () => {
+    if (
+      postDetail.title == '' ||
+      postDetail.category == '' ||
+      postDetail.content == ''
+    ) {
+      setErr(true);
+      return;
+    }
+    // console.log(postDetail.id);
     try {
-      // let t = 'http://localhost:8080';
-      const response = await axios.post(`${apiUrl}/api/posts/edit`, postDetail);
+      let t = 'http://localhost:8080';
+      console.log(postDetail, 'dd');
+      const response = await axios.post(`${t}/api/posts`, postDetail);
       // 檢查HTTP狀態碼
+      console.log(response);
       if (response.status === 200) {
         console.log(response, 'data');
         setSuccess(true);
         setPostDetail({
-          title: '尚未命名的資料',
+          title: '',
           subTitle: '',
           coverImg: '',
           create_date: getFormattedDate(),
@@ -108,26 +121,105 @@ export default function MdEditArea() {
 
   useEffect(() => {
     setOutput(mdToHtml(curMd));
-  }, [postDetail, handPickCover, curMd]);
+  }, [handPickCover, curMd]);
 
+  useEffect(() => {
+    setPostDetail(data ? data : postDetail);
+    setHandPickCover(data ? data.coverImage : handPickCover);
+    setCurMd(data ? data.content : curMd);
+  }, [data]);
   const handleChange = (e) => {
     let val = e.target.value;
     setCurMd(val);
     let view = mdToHtml(val);
     setOutput(view);
-    setPostDetail({ ...postDetail, content: curMd });
+    setPostDetail((prevDetail) => ({ ...prevDetail, content: val }));
   };
-
   const md = MarkdownIt(mdOpt)
     .use(markdownItCheckbox)
     .use(require('markdown-it-highlightjs'));
   const mdToHtml = (text) => {
+    text = String(text);
     return md.render(text);
   };
 
+  // 取得行數
+  // const getLineNumber = (text, index) => {
+  //   console.log('text', text);
+  //   const lines = text.split('\n');
+  //   console.log(lines, 'text 按照 換行格篩分');
+
+  //   //過濾空值
+  //   let filterCode = lines.filter((i) => i.trim() !== '' && i.trim() !== '---');
+  //   console.log(filterCode.length, '篩選總行數');
+
+  //   //有幾個\n 就有幾行
+  //   let lineNumber = 0;
+
+  //   for (let i = 0; i < filterCode.length; i++) {
+  //     if (index >= filterCode[i].length + 1) {
+  //       index -= filterCode[i].length + 1;
+  //       lineNumber++;
+  //     } else {
+  //       lineNumber += filterCode[i].trim() !== '' ? 1 : 0;
+  //       break;
+  //     }
+  //   }
+  //   return lineNumber;
+  // };
+  // useEffect(() => {
+  //   const editor = document.getElementById('textField');
+  //   const viewer = viewerRef.current;
+  //   if (viewer) {
+  //     let text = editor.value; // 假设 editor 是一个 textarea 元素
+  //     console.log(text, 'tt');
+  //     console.log(text.split(/\s+/));
+  //     let a = text.split(/\s+/);
+  //     console.log(a.length);
+  //     console.log('空白', a.length - 1);
+  //     const excludedPatterns = /```(?:html|javascript)?/g;
+  //     // let filterStr = text.replace(excludedPatterns, (match) => {
+  //     //   if (
+  //     //     match === '```' ||
+  //     //     match === '```html' ||
+  //     //     match === '```javascript'
+  //     //   ) {
+  //     //     return '';
+  //     //   } else {
+  //     //     return match;
+  //     //   }
+  //     // });
+  //     let cursorP = editor.selectionStart;
+  //     // while (cursorP > 0 && filterStr[cursorP - 1] === ' ') {
+  //     //   setTextBlank((prev) => prev + 1);
+  //     //   cursorP--;
+  //     // }
+
+  //     console.log(textBlank, 'ttb');
+  //     console.log(cursorP);
+  //     let position = cursorP - a;
+  //     console.log('目前光標位置：', position);
+  //     let lineNumber = getLineNumber(curMd, cursorP - textBlank);
+  //     const lineHeight = 25;
+  //     viewer.scrollTop = lineNumber * lineHeight;
+  //     const lines = viewer.getElementsByClassName('line');
+  //     console.log(lines.length, 'lines class數量');
+  //     for (let i = 0; i < lines.length; i++) {
+  //       lines[i].classList.remove('highlighted');
+  //       lines[i].style.backgroundColor = 'transparent';
+  //     }
+  //     console.log(lines);
+  //     console.log(lineNumber - 1);
+  //     if (lines[lineNumber - 1]) {
+  //       lines[lineNumber - 1].classList.add('highlighted');
+  //       lines[lineNumber - 1].style.backgroundColor = 'yellow';
+  //     }
+  //   }
+  // }, [mdOutput, curMd]);
+
   return (
     <>
-      <div className={styles.container}>
+      <div className={`${styles.container} ${styles.grid}`}>
         <Snackbar
           open={success}
           autoHideDuration={3000}
@@ -135,20 +227,31 @@ export default function MdEditArea() {
             setSuccess(false);
           }}
           message="資料成功儲存！"
-          // action={action}
           severity="success"
         ></Snackbar>
+        <Snackbar
+          open={err}
+          autoHideDuration={3000}
+          onClose={() => {
+            setErr(false);
+          }}
+          message="欄位尚未填寫完成！"
+          severity="warning"
+        ></Snackbar>
         <div className={styles.grid}>
-          {' '}
           <div className={styles.left}>
             <label>
               <span>標題</span>
               <TextField
                 size="small"
                 name="title"
-                value={postDetail.title}
+                value={postDetail.title || ''}
                 onChange={handleDetailChange}
                 sx={{ width: 300 }}
+                required
+                inputProps={{
+                  maxLength: 16,
+                }}
               />
             </label>
             <label>
@@ -156,20 +259,24 @@ export default function MdEditArea() {
               <TextField
                 size="small"
                 name="subTitle"
-                value={postDetail.subTitle}
+                value={postDetail.subTitle || ''}
                 onChange={handleDetailChange}
+                required
+                inputProps={{
+                  maxLength: 16,
+                }}
               />
             </label>
             <label>
-              <span>分類</span>{' '}
+              <span>分類</span>
               <Select
                 name="category"
-                value={postDetail.category}
+                value={postDetail.category || ''}
                 label="category"
                 onChange={handleDetailChange}
                 sx={{ width: 195, '& fieldset span': { display: 'none' } }}
+                required
               >
-                <MenuItem value={0}>All</MenuItem>
                 <MenuItem value={1}>FrontEnd</MenuItem>
                 <MenuItem value={2}>BackEnd</MenuItem>
                 <MenuItem value={3}>Database</MenuItem>
@@ -184,7 +291,7 @@ export default function MdEditArea() {
                 id="postTags"
                 name="tags"
                 multiple
-                value={postDetail.tags}
+                value={postDetail.tags || []}
                 onChange={handleDetailChange}
                 input={
                   <OutlinedInput
@@ -227,11 +334,13 @@ export default function MdEditArea() {
                 )}
                 MenuProps={MenuProps}
               >
-                {tagsDetails.map((tag, index) => (
-                  <MenuItem key={index} value={tag}>
-                    {tag}
-                  </MenuItem>
-                ))}
+                {tagsDetails.map((tag, index) => {
+                  return (
+                    <MenuItem key={index} value={tag}>
+                      {tag}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </label>
           </div>
@@ -244,7 +353,7 @@ export default function MdEditArea() {
                   src={handPickCover}
                   alt="預設照片"
                 />
-                <span>{postTheme}</span>
+                <span>{postDetail.title}</span>
                 <input
                   type="file"
                   id="mdFile"
@@ -302,7 +411,6 @@ export default function MdEditArea() {
                     ...postDetail,
                     coverImg: '/image/peter-rabbit.webp',
                   });
-                  setPostTheme('主題1');
                 }}
               />
               <Avatar
@@ -317,7 +425,6 @@ export default function MdEditArea() {
                     ...postDetail,
                     coverImg: '/image/peter-rabbit21.jpeg',
                   });
-                  setPostTheme('主題2');
                 }}
               />
               <Avatar
@@ -332,7 +439,6 @@ export default function MdEditArea() {
                     ...postDetail,
                     coverImg: '/image/peter-rabbit3.webp',
                   });
-                  setPostTheme('主題3');
                 }}
               />
             </Stack>
@@ -352,8 +458,9 @@ export default function MdEditArea() {
             onChange={handleChange}
             id="textField"
             sx={{ width: '50%' }}
+            ref={textFieldRef}
           />
-          <Paper elevation={4} sx={{ width: '50%' }}>
+          <Paper elevation={4} sx={{ width: '50%' }} ref={viewerRef}>
             <Box maxHeight="580px" height="580px" overflow="auto" py={1} px={1}>
               <MarkdownContent data={mdOutput} />
             </Box>

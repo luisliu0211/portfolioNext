@@ -49,7 +49,6 @@ export default function FeatureCard(props) {
           <div className={styles.container}>
             {dataCopy.map((item) => {
               let newArr = JSON.parse(item.usingSkills);
-              console.log(item.relatedImg);
               return (
                 <Link
                   key={item.id}
@@ -58,9 +57,9 @@ export default function FeatureCard(props) {
                 >
                   <li
                     className={styles.cardsWorks}
-                    style={{
-                      backgroundImage: `url(/image/work/${item.relatedImg})`,
-                    }}
+                    // style={{
+                    //   backgroundImage: `url(/image/works/${item.relatedImg})`,
+                    // }}
                   >
                     <div className={styles.workInfo}>
                       <div className={styles.typeTag}>{item.workType}</div>

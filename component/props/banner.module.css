@@ -1,33 +1,53 @@
 .banner {
   width: 100%;
-  height: 700px;
+  height: 360px;
   background-color: darkgray;
   position: relative;
 }
-.banner .mySwiper SwiperSlide {
-  position: relative;
+.banner .mySwiper {
+  height: 100%;
 }
-.banner .mySwiper .bannerText {
+.banner .mySwiper .slider {
+  position: relative;
+  height: 100%;
+}
+.banner .mySwiper .slider .bannerText {
   width: 100%;
   height: 100%;
   top: 0;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.3);
+  background-blend-mode: multiply;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 10%;
   color: white;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
 }
-.banner .mySwiper .bannerText .bannerTitle {
+.banner .mySwiper .slider .bannerText .bannerTitle {
+  color: black;
   letter-spacing: 1px;
   font-size: 30px;
-  font-weight: 600;
+  font-weight: 500;
 }
-.banner .mySwiper .bannerText .bannerSubtitle {
+.banner .mySwiper .slider .bannerText .bannerSubtitle {
+  color: black;
   letter-spacing: 1px;
   font-size: 24px;
   font-weight: 400;
+}
+.banner .mySwiper .slider .bannerText .tagList {
+  display: flex;
+}
+.banner .mySwiper .slider .bannerText .tagList .tag {
+  background-color: grey;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 5px;
+  font-size: 20px;
 }
 .banner .arrow {
   cursor: pointer;
@@ -69,11 +89,27 @@
 
 @media screen and (max-width: 1280px) {
   .banner {
-    height: 500px;
+    height: 400px;
   }
 }
 @media screen and (max-width: 768px) {
   .banner {
     height: 350px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .banner {
+    height: 300px;
+  }
+  .banner .mySwiper .slider .bannerText .bannerTitle {
+    font-size: 24px;
+    color: white;
+  }
+  .banner .mySwiper .slider .bannerText .bannerSubtitle {
+    font-size: 20px;
+    color: white;
+  }
+  .banner .mySwiper .slider .bannerText .tagList .tag {
+    font-size: 14px;
   }
 }/*# sourceMappingURL=banner.module.css.map */

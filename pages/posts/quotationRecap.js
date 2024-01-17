@@ -69,7 +69,7 @@ export default function QuotationRecap() {
 
           let formattedmachine = machineList.find(
             (i) => i.id == item.machineType
-          ).title;
+          )?.title;
           let formattedAuthur = userDB.find((i) => i.id == item.userId).name;
           let formattedTeam = userDB.find((i) => i.id == item.userId).team;
           let formattedlastRevise = item.lastRevise.split('T')[0];
@@ -188,7 +188,6 @@ export default function QuotationRecap() {
           pageSizeOptions={[5, 10]}
           checkboxSelection
           onRowSelectionModelChange={(row) => {
-            console.log(row);
             setSelectedRows(row);
           }}
         />

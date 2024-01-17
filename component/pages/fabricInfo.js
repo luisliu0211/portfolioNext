@@ -27,6 +27,7 @@ export default function FabricInfo(props) {
               {/* TODO: 自動輸入 */}
               {ifEdit ? (
                 <Autocomplete
+                  required
                   variant="standard"
                   id="clientId"
                   name="clientId"
@@ -79,6 +80,7 @@ export default function FabricInfo(props) {
                   type="text"
                   id="brand"
                   name="brand"
+                  required
                   value={quote.fabricInfo.brand}
                   onChange={(e) => {
                     setBrand(e.target.value);
@@ -98,6 +100,7 @@ export default function FabricInfo(props) {
               <span>布號</span>
               {ifEdit ? (
                 <TextField
+                  required
                   variant="standard"
                   type="text"
                   id="fabricItem"
@@ -148,6 +151,7 @@ export default function FabricInfo(props) {
               <span>品名</span>
               {ifEdit ? (
                 <TextField
+                  required
                   variant="standard"
                   type="text"
                   id="description"
@@ -178,6 +182,7 @@ export default function FabricInfo(props) {
               <span>幅寬</span>
               {ifEdit ? (
                 <TextField
+                  required
                   variant="standard"
                   type="number"
                   id="width"
@@ -200,6 +205,7 @@ export default function FabricInfo(props) {
               <span>克重</span>
               {ifEdit ? (
                 <TextField
+                  required
                   variant="standard"
                   type="number"
                   id="gsm"

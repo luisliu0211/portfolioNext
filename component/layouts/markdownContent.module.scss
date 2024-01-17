@@ -8,18 +8,21 @@
     display: block;
     li {
       line-height: 40px;
-      > label {
-        font-weight: 500;
-        padding: 5px;
-        vertical-align: middle;
-      }
-      > input {
-        /* 調整 input 與文本之間的距離 */
-        width: 20px;
-        height: 20px;
-        vertical-align: middle;
-        margin: 5px;
-        margin-right: 10px;
+      span {
+        display: block;
+        label {
+          font-weight: 500;
+          padding: 5px;
+          vertical-align: middle;
+        }
+        input {
+          /* 調整 input 與文本之間的距離 */
+          width: 20px;
+          height: 20px;
+          vertical-align: middle;
+          margin: 5px;
+          margin-right: 10px;
+        }
       }
     }
   }
@@ -32,6 +35,12 @@
   p {
     padding-left: 10px;
     margin-block: 10px;
+    // display: block;
+  }
+  .line {
+  }
+  .line.highlighted {
+    background-color: yellow;
   }
 }
 

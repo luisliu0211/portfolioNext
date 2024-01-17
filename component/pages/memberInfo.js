@@ -9,13 +9,12 @@ export default function MemberInfo() {
   // 預覽圖片
   const { previewImage, handleImageChange } = useImagePreview();
   let userData = {
-    id: 12,
+    id: 1,
     name: 'Luis',
-    gender: 'male',
-    password: 'fefaefaw',
+    gender: 1,
+    password: '1234',
     email: 'lu0211@hotmail.com',
-    character: 'family',
-    telephone: ['0912345678', '03-XXXXX'],
+    character: 1,
     image: 'efewaef.jpg',
   };
 
@@ -153,7 +152,7 @@ export default function MemberInfo() {
               <h3>Personal Image</h3>
               <pre>upload retangle photo</pre>
               <div className={styles.previewBox}>
-                {previewImage && (
+                {previewImage !== '/image/defaultPhoto.png' && (
                   <Image
                     src={previewImage}
                     alt="Preview"

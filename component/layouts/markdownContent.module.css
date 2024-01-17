@@ -13,14 +13,18 @@
 .container ol li {
   line-height: 40px;
 }
-.container ul li > label,
-.container ol li > label {
+.container ul li span,
+.container ol li span {
+  display: block;
+}
+.container ul li span label,
+.container ol li span label {
   font-weight: 500;
   padding: 5px;
   vertical-align: middle;
 }
-.container ul li > input,
-.container ol li > input {
+.container ul li span input,
+.container ol li span input {
   /* 調整 input 與文本之間的距離 */
   width: 20px;
   height: 20px;
@@ -37,6 +41,9 @@
 .container p {
   padding-left: 10px;
   margin-block: 10px;
+}
+.container .line.highlighted {
+  background-color: yellow;
 }
 
 @media screen and (max-width: 992px) {

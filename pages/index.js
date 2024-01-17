@@ -28,8 +28,13 @@ export default function Home({ postData }) {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-  console.log(postData, 'pp');
-  let filterData = postData.data.slice(0, itemPerPage);
+  let filterData;
+  if (postData) {
+    filterData = postData.data.slice(0, itemPerPage);
+  } else {
+    filterData = [];
+  }
+
   if (session) {
     console.log(session, 'f');
     // 其他用户信息...
@@ -69,7 +74,7 @@ export default function Home({ postData }) {
       )} */}
       {/* <button onClick={signOut}>登出</button> */}
 
-      <div style={{ padding: '50px 50px' }}>
+      <div style={{ padding: '30px 20px' }}>
         <h1 style={{ display: 'block', textAlign: 'center' }}>Lastest Posts</h1>
         <hr />
         <MyContext.Provider value={{ isMobile }}>
@@ -87,6 +92,7 @@ export default function Home({ postData }) {
 export async function getStaticProps() {
   try {
     const data = await loadPosts();
+    console.log(data, 'ddd');
     return {
       props: {
         postData: { dataName: 'posts', data },

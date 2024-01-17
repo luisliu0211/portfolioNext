@@ -12,12 +12,13 @@ import Chip from '@mui/material/Chip';
 import useImagePreview from '@/hook/useImagePreview';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
-
+import Snackbar from '@mui/material/Snackbar';
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 export default function UploadArea() {
-  const { previewImage, base64, handleImageChange, clearPreview } =
-    useImagePreview();
+  const { previewImage, handleImageChange, clearPreview } = useImagePreview();
   const [postTheme, setPostTheme] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [err, setErr] = useState(false);
   const [file, setFile] = useState(null);
   const [postDetail, setPostDetail] = useState({
     title: '尚未命名的資料',
@@ -74,11 +75,12 @@ export default function UploadArea() {
   };
   const handleUpload = async () => {
     try {
-      // let t = 'http://localhost:8080';
+      let t = 'http://localhost:8080';
+      console.log('t', t);
       const formData = new FormData();
       formData.append('file', file);
       formData.append('postDetail', JSON.stringify(postDetail));
-      const response = await axios.post(`${apiUrl}/api/posts/`, formData, {
+      const response = await axios.post(`${t}/api/posts/mdFile`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       // const response = await axios.post(`${t}/api/posts/`, postDetail);
@@ -90,13 +92,30 @@ export default function UploadArea() {
   };
 
   useEffect(() => {
-    console.log(base64);
+    console.log(postDetail);
   }, [postDetail, handPickCover]);
   return (
     <>
       <div className={styles.container}>
+        <Snackbar
+          open={success}
+          autoHideDuration={3000}
+          onClose={() => {
+            setSuccess(false);
+          }}
+          message="資料成功儲存！"
+          severity="success"
+        ></Snackbar>
+        <Snackbar
+          open={err}
+          autoHideDuration={3000}
+          onClose={() => {
+            setErr(false);
+          }}
+          message="欄位尚未填寫完成！"
+          severity="warning"
+        ></Snackbar>
         <div className={styles.grid}>
-          {' '}
           <div className={styles.left}>
             <label>
               <span>標題</span>
