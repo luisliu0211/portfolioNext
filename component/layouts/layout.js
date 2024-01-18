@@ -20,6 +20,12 @@ export default function Layout({ title, children }) {
       : (pageTitle = nowPage.split('/')[2].toUpperCase() + '- Page');
   } else {
     pageTitle = title + '- Post';
+    let a = nowPage.split('/');
+    let b = a.filter((i) => i !== '');
+    let c = b.pop();
+    c = title; // 賦予新的值
+    b.push(c);
+    nowPage = b.join('/');
   }
 
   //footer  內容高度不超過100vh時botoom:0 否則 bottom 貼視窗底下

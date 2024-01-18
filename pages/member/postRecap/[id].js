@@ -29,7 +29,7 @@ export default function PostEdit({}) {
   }, [id]);
 
   return (
-    <Layout>
+    <Layout title={data.title}>
       <MdEditArea data={data} />
     </Layout>
   );

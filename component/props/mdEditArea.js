@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { TextField, Paper, Divider, Button } from '@mui/material';
+import { useRouter } from 'next/router';
 import MarkdownIt from 'markdown-it';
 import axios from 'axios';
 import { mdOpt } from '@/lib/markdownConfig';
@@ -20,7 +21,8 @@ import Snackbar from '@mui/material/Snackbar';
 import FlexBox from '@/component/layouts/flexBox';
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 export default function MdEditArea(props) {
-  let { data } = props;
+  let { data, editMode } = props;
+  const router = useRouter();
   const [success, setSuccess] = useState(false);
   const [err, setErr] = useState(false);
   const [curMd, setCurMd] = useState('');
@@ -29,7 +31,6 @@ export default function MdEditArea(props) {
   const viewerRef = useRef(null);
   const { previewImage, handleImageChange, clearPreview } = useImagePreview();
   const [handPickCover, setHandPickCover] = useState('');
-  // const [textBlank, setTextBlank] = useState(0);
   const [postDetail, setPostDetail] = useState({
     title: '未命名',
     subTitle: '',
@@ -91,24 +92,28 @@ export default function MdEditArea(props) {
     // console.log(postDetail.id);
     try {
       let t = 'http://localhost:8080';
-      console.log(postDetail, 'dd');
-      const response = await axios.post(`${t}/api/posts`, postDetail);
+      const response = await axios.post(`${apiUrl}/api/posts`, postDetail);
       // 檢查HTTP狀態碼
       console.log(response);
       if (response.status === 200) {
         console.log(response, 'data');
         setSuccess(true);
-        setPostDetail({
-          title: '',
-          subTitle: '',
-          coverImg: '',
-          create_date: getFormattedDate(),
-          category: '',
-          tags: [],
-          content: '',
-          contentType: 'markdown',
-        });
-        setCurMd('');
+        if (editMode) {
+          setPostDetail({
+            title: '',
+            subTitle: '',
+            coverImg: '/image/photoDefault.png',
+            create_date: getFormattedDate(),
+            category: '',
+            tags: [],
+            content: '',
+            contentType: 'markdown',
+          });
+          setCurMd('');
+        } else {
+          router.push('/');
+        }
+
         // 做其他你需要的操作
       } else {
         // 在這裡處理其他HTTP狀態碼，例如錯誤處理
@@ -124,7 +129,9 @@ export default function MdEditArea(props) {
   }, [handPickCover, curMd]);
 
   useEffect(() => {
-    setPostDetail(data ? data : postDetail);
+    setPostDetail(
+      data ? data : { ...postDetail, revised_date: getFormattedDate() }
+    );
     setHandPickCover(data ? data.coverImage : handPickCover);
     setCurMd(data ? data.content : curMd);
   }, [data]);

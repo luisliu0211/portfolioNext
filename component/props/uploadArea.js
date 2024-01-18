@@ -16,7 +16,7 @@ import Snackbar from '@mui/material/Snackbar';
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 export default function UploadArea() {
   const { previewImage, handleImageChange, clearPreview } = useImagePreview();
-  const [postTheme, setPostTheme] = useState('');
+  const [postTheme, setPostTheme] = useState('尚未命名的資料');
   const [success, setSuccess] = useState(false);
   const [err, setErr] = useState(false);
   const [file, setFile] = useState(null);
@@ -76,23 +76,36 @@ export default function UploadArea() {
   const handleUpload = async () => {
     try {
       let t = 'http://localhost:8080';
-      console.log('t', t);
       const formData = new FormData();
       formData.append('file', file);
       formData.append('postDetail', JSON.stringify(postDetail));
-      const response = await axios.post(`${t}/api/posts/mdFile`, formData, {
+      const response = await axios.post(`${t}/api/mdFile`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      // const response = await axios.post(`${t}/api/posts/`, postDetail);
-      // Handle the response from the backend (e.g., save HTML content)
-      console.log(response.data);
+      if (response.status === 200) {
+        console.log(response, 'data');
+        setSuccess(true);
+        setPostDetail({
+          title: '尚未選擇markdown檔案',
+          subTitle: '',
+          coverImg: '',
+          create_date: getFormattedDate(),
+          category: '',
+          tags: [],
+          content: '',
+          contentType: 'markdown',
+        });
+      } else {
+        // 在這裡處理其他HTTP狀態碼，例如錯誤處理
+        console.error('Request failed with status:', response.status);
+      }
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    console.log(postDetail);
+    // console.log(postDetail);
   }, [postDetail, handPickCover]);
   return (
     <>
@@ -122,9 +135,13 @@ export default function UploadArea() {
               <TextField
                 size="small"
                 name="title"
-                value={postDetail.title}
+                value={postDetail.title || ''}
                 onChange={handleDetailChange}
+                required
                 sx={{ width: 300 }}
+                inputProps={{
+                  maxLength: 16,
+                }}
               />
             </label>
             <label>
@@ -132,19 +149,24 @@ export default function UploadArea() {
               <TextField
                 size="small"
                 name="subTitle"
+                value={postDetail.subTitle || ''}
                 onChange={handleDetailChange}
+                required
+                inputProps={{
+                  maxLength: 16,
+                }}
               />
             </label>
             <label>
               <span>分類</span>{' '}
               <Select
                 name="category"
-                value={postDetail.category}
+                value={postDetail.category || ''}
                 label="category"
                 onChange={handleDetailChange}
                 sx={{ width: 195, '& fieldset span': { display: 'none' } }}
+                required
               >
-                <MenuItem value={0}>All</MenuItem>
                 <MenuItem value={1}>FrontEnd</MenuItem>
                 <MenuItem value={2}>BackEnd</MenuItem>
                 <MenuItem value={3}>Database</MenuItem>
@@ -159,7 +181,7 @@ export default function UploadArea() {
                 id="postTags"
                 name="tags"
                 multiple
-                value={postDetail.tags}
+                value={postDetail.tags || []}
                 onChange={handleDetailChange}
                 input={
                   <OutlinedInput
@@ -219,7 +241,7 @@ export default function UploadArea() {
                   src={handPickCover}
                   alt="預設照片"
                 />
-                <span>{postTheme}</span>
+                <span>{postDetail.title}</span>
                 <input
                   type="file"
                   id="mdFile"
@@ -277,7 +299,6 @@ export default function UploadArea() {
                     ...postDetail,
                     coverImg: '/image/peter-rabbit.webp',
                   });
-                  setPostTheme('主題1');
                 }}
               />
               <Avatar
@@ -292,7 +313,6 @@ export default function UploadArea() {
                     ...postDetail,
                     coverImg: '/image/peter-rabbit21.jpeg',
                   });
-                  setPostTheme('主題2');
                 }}
               />
               <Avatar
@@ -307,7 +327,6 @@ export default function UploadArea() {
                     ...postDetail,
                     coverImg: '/image/peter-rabbit3.webp',
                   });
-                  setPostTheme('主題3');
                 }}
               />
             </Stack>

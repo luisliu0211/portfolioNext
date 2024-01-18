@@ -13,11 +13,17 @@ export default function Breadcrumbs({ nowPage }) {
       );
     } else if (nowPage != '/' && layers.length == 3) {
       const parentPath = layers[1];
+      let parentLink;
+      if (parentPath == 'postRecap') {
+        parentLink = '/member/postRecap';
+      } else {
+        parentLink = parentPath;
+      }
       const currentPath = layers[2];
       return (
         <div className={styles.breadcrumbs}>
           <Link href="/">Home</Link>/
-          <Link href={`/${parentPath}`}>{parentPath}</Link>/
+          <Link href={`/${parentLink}`}>{parentPath}</Link>/
           <span>{currentPath}</span>
         </div>
       );

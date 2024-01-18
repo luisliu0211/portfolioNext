@@ -25,7 +25,7 @@ export async function getStaticProps({ params }) {
 export default function Post({ postData }) {
   return (
     <>
-      <Layout>
+      <Layout title={postData[0].title}>
         <PostDetail data={postData || []} />
       </Layout>
     </>

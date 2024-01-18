@@ -5,6 +5,10 @@ import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]';
 import Cards from '@/component/props/cards';
 import throttle from '@/lib/throttle';
 import { resizeSet } from '@/utils/loadMoreData';
+import MyContext from '@/lib/context';
+
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 export default function PostRecap() {
   const { data, status } = useSession();
   const [isMobile, setIsMobile] = useState(false);
@@ -32,22 +36,23 @@ export default function PostRecap() {
       }
     };
     fetchData();
-    resizeSet(setIsMobile, setItemPerPage);
-    const handleResize = throttle(() => {
-      setCurrentPage(1);
-      resizeSet(setIsMobile, setItemPerPage);
-    }, 200);
-    // 註冊resize事件
-    window.addEventListener('resize', handleResize);
-    // 移除reisze
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+    // resizeSet(setIsMobile, setItemPerPage);
+    // const handleResize = throttle(() => {
+    //   setCurrentPage(1);
+    //   resizeSet(setIsMobile, setItemPerPage);
+    // }, 200);
+    // // 註冊resize事件
+    // window.addEventListener('resize', handleResize);
+    // // 移除reisze
+    // return () => {
+    //   window.removeEventListener('resize', handleResize);
+    // };
   }, []);
 
   return (
     <Layout>
       <Cards data={postData.data || []} isMobile={isMobile} editMode />
+      {/* <Pagination /> */}
     </Layout>
   );
 }

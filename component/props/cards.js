@@ -33,7 +33,7 @@ export default function Cards(props) {
                   <div className={styles.coverImg}>
                     <Image
                       src={item.coverImage}
-                      alt=""
+                      alt={item.title}
                       width={100}
                       height={100}
                     ></Image>
@@ -54,7 +54,6 @@ export default function Cards(props) {
                       }
                     </div>
                   </div>
-
                   {editMode && <div className={styles.editBtn}>Edit</div>}
                 </Link>
               </li>

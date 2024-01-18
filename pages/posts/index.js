@@ -49,11 +49,8 @@ export default function Posts() {
           throw new Error('Network response was not ok');
         }
         const result = await response.json();
-        console.log('資料庫抓的', result);
         const totalItems = result.length;
-        // console.log(totalItems, '總數量');
         const totalPages = Math.ceil(totalItems / itemPerPage);
-        // console.log(totalPage, '總頁數');
         // 計算要顯示的資料範圍
         // 計算起點
         const startIndex = (currentPage - 1) * itemPerPage;
@@ -61,7 +58,6 @@ export default function Posts() {
         const endIndex = startIndex + itemPerPage;
         // 顯示的資料
         let displayedData;
-
         if (totalItems > itemPerPage) {
           displayedData = result.slice(startIndex, endIndex);
         } else {

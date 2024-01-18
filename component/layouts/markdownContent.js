@@ -125,12 +125,10 @@ export default function MarkdownContent({ data }) {
     }
     // 如果節點是 <p> 標籤並且包含換行符
     if (node.name === 'li' && node.children && Array.isArray(node.children)) {
-      console.log('in');
       const inputLabelPair = node.children.filter(
         (child) => child.name === 'input' || child.name === 'label'
       );
       if (inputLabelPair.length === 2) {
-        console.log('有input label');
         // 包含 <input> 和 <label>，将它们用 <span> 包裹起来，再为 <span> 增加 class
         node.children = [
           {
