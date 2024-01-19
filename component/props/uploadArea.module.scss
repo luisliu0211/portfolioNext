@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  min-width: 700px;
+  min-width: 500px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -115,5 +115,31 @@
   }
   #textField {
     width: 50%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    .grid {
+      flex-direction: column;
+      .left {
+        padding: 10px;
+        width: 100%;
+        flex-grow: 1;
+        > label {
+          > div {
+            width: 100%;
+          }
+        }
+      }
+      .right {
+        height: 280px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .container {
+    min-width: auto;
   }
 }

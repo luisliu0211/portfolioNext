@@ -92,7 +92,7 @@ export default function MdEditArea(props) {
     // console.log(postDetail.id);
     try {
       let t = 'http://localhost:8080';
-      const response = await axios.post(`${apiUrl}/api/posts`, postDetail);
+      const response = await axios.post(`${t}/api/posts`, postDetail);
       // 檢查HTTP狀態碼
       console.log(response);
       if (response.status === 200) {
@@ -126,12 +126,14 @@ export default function MdEditArea(props) {
 
   useEffect(() => {
     setOutput(mdToHtml(curMd));
+    console.log(postDetail);
   }, [handPickCover, curMd]);
 
   useEffect(() => {
-    setPostDetail(
-      data ? data : { ...postDetail, revised_date: getFormattedDate() }
-    );
+    console.log('data', data);
+    console.log(postDetail);
+    setPostDetail({ ...data, revised_date: getFormattedDate() });
+
     setHandPickCover(data ? data.coverImage : handPickCover);
     setCurMd(data ? data.content : curMd);
   }, [data]);

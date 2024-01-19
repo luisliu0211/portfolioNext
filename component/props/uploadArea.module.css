@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  min-width: 700px;
+  min-width: 500px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -114,4 +114,26 @@
 }
 .container #textField {
   width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .container .grid {
+    flex-direction: column;
+  }
+  .container .grid .left {
+    padding: 10px;
+    width: 100%;
+    flex-grow: 1;
+  }
+  .container .grid .left > label > div {
+    width: 100%;
+  }
+  .container .grid .right {
+    height: 280px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container {
+    min-width: auto;
+  }
 }/*# sourceMappingURL=uploadArea.module.css.map */
