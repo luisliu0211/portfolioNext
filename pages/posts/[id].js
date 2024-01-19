@@ -23,7 +23,6 @@ export async function getStaticProps({ params }) {
   return { props: { postData } };
 }
 export default function Post({ postData }) {
-  console.log(postData, 'pp');
   if (!postData) {
     return (
       <>

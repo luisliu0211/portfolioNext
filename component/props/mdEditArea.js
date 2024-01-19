@@ -31,16 +31,20 @@ export default function MdEditArea(props) {
   const viewerRef = useRef(null);
   const { previewImage, handleImageChange, clearPreview } = useImagePreview();
   const [handPickCover, setHandPickCover] = useState('');
-  const [postDetail, setPostDetail] = useState({
-    title: '未命名',
-    subTitle: '',
-    coverImage: '/image/photoDefault.png',
-    create_date: getFormattedDate(),
-    category: '',
-    tags: [],
-    content: '',
-    contentType: 'markdown',
-  });
+  const [postDetail, setPostDetail] = useState(
+    data
+      ? data
+      : {
+          title: '未命名',
+          subTitle: '',
+          coverImage: '/image/photoDefault.png',
+          create_date: getFormattedDate(),
+          category: '',
+          tags: [],
+          content: '',
+          contentType: 'markdown',
+        }
+  );
 
   let tagsDetails = [
     'css/scss',
@@ -77,7 +81,6 @@ export default function MdEditArea(props) {
   };
 
   const handleDetailChange = (e) => {
-    console.log(postDetail);
     setPostDetail({ ...postDetail, [e.target.name]: e.target.value });
   };
   const handleUpload = async () => {
@@ -130,10 +133,7 @@ export default function MdEditArea(props) {
   }, [handPickCover, curMd]);
 
   useEffect(() => {
-    console.log('data', data);
-    console.log(postDetail);
     setPostDetail({ ...data, revised_date: getFormattedDate() });
-
     setHandPickCover(data ? data.coverImage : handPickCover);
     setCurMd(data ? data.content : curMd);
   }, [data]);
@@ -259,7 +259,7 @@ export default function MdEditArea(props) {
                 sx={{ width: 300 }}
                 required
                 inputProps={{
-                  maxLength: 16,
+                  maxLength: 20,
                 }}
               />
             </label>
