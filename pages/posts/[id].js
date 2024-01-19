@@ -23,9 +23,19 @@ export async function getStaticProps({ params }) {
   return { props: { postData } };
 }
 export default function Post({ postData }) {
+  console.log(postData, 'pp');
+  if (!postData) {
+    return (
+      <>
+        <Layout title="Post Not Found">
+          <p>Sorry, the post could not be found.</p>
+        </Layout>
+      </>
+    );
+  }
   return (
     <>
-      <Layout title={postData[0].title}>
+      <Layout title={postData[0].title || ''}>
         <PostDetail data={postData || []} />
       </Layout>
     </>
