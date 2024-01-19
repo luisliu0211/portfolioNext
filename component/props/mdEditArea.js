@@ -34,7 +34,7 @@ export default function MdEditArea(props) {
   const [postDetail, setPostDetail] = useState({
     title: '未命名',
     subTitle: '',
-    coverImg: '/image/photoDefault.png',
+    coverImage: '/image/photoDefault.png',
     create_date: getFormattedDate(),
     category: '',
     tags: [],
@@ -92,7 +92,7 @@ export default function MdEditArea(props) {
     // console.log(postDetail.id);
     try {
       let t = 'http://localhost:8080';
-      const response = await axios.post(`${t}/api/posts`, postDetail);
+      const response = await axios.post(`${apiUrl}/api/posts`, postDetail);
       // 檢查HTTP狀態碼
       console.log(response);
       if (response.status === 200) {
@@ -102,7 +102,7 @@ export default function MdEditArea(props) {
           setPostDetail({
             title: '',
             subTitle: '',
-            coverImg: '/image/photoDefault.png',
+            coverImage: '/image/photoDefault.png',
             create_date: getFormattedDate(),
             category: '',
             tags: [],
@@ -418,7 +418,7 @@ export default function MdEditArea(props) {
                   clearPreview();
                   setPostDetail({
                     ...postDetail,
-                    coverImg: '/image/peter-rabbit.webp',
+                    coverImage: '/image/peter-rabbit.webp',
                   });
                 }}
               />
@@ -432,7 +432,7 @@ export default function MdEditArea(props) {
                   clearPreview();
                   setPostDetail({
                     ...postDetail,
-                    coverImg: '/image/peter-rabbit21.jpeg',
+                    coverImage: '/image/peter-rabbit21.jpeg',
                   });
                 }}
               />
@@ -446,7 +446,7 @@ export default function MdEditArea(props) {
                   clearPreview();
                   setPostDetail({
                     ...postDetail,
-                    coverImg: '/image/peter-rabbit3.webp',
+                    coverImage: '/image/peter-rabbit3.webp',
                   });
                 }}
               />

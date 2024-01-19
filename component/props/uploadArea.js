@@ -23,7 +23,7 @@ export default function UploadArea() {
   const [postDetail, setPostDetail] = useState({
     title: '尚未命名的資料',
     subTitle: '',
-    coverImg: '',
+    coverImage: '',
     create_date: getFormattedDate(),
     category: '',
     tags: [],
@@ -88,7 +88,7 @@ export default function UploadArea() {
         setPostDetail({
           title: '尚未選擇markdown檔案',
           subTitle: '',
-          coverImg: '',
+          coverImage: '',
           create_date: getFormattedDate(),
           category: '',
           tags: [],
@@ -297,7 +297,7 @@ export default function UploadArea() {
                   clearPreview();
                   setPostDetail({
                     ...postDetail,
-                    coverImg: '/image/peter-rabbit.webp',
+                    coverImage: '/image/peter-rabbit.webp',
                   });
                 }}
               />
@@ -311,7 +311,7 @@ export default function UploadArea() {
                   clearPreview();
                   setPostDetail({
                     ...postDetail,
-                    coverImg: '/image/peter-rabbit21.jpeg',
+                    coverImage: '/image/peter-rabbit21.jpeg',
                   });
                 }}
               />
@@ -325,7 +325,7 @@ export default function UploadArea() {
                   clearPreview();
                   setPostDetail({
                     ...postDetail,
-                    coverImg: '/image/peter-rabbit3.webp',
+                    coverImage: '/image/peter-rabbit3.webp',
                   });
                 }}
               />
