@@ -47,7 +47,7 @@ export default function PostRecap() {
     // return () => {
     //   window.removeEventListener('resize', handleResize);
     // };
-  }, []);
+  }, [apiUrl]);
 
   return (
     <Layout>

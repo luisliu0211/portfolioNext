@@ -7,6 +7,8 @@ export async function getStaticPaths() {
   // Fetch data from an external API
   const res = await fetch(`${apiUrl}/api/posts`);
   const data = await res.json();
+  console.log('Fetched data:', data); // 添加這行打印語句
+
   // Get the paths we want to pre-render based on posts
   const paths = data.map((post) => ({
     params: { id: post.id.toString() },
