@@ -82,6 +82,7 @@ export default function MdEditArea(props) {
 
   const handleDetailChange = (e) => {
     setPostDetail({ ...postDetail, [e.target.name]: e.target.value });
+    console.log(postDetail, 'p');
   };
   const handleUpload = async () => {
     if (
@@ -92,7 +93,7 @@ export default function MdEditArea(props) {
       setErr(true);
       return;
     }
-    // console.log(postDetail.id);
+    console.log(postDetail);
     try {
       let t = 'http://localhost:8080';
       const response = await axios.post(`${apiUrl}/api/posts`, postDetail);
@@ -131,9 +132,17 @@ export default function MdEditArea(props) {
     setOutput(mdToHtml(curMd));
     console.log(postDetail);
   }, [handPickCover, curMd]);
-
   useEffect(() => {
-    setPostDetail({ ...data, revised_date: getFormattedDate() });
+    console.log(postDetail, 'postDetail');
+  }, []);
+  useEffect(() => {
+    console.log(data, 'data');
+    console.log(postDetail, 'ppp');
+    setPostDetail(
+      data
+        ? { ...data, revised_date: getFormattedDate() }
+        : { ...postDetail, revised_date: getFormattedDate() }
+    );
     setHandPickCover(data ? data.coverImage : handPickCover);
     setCurMd(data ? data.content : curMd);
   }, [data]);
@@ -254,12 +263,12 @@ export default function MdEditArea(props) {
               <TextField
                 size="small"
                 name="title"
-                value={postDetail.title || ''}
+                value={postDetail.title}
                 onChange={handleDetailChange}
                 sx={{ width: 300 }}
                 required
                 inputProps={{
-                  maxLength: 20,
+                  maxLength: 30,
                 }}
               />
             </label>

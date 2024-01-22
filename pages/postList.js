@@ -50,6 +50,10 @@ const PostList = () => {
   }, []);
   if (isLoading) return <h1>Loading...</h1>;
   if (error) return <h1>{error}</h1>;
+  const a = ['t', 'a', 'b'];
+  let b = a.pop();
+  console.log(a);
+  console.log(a.pop());
   return (
     <Layout>
       <div>
