@@ -89,7 +89,7 @@ export default function TodoList() {
   const groupedData = todoData.reduce((result, item) => {
     const dateTimeObj = new Date(item.date);
     const year = dateTimeObj.getFullYear();
-    const month = dateTimeObj.getMonth() + 1; // 月份是从 0 开始的，所以要加 1
+    const month = dateTimeObj.getMonth() + 1;
     const day = dateTimeObj.getDate();
 
     const formattedDate = `${year}/${month}/${day}`;
@@ -101,11 +101,7 @@ export default function TodoList() {
   }, {});
 
   const groupedArray = Object.entries(groupedData);
-  // groupedArray.map(([date, items]) => {
-  //   // console.log(`Date: ${date}`);
-  //   // console.log(items); // 在这里你可以进行映射等操作
-  // });
-  // console.log(groupedArray);
+
   return (
     <Layout>
       <MyContext.Provider value={(todoData, setTodoData)}>

@@ -10,15 +10,14 @@ import MyContext from '@/lib/context';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 export default function PostRecap() {
-  const { data, status } = useSession();
+  // const { data, status } = useSession();
   const [isMobile, setIsMobile] = useState(false);
   const [postData, setPostData] = useState({});
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
-  const [itemPerPage, setItemPerPage] = useState(8);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalPage, setTotalPage] = useState(1);
+  // const [itemPerPage, setItemPerPage] = useState(8);
   const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
   useEffect(() => {
-    // console.log();
     const fetchData = async () => {
       try {
         const response = await fetch(`${apiUrl}/api/posts`, {
@@ -29,7 +28,6 @@ export default function PostRecap() {
         }
         const result = await response.json();
         console.log('資料庫抓的', result);
-
         setPostData({ dataName: 'posts', data: result });
       } catch (error) {
         console.error('Error fetching data:', error);
