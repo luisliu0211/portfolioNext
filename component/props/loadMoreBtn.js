@@ -23,6 +23,7 @@ export default function LoadMoreBtn({ settings }) {
   return (
     <>
       <div
+        id="gatest"
         className={`${styles.loadMore} loadMore`}
         onClick={() =>
           loadMoreData(loadNum, maxItem, filter, setFilter, ifOverMaxShow)
