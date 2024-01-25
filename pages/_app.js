@@ -4,6 +4,8 @@ import { SessionProvider } from 'next-auth/react';
 import Maintenance from './maintenance';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import Head from 'next/head';
+import TagManager from 'react-gtm-module';
 // 获取 maintenanceMode 的值，这里假设 process.env 中有相关的配置
 const maintenanceMode = process.env.NEXT_PUBLIC_MAINTENANCE_MODE === 'true';
 export const ThemeContext = createContext();
@@ -35,12 +37,38 @@ export default function App({
     document.body.style.backgroundColor = theme === 'light' ? '#fff' : '#333';
     document.body.style.color = theme === 'light' ? '#000' : '#fff';
   }, [theme]);
+  useEffect(() => {
+    // 初始化 Google Tag Manager
+    TagManager.initialize({ gtmId: 'GTM-KJXDPBS9' });
 
+    // 將 GTM 的 `<head>` 部分添加到文檔中
+    const script = document.createElement('script');
+    script.innerHTML = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KJXDPBS9');`;
+    document.head.appendChild(script);
+    // 手動觸發 gtm.js 事件
+    TagManager.dataLayer({
+      dataLayer: {
+        event: 'gtm.js',
+      },
+    });
+  }, []);
   return maintenanceMode ? (
     <Maintenance />
   ) : (
     <SessionProvider session={session}>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-KJXDPBS9"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          ></iframe>
+        </noscript>
         {Component.auth ? (
           <Auth>
             <Component {...pageProps} />
