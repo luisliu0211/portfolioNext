@@ -70,7 +70,7 @@ export default function App({
     document.head.appendChild(script);
     // 在 component 卸載時停止監聽
     return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
+      router.events.off('routeChangeComplete');
     };
   }, [router.events]);
 
