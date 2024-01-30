@@ -62,7 +62,6 @@ export default function MuiTest() {
         <Autocomplete
           autoselectvalue={selectedItemId}
           onChange={(event, newValue) => {
-            // 在这里设置选定项的 id
             setSelectedItemId(newValue ? newValue.id : null);
           }}
           disablePortal
