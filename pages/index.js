@@ -36,7 +36,7 @@ export default function Home({ postData }) {
   }
 
   if (session) {
-    console.log(session, 'f');
+    // console.log(session, 'f');
     // 其他用户信息...
   } else {
     // console.log('No session available');

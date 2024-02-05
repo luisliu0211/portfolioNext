@@ -65,7 +65,7 @@ export default function FilterBar() {
         // 如果值不存在於陣列中，則將其添加到陣列中
         updatedTags = [...currentTags, value];
       }
-      console.log(updatedTags);
+      // console.log(updatedTags);
       return {
         ...prevFilter,
         tags: updatedTags,
@@ -81,7 +81,7 @@ export default function FilterBar() {
   }, 500);
   useEffect(() => {
     document.querySelector('input[name="dateRangeTo"]').style.display = 'none';
-    console.log(context.filter);
+    // console.log(context.filter);
   }, []);
 
   return (

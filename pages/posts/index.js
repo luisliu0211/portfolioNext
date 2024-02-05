@@ -40,7 +40,7 @@ export default function Posts() {
     const fetchData = async () => {
       try {
         const queryParams = new URLSearchParams(filter).toString();
-        console.log(queryParams, 'query');
+        // console.log(queryParams, 'query');
         // let t = 'http://localhost:8080';
         const response = await fetch(`${apiUrl}/api/posts?${queryParams}`, {
           credentials: 'include',
@@ -70,7 +70,7 @@ export default function Posts() {
       }
     };
     fetchData();
-    console.log(filter);
+    // console.log(filter);
   }, [filter, currentPage, itemPerPage]);
 
   useEffect(() => {
