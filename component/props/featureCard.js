@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 export default function FeatureCard(props) {
   let { data } = props;
   const [filter, setFilter] = useState(4);
-  let dataCopy = [...data.data].slice(0, filter);
   let loadMoreDataSetting = {
     ifOverMaxShow: false,
     showName: '',
@@ -48,7 +47,7 @@ export default function FeatureCard(props) {
       {data.dataName == 'work' ? (
         <>
           <div className={styles.container}>
-            {dataCopy.map((item) => {
+            {data.data.slice(0, filter).map((item) => {
               {
                 /* let newArr = JSON.parse(item.usingSkills); */
               }
