@@ -34,7 +34,7 @@ export default function NavBar_sub() {
             );
           })}
           {data && <option value="/member">Member</option>}
-          {!data && <option value="/login">Login</option>}
+          {/* {!data && <option value="/login">Login</option>} */}
         </select>
       </div>
     </>

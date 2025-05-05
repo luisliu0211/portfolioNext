@@ -1,17 +1,17 @@
 import Head from 'next/head';
-import Banner from '@/component/props/banner';
-import Header from '@/component/layouts/header';
-import Footer from '@/component/layouts/footer';
-import Layout from '@/component/layouts/layout';
-import Cards from '@/component/props/cards';
+import Banner from '../component/props/banner';
+import Header from '../component/layouts/header';
+import Footer from '../component/layouts/footer';
+import Layout from '../component/layouts/layout';
+import Cards from '../component/props/cards';
 import { useState, useEffect } from 'react';
-import { loadPosts } from '@/lib/load-posts';
+import { loadPosts } from '../lib/load-posts';
 import { signOut, signIn, useSession } from 'next-auth/react';
-import ButtonUsage from '@/component/props/dialog';
-import { resizeSet } from '@/utils/loadMoreData';
-import MyContext from '@/lib/context';
-import throttle from '@/lib/throttle';
-import Column from '@/component/layouts/column';
+import ButtonUsage from '../component/props/dialog';
+import { resizeSet } from '../utils/loadMoreData';
+import MyContext from '../lib/context';
+import throttle from '../lib/throttle';
+import Column from '../component/layouts/column';
 export default function Home({ postData }) {
   const { data: session, status } = useSession();
   const [itemPerPage, setItemPerPage] = useState(6);
@@ -82,7 +82,6 @@ export default function Home({ postData }) {
 export async function getStaticProps() {
   try {
     const data = await loadPosts();
-    console.log(data, 'ddd');
     return {
       props: {
         postData: { dataName: 'posts', data },

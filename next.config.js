@@ -2,7 +2,17 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['randomuser.me', 'https://portfolio-next-neon.vercel.app/'],
+    domains: ['randomuser.me', 'portfolio-next-neon.vercel.app'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: '**',
+      },
+    ],
   },
   exportPathMap: async function () {
     return {

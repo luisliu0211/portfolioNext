@@ -11,7 +11,7 @@ export default function Header() {
   const [headerHeight, setHeaderHeight] = useState(0);
   useEffect(() => {
     const headerHeight = headerRef.current.getBoundingClientRect().height;
-    setHeaderHeight(headerHeight);
+    setHeaderHeight(headerHeighxt);
     // 根據需要調整節流時間
     const handleScroll = throttle(() => {
       setPrevPosition(window.scrollY);

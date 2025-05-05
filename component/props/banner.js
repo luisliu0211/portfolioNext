@@ -38,48 +38,56 @@ export default function Banner() {
   }, []);
 
   return (
-    <>
-      <div className={styles.banner}>
-        <Swiper
-          effect={'fade'}
-          className={`${styles.mySwiper} mySwiper`}
-          pagination={{ clickable: true }}
-          modules={[EffectFade, Autoplay, Pagination, Navigation]}
-          navigation={true}
-          autoplay={{
-            delay: 4000,
-            disableOnInteraction: false,
-          }}
-          loop={true}
-        >
-          {bannerPost.length !== 0
-            ? bannerPost.map((item) => {
-                return (
-                  <SwiperSlide key={item.id} className={styles.slider}>
-                    <Link href={`/posts/${item.id}`}>
-                      <div
-                        className={styles.bannerText}
-                        style={{ backgroundImage: `url(${item.coverImage})` }}
-                      >
-                        <div className={styles.bannerTitle}>{item.title}</div>
-                        <div className={styles.bannerSubtitle}>
-                          {item.subtitle}
+    <div className={styles.banner}>
+      <Swiper
+        effect={'fade'}
+        className={`${styles.mySwiper} mySwiper`}
+        pagination={{ clickable: true }}
+        modules={[EffectFade, Autoplay, Pagination, Navigation]}
+        navigation={true}
+        autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+        }}
+        loop={true}
+      >
+        {bannerPost.length > 0 &&
+          bannerPost.map((item) => (
+            <SwiperSlide key={item.id} className={styles.slider}>
+              <Link href={`/posts/${item.id}`}>
+                <div className={styles.bannerText}>
+                  <div
+                    className={styles.bannerImage}
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      height: '100%',
+                    }}
+                  >
+                    <Image
+                      src={item.coverImage || '/default-banner.jpg'}
+                      alt={item.title}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      priority
+                    />
+                  </div>
+                  <div className={styles.content}>
+                    <div className={styles.bannerTitle}>{item.title}</div>
+                    <div className={styles.bannerSubtitle}>{item.subtitle}</div>
+                    <div className={styles.tagList}>
+                      {item.tags?.map((tag, i) => (
+                        <div key={i} className={styles.tag}>
+                          {tag}
                         </div>
-                        <div className={styles.tagList}>
-                          {item.tags.map((tag, i) => (
-                            <div key={i} className={styles.tag}>
-                              {tag}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </Link>
-                  </SwiperSlide>
-                );
-              })
-            : ''}
-        </Swiper>
-      </div>
-    </>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </SwiperSlide>
+          ))}
+      </Swiper>
+    </div>
   );
 }

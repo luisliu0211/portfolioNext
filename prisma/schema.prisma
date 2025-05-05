@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// 技能分类模型
+model SkillCategory {
+  id           Int      @id @default(autoincrement())
+  categoryName String   @map("category_name") // 分类名称
+  skills       Skill[]  // 关联的技能
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("skill_categories")
+}
+
+// 具体技能模型
+model Skill {
+  id          Int           @id @default(autoincrement())
+  categoryId  Int          @map("category_id")
+  name        String
+  level       Int
+  description String?      @db.Text
+  icon        String?
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  category    SkillCategory @relation(fields: [categoryId], references: [id])
+
+  @@map("skills")
+}
+
+// 作品集模型
+model Work {
+  id          Int      @id @default(autoincrement())
+  title       String
+  workType    String   @map("work_type")
+  description String   @db.Text
+  links       String?  @db.Text
+  relatedImg  String   @map("related_img")
+  usingSkills Json    @map("using_skills") // 存储技能标签数组
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("works")
+} 

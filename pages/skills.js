@@ -29,9 +29,17 @@ export async function getStaticProps() {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
+    const groupedData = data.reduce((acc, item) => {
+      if (!acc[item.category_name]) {
+        acc[item.category_name] = [];
+      }
+      acc[item.category_name].push(item);
+      return acc;
+    }, {});
+    console.log('groupedData', groupedData);
     return {
       props: {
-        skillsCardData: { dataName: 'skills', data },
+        skillsCardData: { dataName: 'skills', data: groupedData },
       },
     };
   } catch (error) {

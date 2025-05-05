@@ -55,7 +55,7 @@ const PostList = () => {
     <Layout>
       <div>
         <h1>文章列表</h1>
-        {/* {data ? (
+        {data ? (
           <ul>
             {data.map((item, id) => (
               <Link key={id} href={`/posts/${item.id}`}>
@@ -65,7 +65,7 @@ const PostList = () => {
           </ul>
         ) : (
           <p>Loading...</p>
-        )} */}
+        )}
       </div>
 
       {/* <UseMemo valueA={valueA} valueB={valueB} />

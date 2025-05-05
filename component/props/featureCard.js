@@ -22,25 +22,26 @@ export default function FeatureCard(props) {
     <div>
       {data.dataName == 'skills' ? (
         <div className={styles.container}>
-          {data.data.map((item) => {
-            return (
-              <li key={item.id} className={styles.cardsSkills}>
-                <div className={styles.cardInfo}>
-                  <div className={styles.textTitle}>{item.title}</div>
-                  <div className={styles.skillList}>
-                    {item.skills.map((i, index) => {
-                      return (
-                        <div key={index} className={styles.skillItem}>
-                          <div className={styles.skillName}>{i.name}</div>
-                          <div className={styles.skillLevel}>{i.level}</div>
-                        </div>
-                      );
-                    })}
-                  </div>
+          {Object.entries(data.data).map(([categoryName, skills]) => (
+            <li key={categoryName} className={styles.cardsSkills}>
+              <div className={styles.cardInfo}>
+                <div className={styles.textTitle}>{categoryName}</div>
+                <div className={styles.skillList}>
+                  {skills.map((skill) => (
+                    <div key={skill.id} className={styles.skillItem}>
+                      <div className={styles.skillLevel}>
+                        {skill.skill_name}
+                      </div>
+                      <div className={styles.skillLevel}>{skill.level}</div>
+                      <div className={styles.skillDescription}>
+                        {skill.description}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </li>
-            );
-          })}
+              </div>
+            </li>
+          ))}
         </div>
       ) : null}
 
@@ -48,33 +49,32 @@ export default function FeatureCard(props) {
         <>
           <div className={styles.container}>
             {dataCopy.map((item) => {
-              let newArr = JSON.parse(item.usingSkills);
+              {
+                /* let newArr = JSON.parse(item.usingSkills); */
+              }
               return (
                 <Link
                   key={item.id}
-                  href={item.links ? item.links : ''}
+                  href={item.demo_url ? item.demo_url : ''}
                   target="_blank"
                 >
                   <li
                     className={styles.cardsWorks}
-                    // style={{
-                    //   backgroundImage: `url(/image/works/${item.relatedImg})`,
-                    // }}
+                    style={{
+                      backgroundImage: `url(/image/works/${item.cover_image})`,
+                    }}
                   >
                     <div className={styles.workInfo}>
                       <div className={styles.typeTag}>{item.workType}</div>
                       <div className={styles.textTitle}>{item.title}</div>
-
-                      <ul className={styles.tags}>
-                        {newArr.map((i, index) => {
-                          return <li key={index}>{i}</li>;
-                        })}
-                      </ul>
+                      <div className={styles.textTitle}>{item.subtitle}</div>
+                      <div className={styles.textTitle}>{item.github_url}</div>
+                      <div className={styles.textTitle}>{item.demo_url}</div>
                       <Image
                         width={200}
                         height={100}
                         alt={item.title}
-                        src={`/image/works/${item.relatedImg}`}
+                        src={item.cover_image}
                       />
                     </div>
                   </li>

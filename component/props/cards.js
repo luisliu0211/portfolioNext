@@ -47,11 +47,9 @@ export default function Cards(props) {
                       })}
                     </ul>
                     <div className={styles.category}>
-                      {
-                        categoryList.find((category) => {
-                          return item.category == category.id;
-                        }).name
-                      }
+                      {categoryList.find((category) => {
+                        return item.category == category.id;
+                      })}
                     </div>
                   </div>
                   {editMode && <div className={styles.editBtn}>Edit</div>}

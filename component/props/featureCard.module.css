@@ -25,10 +25,10 @@
 .container .cardsSkills .cardInfo .textTitle {
   font-size: 20px;
   font-weight: 600;
-  margin: 15px;
+  /* margin: 15px; */
 }
 .container .cardsSkills .cardInfo .skillList {
-  height: 400px;
+  height: auto;
 }
 .container .cardsSkills .cardInfo .skillList .skillItem {
   width: 80%;
@@ -46,7 +46,14 @@
 .container .cardsSkills .cardInfo .skillList .skillItem .skillLevel {
   color: #2a2a2a;
   font-size: 16px;
+  width: 20%
 }
+.container .cardsSkills .cardInfo .skillList .skillItem .skillDescription {
+  color: #2a2a2a;
+  font-size: 12px;
+  width: 60%
+}
+
 .container a {
   margin: 10px;
   width: 100%;
@@ -74,7 +81,7 @@
   padding: 5px;
 }
 .container a .cardsWorks .workInfo .textTitle {
-  padding: 10px;
+  /* padding: 10px; */
   font-size: 24px;
   overflow: hidden;
   text-overflow: ellipsis;

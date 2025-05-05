@@ -1,55 +1,70 @@
 .banner {
   width: 100%;
-  height: 360px;
-  background-color: darkgray;
+  height: 500px;
   position: relative;
 }
-.banner .mySwiper {
-  height: 100%;
-}
-.banner .mySwiper .slider {
-  position: relative;
-  height: 100%;
-}
-.banner .mySwiper .slider .bannerText {
+
+.mySwiper {
   width: 100%;
   height: 100%;
-  top: 0;
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.3);
-  background-blend-mode: multiply;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: 10%;
-  color: white;
+}
+
+.slider {
+  width: 100%;
+  height: 100%;
+}
+
+.bannerText {
+  width: 100%;
+  height: 100%;
+  position: relative;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
 }
-.banner .mySwiper .slider .bannerText .bannerTitle {
-  color: black;
-  letter-spacing: 1px;
-  font-size: 30px;
-  font-weight: 500;
+
+.bannerImage {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
-.banner .mySwiper .slider .bannerText .bannerSubtitle {
-  color: black;
-  letter-spacing: 1px;
-  font-size: 24px;
-  font-weight: 400;
+
+.content {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+  color: white;
 }
-.banner .mySwiper .slider .bannerText .tagList {
+
+.bannerTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.bannerSubtitle {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.tagList {
   display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
-.banner .mySwiper .slider .bannerText .tagList .tag {
-  background-color: grey;
-  padding: 5px;
-  border-radius: 10px;
-  margin: 5px;
-  font-size: 20px;
+
+.tag {
+  background: rgba(255,255,255,0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
 }
-.banner .arrow {
+
+.arrow {
   cursor: pointer;
   width: 50px;
   height: 50px;
@@ -58,13 +73,16 @@
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.4);
 }
-.banner .arrow.left {
+
+.arrow.left {
   left: 10px;
 }
-.banner .arrow.right {
+
+.arrow.right {
   right: 10px;
 }
-.banner .sliderPoint {
+
+.sliderPoint {
   position: absolute;
   left: calc((100% - 120px) / 2);
   bottom: 10px;
@@ -76,15 +94,35 @@
   align-items: center;
   border-radius: 20px;
 }
-.banner .sliderPoint .dot {
+
+.sliderPoint .dot {
   width: 20px;
   height: 20px;
   background-color: white;
   border-radius: 50%;
   transition: 0.1s linear;
 }
-.banner .sliderPoint .dot:active {
+
+.sliderPoint .dot:active {
   background-color: darkgray;
+}
+
+@media (max-width: 768px) {
+  .banner {
+    height: 300px;
+  }
+  
+  .bannerTitle {
+    font-size: 1.8rem;
+  }
+  
+  .bannerSubtitle {
+    font-size: 1rem;
+  }
+  
+  .content {
+    padding: 1rem;
+  }
 }
 
 @media screen and (max-width: 1280px) {
@@ -92,24 +130,12 @@
     height: 400px;
   }
 }
-@media screen and (max-width: 768px) {
-  .banner {
-    height: 350px;
-  }
-}
+
 @media screen and (max-width: 576px) {
   .banner {
     height: 300px;
   }
-  .banner .mySwiper .slider .bannerText .bannerTitle {
-    font-size: 24px;
-    color: white;
-  }
-  .banner .mySwiper .slider .bannerText .bannerSubtitle {
-    font-size: 20px;
-    color: white;
-  }
-  .banner .mySwiper .slider .bannerText .tagList .tag {
+  .tag {
     font-size: 14px;
   }
 }/*# sourceMappingURL=banner.module.css.map */
