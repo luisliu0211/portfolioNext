@@ -16,32 +16,21 @@ export default function Home({ postData }) {
   const { data: session, status } = useSession();
   const [itemPerPage, setItemPerPage] = useState(6);
   const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     resizeSet(setIsMobile, setItemPerPage);
     const handleResize = throttle(() => {
       resizeSet(setIsMobile, setItemPerPage);
     }, 200);
-    // 添加窗口大小改变事件监听
     window.addEventListener('resize', handleResize);
-    // 在组件卸载时移除事件监听
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-  let filterData;
-  if (postData) {
-    filterData = postData.data.slice(0, itemPerPage);
-  } else {
-    filterData = [];
-  }
 
-  if (session) {
-    // console.log(session, 'f');
-    // 其他用户信息...
-  } else {
-    // console.log('No session available');
-  }
-  if (!postData) {
+  const filterData = postData?.data?.slice(0, itemPerPage) || [];
+
+  if (status === 'loading') {
     return (
       <>
         <Head>
@@ -56,6 +45,7 @@ export default function Home({ postData }) {
       </>
     );
   }
+
   return (
     <>
       <Head>
@@ -80,7 +70,7 @@ export default function Home({ postData }) {
         <MyContext.Provider value={{ isMobile }}>
           <Column>
             {' '}
-            <Cards data={filterData || []} />
+            <Cards data={filterData} />
           </Column>
         </MyContext.Provider>
       </div>
