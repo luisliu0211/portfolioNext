@@ -108,7 +108,7 @@ export default function FilterBar() {
             type="date"
           />
         </label>
-        <select
+        {/* <select
           name="category"
           className={styles.category}
           onChange={handleCategory}
@@ -118,11 +118,11 @@ export default function FilterBar() {
           <option value="2">BackEnd</option>
           <option value="3">Database</option>
           <option value="4">Other</option>
-        </select>
+        </select> */}
       </div>
 
       <div className={styles.rightBox}>
-        <ul className={styles.tagBox}>
+        {/* <ul className={styles.tagBox}>
           {tagsData.map((tag, index) => {
             return (
               <li
@@ -138,13 +138,13 @@ export default function FilterBar() {
               </li>
             );
           })}
-        </ul>
+        </ul> */}
         <label htmlFor="keywordSearch">
           <input
             id="keywordSearch"
             type="text"
             name="search"
-            placeholder="searchContent"
+            placeholder="搜尋文章"
             onChange={handleKeyword}
           />
         </label>

@@ -1,6 +1,7 @@
 import Layout from '@/component/layouts/layout';
 import Content from '@/component/layouts/content';
 const apiUrl = process.env.REACT_APP_API_URL;
+
 export default function Skills({ skillsCardData }) {
   if (!skillsCardData) {
     return (
@@ -29,17 +30,30 @@ export async function getStaticProps() {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
+
+    // 处理数据结构
     const groupedData = data.reduce((acc, item) => {
-      if (!acc[item.category_name]) {
-        acc[item.category_name] = [];
+      const categoryName = item.category_name || '其他';
+      if (!acc[categoryName]) {
+        acc[categoryName] = [];
       }
-      acc[item.category_name].push(item);
+      // 转换数据结构
+      acc[categoryName].push({
+        id: item.id,
+        name: item.name || '',
+        level: item.level || 0,
+        description: item.description || '',
+        icon: item.icon || '',
+      });
       return acc;
     }, {});
-    console.log('groupedData', groupedData);
+
     return {
       props: {
-        skillsCardData: { dataName: 'skills', data: groupedData },
+        skillsCardData: {
+          dataName: 'skills',
+          data: groupedData,
+        },
       },
     };
   } catch (error) {

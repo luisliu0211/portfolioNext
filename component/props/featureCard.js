@@ -65,10 +65,10 @@ export default function FeatureCard(props) {
                   >
                     <div className={styles.workInfo}>
                       <div className={styles.typeTag}>{item.workType}</div>
-                      <div className={styles.textTitle}>{item.title}</div>
-                      <div className={styles.textTitle}>{item.subtitle}</div>
-                      <div className={styles.textTitle}>{item.github_url}</div>
-                      <div className={styles.textTitle}>{item.demo_url}</div>
+                      <div>{item.title}</div>
+                      <div>{item.subtitle}</div>
+                      <div>{item.github_url}</div>
+                      <div>{item.demo_url}</div>
                       <Image
                         width={200}
                         height={100}

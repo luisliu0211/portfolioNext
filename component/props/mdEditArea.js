@@ -295,10 +295,10 @@ export default function MdEditArea(props) {
                 sx={{ width: 195, '& fieldset span': { display: 'none' } }}
                 required
               >
-                <MenuItem value={1}>FrontEnd</MenuItem>
-                <MenuItem value={2}>BackEnd</MenuItem>
-                <MenuItem value={3}>Database</MenuItem>
-                <MenuItem value={4}>Other</MenuItem>
+                <MenuItem value={'技術'}>技術</MenuItem>
+                <MenuItem value={'教學'}>教學</MenuItem>
+                <MenuItem value={'雜文'}>雜文</MenuItem>
+                <MenuItem value={'其他'}>其他</MenuItem>
               </Select>
             </label>
             <label>

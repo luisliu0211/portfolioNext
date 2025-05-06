@@ -19,8 +19,9 @@ let user = {
 };
 
 let currentRank;
-// const socket = new WebSocket('wss://pkmajor.zeabur.app/:8080');
-const socket = new WebSocket('wss://pkgamer.zeabur.app/');
+// 连接本地服务器
+// const socket = new WebSocket('ws://localhost:8081');
+const socket = new WebSocket('wss://pkgameserver.zeabur.app/'); // 原来的生产环境连接
 const audio = document.createElement('audio');
 const audioAnthemloop = document.createElement('audio');
 audioAnthemloop.src = './img/nationsongv2.mp3';

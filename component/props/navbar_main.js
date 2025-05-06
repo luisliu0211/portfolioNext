@@ -65,11 +65,11 @@ export default function Navbar_main() {
             <Link href="/member">Hello! {data.user.name}</Link>
           </li>
         )}
-        {/* {!data && (
+        {!data && (
           <li className={title == 'LOGIN' ? styles.active : ''}>
             <Link href="/login">Login</Link>
           </li>
-        )} */}
+        )}
       </ul>
       <div className={styles.tools}>
         <button className={styles.switch} onClick={toggleTheme}>

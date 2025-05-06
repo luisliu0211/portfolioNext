@@ -17,8 +17,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 const context = {
   order: 'ASC',
-  dateRangeFrom: '2023-01-01',
-  dateRangeTo: '2024-12-31',
+  dateRangeFrom: '2024-01-01',
+  dateRangeTo: '2025-12-31',
   category: '',
   keywordSearch: '',
   tags: [],
