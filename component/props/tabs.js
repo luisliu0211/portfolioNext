@@ -12,7 +12,7 @@ export default function Tabs() {
       title: 'signin',
       className: 'loginSubmit',
     },
-    { id: 2, title: 'signup', className: 'signupSubmit' },
+    // { id: 2, title: 'signup', className: 'signupSubmit' },
   ];
   let appLogin = {
     id: 1,
@@ -49,8 +49,8 @@ export default function Tabs() {
           <div className={styles.signIn}>
             {!data && <SignInForm />}
             {/* TODO: 如果判斷登入自動跳轉MEMBER頁面 */}
-            {!data && <h2>使用第三方應用程式登入</h2>}
-            {!data && <ButtonActive settings={appLogin} />}
+            {/* {!data && <h2>使用第三方應用程式登入</h2>}
+            {!data && <ButtonActive settings={appLogin} />} */}
             {/* <br /> */}
             {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
             {data && <ButtonActive settings={appLogout} />}
