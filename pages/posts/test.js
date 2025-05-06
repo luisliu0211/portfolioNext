@@ -19,7 +19,7 @@ export default function Test() {
       .then((response) => response.json())
       .then((data) => {
         // 使用 marked 将 Markdown 转换为 HTML
-        // console.log(data.markdownContent, 'dd');
+        console.log(data.markdownContent, 'dd');
         const result = md.render(data.markdownContent);
         setMarkdownContent(result);
       })
