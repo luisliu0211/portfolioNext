@@ -3,12 +3,9 @@ import Link from 'next/link';
 import LoadMoreBtn from './loadMoreBtn';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-
 export default function FeatureCard(props) {
   let { data } = props;
   const [filter, setFilter] = useState(4);
-  console.log('FeatureCard received data:', data); // 添加调试日志
-
   let loadMoreDataSetting = {
     ifOverMaxShow: false,
     showName: '',
@@ -20,84 +17,71 @@ export default function FeatureCard(props) {
     LoadTitle: '載入作品',
   };
 
-  if (!data || !data.dataName) {
-    return null;
-  }
-
   return (
     <div>
-      {data.dataName === 'skills' && (
+      {data.dataName == 'skills' ? (
         <div className={styles.container}>
           {Object.entries(data.data).map(([categoryName, skills]) => (
             <li key={categoryName} className={styles.cardsSkills}>
               <div className={styles.cardInfo}>
                 <div className={styles.textTitle}>{categoryName}</div>
                 <div className={styles.skillList}>
-                  {Array.isArray(skills) &&
-                    skills.map((skill) => (
-                      <div key={skill.id} className={styles.skillItem}>
-                        <div className={styles.skillName}>
-                          {skill.name || '未命名技能'}
-                        </div>
-                        <div className={styles.skillLevel}>
-                          {typeof skill.level === 'number'
-                            ? `${skill.level}%`
-                            : skill.level || '0%'}
-                        </div>
-                        {skill.description && (
-                          <div className={styles.skillDescription}>
-                            {skill.description}
-                          </div>
-                        )}
+                  {skills.map((skill) => (
+                    <div key={skill.id} className={styles.skillItem}>
+                      <div className={styles.skillLevel}>{skill.name}</div>
+                      <div className={styles.skillLevel}>{skill.level}</div>
+                      <div className={styles.skillDescription}>
+                        {skill.description}
                       </div>
-                    ))}
+                    </div>
+                  ))}
                 </div>
               </div>
             </li>
           ))}
         </div>
-      )}
+      ) : null}
 
-      {data.dataName === 'work' && (
+      {data.dataName == 'work' ? (
         <>
           <div className={styles.container}>
-            {Array.isArray(data.data) &&
-              data.data.slice(0, filter).map((item) => (
+            {data.data.slice(0, filter).map((item) => {
+              {
+                /* let newArr = JSON.parse(item.usingSkills); */
+              }
+              return (
                 <Link
                   key={item.id}
-                  href={item.links || '#'}
+                  href={item.demo_url ? item.demo_url : ''}
                   target="_blank"
-                  rel="noopener noreferrer"
                 >
-                  <li className={styles.cardsWorks}>
+                  <li
+                    className={styles.cardsWorks}
+                    style={{
+                      backgroundImage: `url(/image/works/${item.cover_image})`,
+                    }}
+                  >
                     <div className={styles.workInfo}>
-                      <div className={styles.typeTag}>
-                        {item.workType || '未分類'}
-                      </div>
-                      <div className={styles.textTitle}>{item.title}</div>
-                      {Array.isArray(item.usingSkills) && (
-                        <ul className={styles.tags}>
-                          {item.usingSkills.map((skill, index) => (
-                            <li key={index}>{skill}</li>
-                          ))}
-                        </ul>
-                      )}
-                      {item.relatedImg && (
-                        <Image
-                          width={200}
-                          height={100}
-                          alt={item.title || '作品圖片'}
-                          src={`/image/works/${item.relatedImg}`}
-                        />
-                      )}
+                      <div className={styles.typeTag}>{item.workType}</div>
+                      <div>{item.title}</div>
+                      <div>{item.subtitle}</div>
+                      <div>{item.github_url}</div>
+                      <div>{item.demo_url}</div>
+                      <Image
+                        width={200}
+                        height={100}
+                        alt={item.title}
+                        src={item.cover_image}
+                      />
                     </div>
                   </li>
                 </Link>
-              ))}
+              );
+            })}
           </div>
           <LoadMoreBtn key="workLoad" settings={loadMoreDataSetting} />
         </>
-      )}
+      ) : null}
     </div>
   );
 }
