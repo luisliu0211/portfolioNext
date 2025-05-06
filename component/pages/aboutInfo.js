@@ -21,7 +21,8 @@ export default function AboutInfo() {
             Hi I&#39;m Luis from Taiwan, currently learning Front-End
             developement.<br></br> This is my portfolio website, recording all
             my work or practice material.<br></br> I know it&#39;s not easy to
-            do, but will try my best.
+            do, but will try my best... everything is a process, and I will keep
+            going.
           </p>
         </div>
       </div>
