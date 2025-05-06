@@ -1,6 +1,6 @@
 import Layout from '@/component/layouts/layout';
 import Content from '@/component/layouts/content';
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
 
 export default function Skills({ skillsCardData }) {
   if (!skillsCardData) {
@@ -25,28 +25,42 @@ export default function Skills({ skillsCardData }) {
 export async function getStaticProps() {
   try {
     let skillsDataUrl = `${apiUrl}/api/skills`;
+    console.log('Fetching skills from:', skillsDataUrl);
+
     const response = await fetch(skillsDataUrl);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
+    console.log('Received data:', data);
 
     // 处理数据结构
     const groupedData = data.reduce((acc, item) => {
-      const categoryName = item.category_name || '其他';
+      console.log('Processing item:', item);
+      if (!item || !item.category_name) {
+        console.warn('Invalid item in data:', item);
+        return acc;
+      }
+
+      const categoryName = item.category_name;
       if (!acc[categoryName]) {
         acc[categoryName] = [];
       }
-      // 转换数据结构
-      acc[categoryName].push({
-        id: item.id,
-        name: item.name || '',
-        level: item.level || 0,
+
+      // 确保所有必要的字段都存在
+      const skillItem = {
+        id: item.id || Math.random().toString(36).substr(2, 9),
+        name: item.skill_name || '未命名技能',
+        level: parseInt(item.level) || 0,
         description: item.description || '',
         icon: item.icon || '',
-      });
+      };
+
+      acc[categoryName].push(skillItem);
       return acc;
     }, {});
+
+    console.log('Transformed data:', groupedData);
 
     return {
       props: {
@@ -55,6 +69,7 @@ export async function getStaticProps() {
           data: groupedData,
         },
       },
+      revalidate: 60,
     };
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -62,6 +77,7 @@ export async function getStaticProps() {
       props: {
         skillsCardData: null,
       },
+      revalidate: 60,
     };
   }
 }
